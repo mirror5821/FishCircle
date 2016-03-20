@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/bg_login">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/d16"
+        android:layout_marginTop="@dimen/d16"
+        android:gravity="center_horizontal">
+
+        <ImageView
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:src="@mipmap/bg_logo"/>
+
+        <EditText
+            android:id="@+id/name"
+            style="@style/EtLogin"
+            android:drawableLeft="@mipmap/ic_login_accout"
+            android:hint="@string/input_phone"
+            android:drawablePadding="@dimen/d8"/>
+
+        <EditText
+            android:id="@+id/pass"
+            style="@style/EtLogin"
+            android:drawableLeft="@mipmap/ic_login_password"
+            android:hint="@string/login_notifi_pass"
+            android:drawablePadding="@dimen/d8"
+            android:layout_marginTop="@dimen/d4"
+            android:password="true"/>
+
+        <Button
+            android:id="@+id/btn_login"
+            style="@style/BtnBlue"
+            android:layout_marginTop="@dimen/d32"
+            android:text="@string/login"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                style="@style/TvLight"
+                android:text="@string/service_content"
+                android:textSize="18sp"
+                android:layout_marginTop="@dimen/d8"/>
+
+            <TextView
+                style="@style/TvLight"
+                android:text="@string/forget_pass"
+                android:textSize="18sp"
+                android:layout_marginTop="@dimen/d8"
+                android:layout_alignParentRight="true"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/btn"
+        style="@style/BtnYellow"
+        android:text="@string/q_register"
+        android:layout_margin="@dimen/d32"/>
+
+</LinearLayout>

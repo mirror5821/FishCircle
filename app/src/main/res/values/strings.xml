@@ -1,0 +1,47 @@
+<resources>
+    <string name="app_name">FishCircle</string>
+
+    <string name="action_settings">设置</string>
+
+    <string name="select_mode">选择模式</string>
+    <string name="mode_single">单选</string>
+    <string name="mode_multi">多选</string>
+    <string name="max_select_amount">最大选择数量</string>
+    <string name="hint_default_amount">默认数量为9</string>
+    <string name="enable_camera">是否启用照相机</string>
+    <string name="enable">是</string>
+    <string name="disable">否</string>
+    <string name="go_select">图片选择</string>
+    <string name="index_btn1">报修\n400-138-0089</string>
+    <string name="index_btn2">维修\n进度查询</string>
+    <string name="index_btn3">业务\n咨询</string>
+    <string name="index_btn4">了解\n啄木鸟运维</string>
+    <string name="forget_pass">忘记密码?</string>
+    <string name="service_content">服务条款</string>
+    <string name="login">登录</string>
+    <string name="no_register">还没有注册啄木鸟</string>
+    <string name="q_register">快速注册</string>
+    <string name="q_login">立即登录</string>
+    <string name="register">注册</string>
+    <string name="login_notifi">请输入手机号码/邮箱</string>
+    <string name="login_notifi_pass">请输入密码</string>
+    <string name="login_notifi_pass2">请确认密码</string>
+    <string name="input_phone">请输入手机号码</string>
+    <string name="input_mail">请输入电子邮箱</string>
+    <string name="sign_type">签约类型</string>
+    <string name="sign_no">未签约</string>
+    <string name="signed">已签约</string>
+    <string name="select_sign_unit">请选择签约单位</string>
+    <string name="input_notify_word">请输入提示语</string>
+    <string name="ok">确定</string>
+    <string name="input_contact">请输入联系方式</string>
+    <string name="input_loc">请选择故障位置</string>
+    <string name="input_dec">请输入故障描述</string>
+    <string name="submit">提交</string>
+    <string name="search_area">输入您所在的地区</string>
+
+    <string name="news">渔讯</string>
+    <string name="coupon">优惠券</string>
+    <string name="pakeage">钱包</string>
+    <string name="shop_info">渔场资料</string>
+</resources>

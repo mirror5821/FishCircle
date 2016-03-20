@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#1f8790</color>
+    <color name="colorPrimaryDark">#1f8790</color>
+    <color name="colorAccent">#1f8790</color>
+
+    <color name="normal_press">#a4b4bf</color>
+    <color name="main_blue">#4ca8f1</color>
+    <color name="main_bg">#eeeeee</color>
+
+    <!--<color name="rb_select">#ff9920</color>
+    <color name="rb_normal">#f9bd27</color>-->
+
+    <color name="rb_select">#3e95da</color>
+    <color name="rb_normal">#4ca8f1</color>
+
+    <color name="tab_s">#1f8790</color>
+
+
+
+
+    <color name="btn_enabled_false">#a6a497</color>
+
+    <color name="btn_blue">#46d13b</color>
+    <color name="btn_dark">#cccccc</color>
+    <color name="btn_yellow">#f9bd27</color>
+
+    <color name="spinners_d">#3e95da</color>
+    <color name="spinners_l">#4cabf1</color>
+
+    <color name="tab_text_normal">#232323</color>
+
+    <color name="driver">#dadada</color>
+
+    <color name="tv_light">#d2d2d2</color>
+    <color name="tv_title">#232323</color>
+    <color name="tv_hint">#a4a4a4</color>
+    <color name="tv_dark">#232323</color>
+    <color name="tv_yellow">#f9bd27</color>
+    <color name="tv_light2">#7c7c7c</color>
+
+    <color name="details_title">#4ca8f1</color>
+    <color name="btn_red">#d12147</color>
+    <color name="btn_red_p">#fa0831</color>
+
+
+
+    <drawable name="rb_s">@color/rb_select</drawable>
+    <drawable name="rb_n">@color/rb_normal</drawable>
+
+    <drawable name="tab_normal">@color/white</drawable>
+    <drawable name="tab_select">@color/tab_s</drawable>
+    <drawable name="white_d">@color/white</drawable>
+</resources>

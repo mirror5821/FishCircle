@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:background="@mipmap/bg_index"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <dev.mirror.library.android.view.CircleImageView
+                android:id="@+id/header"
+                android:layout_width="@dimen/d48"
+                android:layout_height="@dimen/d48"
+                android:src="@mipmap/ic_default_header"
+                android:layout_margin="@dimen/d8"/>
+
+            <TextView
+                style="@style/TvTitle"
+                android:layout_centerHorizontal="true"
+                android:layout_centerInParent="true"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center_horizontal|bottom"
+                android:layout_marginBottom="@dimen/d16">
+
+                <TextView
+                    style="@style/TvTitle"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerInParent="true"/>
+
+                <TextView
+                    style="@style/TvTitle"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerInParent="true"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center_horizontal|bottom"
+                android:layout_marginBottom="@dimen/d16">
+
+                <TextView
+                    style="@style/TvTitle"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerInParent="true"/>
+
+                <TextView
+                    style="@style/TvTitle"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerInParent="true"/>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:background="@color/driver">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+
+            <TextView
+                style="@style/TvIndex"
+                android:layout_centerHorizontal="true"
+                android:layout_centerInParent="true"
+                android:drawableTop="@mipmap/ic_index_1"
+                android:text="@string/news"/>
+
+            <TextView
+                style="@style/TvIndex"
+                android:layout_marginTop="1dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerInParent="true"
+                android:drawableTop="@mipmap/ic_index_3"
+                android:text="@string/pakeage"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_marginLeft="1dp">
+
+            <TextView
+                style="@style/TvIndex"
+                android:layout_centerHorizontal="true"
+                android:layout_centerInParent="true"
+                android:drawableTop="@mipmap/ic_index_2"
+                android:text="@string/coupon"/>
+
+            <TextView
+                style="@style/TvIndex"
+                android:layout_marginTop="1dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerInParent="true"
+                android:drawableTop="@mipmap/ic_index_4"
+                android:text="@string/shop_info"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
+</LinearLayout>

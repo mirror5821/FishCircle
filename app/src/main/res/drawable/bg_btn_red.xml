@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_enabled="false">
+        <!-- shape如果不声明形状则默认为正方形 -->
+        <shape>
+
+            <!-- 圆角，你也可以对不同的角设置不同的数值 -->
+            <corners android:radius="5.0dp" />
+            <!-- 形状的填充色 -->
+            <solid android:color="@color/btn_enabled_false" />
+            <!-- 边框宽度和颜色 -->
+            <stroke android:width="0.0dp" android:color="@color/btn_enabled_false" />
+        </shape>
+    </item>
+
+    <item android:state_pressed="true">
+        <!-- shape如果不声明形状则默认为正方形 -->
+        <shape>
+            <!-- 圆角，你也可以对不同的角设置不同的数值 -->
+            <corners android:radius="5.0dp"  />
+            <!-- 形状的填充色 -->
+            <solid android:color="@color/btn_red_p" />
+            <!-- 边框宽度和颜色 -->
+            <stroke android:width="0.0dp" android:color="@color/btn_red_p" />
+        </shape>
+    </item>
+    <item android:state_pressed="false">
+        <!-- shape如果不声明形状则默认为正方形 -->
+        <shape>
+            <!-- 圆角，你也可以对不同的角设置不同的数值 -->
+            <corners android:radius="5.0dp" />
+            <!-- 形状的填充色 -->
+            <solid android:color="@color/btn_red" />
+            <!-- 边框宽度和颜色 -->
+            <stroke android:width="0.0dp" android:color="@color/btn_red" />
+        </shape>
+    </item>
+
+</selector>

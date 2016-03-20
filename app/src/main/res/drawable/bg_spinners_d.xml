@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+
+        <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+            <!--&lt;!&ndash; 连框颜色值 &ndash;&gt;-->
+
+            <item>
+                <shape>
+                    <solid android:color="@color/white" />
+                </shape>
+            </item>
+            <!--&lt;!&ndash; 主体背景颜色值 &ndash;&gt;-->
+            <item android:bottom="1dp" >
+                <shape>
+                    <solid android:color="@color/spinners_l" />
+
+                    <padding android:bottom="10dp"
+                        android:left="10dp"
+                        android:right="10dp"
+                        android:top="10dp" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+
+    <item android:state_pressed="false">
+
+        <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+            <!--&lt;!&ndash; 连框颜色值 &ndash;&gt;-->
+
+            <item>
+                <shape>
+                    <solid android:color="@color/white" />
+                </shape>
+            </item>
+            <!--&lt;!&ndash; 主体背景颜色值 &ndash;&gt;-->
+            <item android:bottom="1dp" >
+                <shape>
+                    <solid android:color="@color/spinners_d" />
+
+                    <padding android:bottom="10dp"
+                        android:left="10dp"
+                        android:right="10dp"
+                        android:top="10dp" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+</selector>

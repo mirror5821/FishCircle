@@ -23,7 +23,7 @@ public class IndexFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+//hehe
         final Map<String,String> values = new HashMap<>();
         values.put("id", AppContext.user.getId());
 

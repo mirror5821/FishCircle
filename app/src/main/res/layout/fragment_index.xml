@@ -96,6 +96,7 @@
             android:gravity="center_horizontal">
 
             <TextView
+                android:id="@+id/tv1"
                 style="@style/TvIndex"
                 android:layout_centerHorizontal="true"
                 android:layout_centerInParent="true"
@@ -103,6 +104,7 @@
                 android:text="@string/news"/>
 
             <TextView
+                android:id="@+id/tv3"
                 style="@style/TvIndex"
                 android:layout_marginTop="1dp"
                 android:layout_centerHorizontal="true"
@@ -122,6 +124,7 @@
             android:layout_marginLeft="1dp">
 
             <TextView
+                android:id="@+id/tv2"
                 style="@style/TvIndex"
                 android:layout_centerHorizontal="true"
                 android:layout_centerInParent="true"
@@ -129,6 +132,7 @@
                 android:text="@string/coupon"/>
 
             <TextView
+                android:id="@+id/tv4"
                 style="@style/TvIndex"
                 android:layout_marginTop="1dp"
                 android:layout_centerHorizontal="true"

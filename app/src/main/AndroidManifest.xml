@@ -18,6 +18,10 @@
         </activity>
 
         <activity android:name=".activity.MainActivity"/>
+        <activity android:name=".activity.YuXunPublishActivity"/>
+        <activity android:name=".activity.RegisterActivity"/>
+
+
     </application>
 
     <!-- 连接网络权限，用于执行云端语音能力 -->

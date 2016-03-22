@@ -7,12 +7,16 @@
     <color name="normal_press">#a4b4bf</color>
     <color name="main_blue">#4ca8f1</color>
     <color name="main_bg">#eeeeee</color>
+    <color name="main_title">#1f8790</color>
 
     <!--<color name="rb_select">#ff9920</color>
     <color name="rb_normal">#f9bd27</color>-->
 
     <color name="rb_select">#3e95da</color>
     <color name="rb_normal">#4ca8f1</color>
+
+    <color name="s1">#3dc51d</color>
+    <color name="s2">#5099ff</color>
 
     <color name="tab_s">#1f8790</color>
 
@@ -21,7 +25,7 @@
 
     <color name="btn_enabled_false">#a6a497</color>
 
-    <color name="btn_blue">#46d13b</color>
+    <color name="btn_blue">#1f8790</color>
     <color name="btn_dark">#cccccc</color>
     <color name="btn_yellow">#f9bd27</color>
 

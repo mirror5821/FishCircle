@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 
 import cc.dyjh.www.DiaoYuJiangHu.R;
 import cc.dyjh.www.DiaoYuJiangHu.fragment.IndexFragment;
+import cc.dyjh.www.DiaoYuJiangHu.fragment.MyFragment;
 
 public class MainActivity extends BaseTabActivity {
     @Override
@@ -40,7 +41,7 @@ public class MainActivity extends BaseTabActivity {
     @Override
     public <T extends Fragment> Class<T>[] setFragment() {
         return new Class[]{IndexFragment.class,IndexFragment.class,
-                IndexFragment.class};
+                MyFragment.class};
     }
 
 

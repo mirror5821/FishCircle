@@ -24,7 +24,7 @@ import dev.mirror.library.android.util.MD5Util;
  * Created by dongqian on 16/3/20.
  */
 public class LoginActivity extends BaseActivity {
-    private Button mBtnLogin;
+    private Button mBtnLogin,mBtnRegister;
     private EditText mEtPhone;
     private EditText mEtPass;
     @Override
@@ -42,6 +42,9 @@ public class LoginActivity extends BaseActivity {
         mEtPass.setText("111111");
         mBtnLogin = (Button)findViewById(R.id.btn_login);
         mBtnLogin.setOnClickListener(this);
+
+        mBtnRegister = (Button)findViewById(R.id.btn);
+        mBtnRegister.setOnClickListener(this);
     }
 
     @Override
@@ -50,6 +53,9 @@ public class LoginActivity extends BaseActivity {
         switch (v.getId()){
             case R.id.btn_login:
                 login();
+                break;
+            case R.id.btn:
+                startActivity(new Intent(LoginActivity.this,RegisterActivity.class));
                 break;
         }
     }

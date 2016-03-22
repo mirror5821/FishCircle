@@ -26,7 +26,7 @@
     <string name="login_notifi">请输入手机号码/邮箱</string>
     <string name="login_notifi_pass">请输入密码</string>
     <string name="login_notifi_pass2">请确认密码</string>
-    <string name="input_phone">请输入手机号码</string>
+    <string name="input_phone">请输入11位中国大陆手机号码</string>
     <string name="input_mail">请输入电子邮箱</string>
     <string name="sign_type">签约类型</string>
     <string name="sign_no">未签约</string>
@@ -44,4 +44,30 @@
     <string name="coupon">优惠券</string>
     <string name="pakeage">钱包</string>
     <string name="shop_info">渔场资料</string>
+
+    <string name="fangyu_time">放鱼时间</string>
+    <string name="fangyu_type">放鱼种类</string>
+    <string name="fangyu_weight">放鱼斤数</string>
+    <string name="kaidiao_time">开钓时间</string>
+    <string name="is_xiangan">是否限杆</string>
+    <string name="price_biaozhun">收费标准</string>
+    <string name="limit_diaoer">禁止钓饵</string>
+    <string name="other_say">其他说明</string>
+    <string name="jin">斤</string>
+    <string name="no_limit">不限</string>
+    <!--<string name=""></string>
+    <string name=""></string>
+    <string name=""></string>-->
+
+    <string name="input_v_code">请输入右侧验证码</string>
+    <string name="input_code">请输入短信验证码</string>
+    <string name="input_pass">密码,6-16位字母或数字</string>
+    <string name="get_code">验证码</string>
+    <string name="register_login">注册并登录</string>
+
+    <string name="yuchang_info">渔场资料</string>
+    <string name="my_info">我的资料</string>
+    <string name="feed_back">意见反馈</string>
+    <string name="version_check">软件版本检测</string>
+
 </resources>

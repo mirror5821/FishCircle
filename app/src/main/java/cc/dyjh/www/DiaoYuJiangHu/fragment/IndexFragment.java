@@ -1,12 +1,15 @@
 package cc.dyjh.www.DiaoYuJiangHu.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import cc.dyjh.www.DiaoYuJiangHu.R;
+import cc.dyjh.www.DiaoYuJiangHu.activity.YuXunPublishActivity;
 import cc.dyjh.www.DiaoYuJiangHu.app.AppContext;
 import cc.dyjh.www.DiaoYuJiangHu.util.AppAjaxCallback;
 import cc.dyjh.www.DiaoYuJiangHu.util.AppHttpClient;
@@ -20,10 +23,38 @@ public class IndexFragment extends BaseFragment {
         return R.layout.fragment_index;
     }
 
+    private TextView mTv1,mTv2,mTv3,mTv4;
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-//hehe
+        mTv1 = (TextView)view.findViewById(R.id.tv1);
+        mTv2 = (TextView)view.findViewById(R.id.tv2);
+        mTv3 = (TextView)view.findViewById(R.id.tv3);
+        mTv4 = (TextView)view.findViewById(R.id.tv4);
+
+        mTv1.setOnClickListener(this);
+        mTv2.setOnClickListener(this);
+        mTv3.setOnClickListener(this);
+        mTv4.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        super.onClick(v);
+        switch (v.getId()){
+            case R.id.tv1:
+                startActivity(new Intent(getActivity(), YuXunPublishActivity.class));
+                break;
+            case R.id.tv2:
+                break;
+            case R.id.tv3:
+                break;
+            case R.id.tv4:
+                break;
+        }
+    }
+
+    private void postData(){
         final Map<String,String> values = new HashMap<>();
         values.put("id", AppContext.user.getId());
 

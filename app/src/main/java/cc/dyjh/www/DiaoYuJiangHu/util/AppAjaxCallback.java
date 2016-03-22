@@ -45,8 +45,6 @@ public class AppAjaxCallback<T> implements Callback.CommonCallback<String> {
         Class<T> dataTypeClass();
     }
 
-    private String mListNoData = "未查询到数据";
-
 
     private String listNoData = "未查询到任何数据";
     private String mErrorMsg = "网络错误,请检查您的网络!";

@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/view_base_title_bar"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                style="@style/LayoutDetailsH"
+                android:background="@drawable/bg_detail">
+
+                <TextView
+                    style="@style/TvDetailsNotif"
+                    android:text="@string/fangyu_time"
+                    android:textColor="@color/tv_dark"/>
+
+                <TextView
+                    android:id="@+id/fangyu_time"
+                    style="@style/TvDetailsValue"
+                    android:drawableRight="@mipmap/ic_next"/>
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/LayoutDetailsH"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_detail">
+
+                <TextView
+                    android:text="@string/fangyu_type"
+                    style="@style/TvDetailsNotif"
+                    android:layout_height="@dimen/d48"
+                    android:textColor="@color/tv_dark"/>
+
+                <TextView
+                    android:id="@+id/fangyu_type"
+                    style="@style/TvDetailsValue"
+                    android:singleLine="false"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/d20"
+                    android:drawableRight="@mipmap/ic_next"/>
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/LayoutDetailsH"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_detail">
+
+                <TextView
+                    android:text="@string/fangyu_weight"
+                    style="@style/TvDetailsNotif"
+                    android:layout_height="@dimen/d48"
+                    android:textColor="@color/tv_dark"/>
+
+                <EditText
+                    android:id="@+id/fangyu_weight"
+                    style="@style/TvDetailsValue"
+                    android:singleLine="false"
+                    android:background="@null"
+                    android:inputType="number"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/d20"/>
+
+                <TextView
+                    android:text="@string/jin"
+                    android:layout_width="40dp"
+                    android:singleLine="false"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/d20"/>
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/LayoutDetailsH"
+                android:background="@drawable/bg_detail"
+                android:layout_marginTop="1dp">
+
+                <TextView
+                    android:text="@string/kaidiao_time"
+                    style="@style/TvDetailsNotif"
+                    android:textColor="@color/tv_dark"/>
+
+                <TextView
+                    android:id="@+id/kaidiao_time"
+                    style="@style/TvDetailsValue"
+                    android:drawableRight="@mipmap/ic_next"/>
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                style="@style/LayoutDetailsH"
+                android:background="@drawable/bg_detail">
+
+                <TextView
+                    android:text="@string/is_xiangan"
+                    style="@style/TvDetailsNotif"
+                    android:textColor="@color/tv_dark"/>
+
+                <TextView
+                    android:id="@+id/is_xiangan"
+                    style="@style/TvDetailsValue"
+                    android:drawableRight="@mipmap/ic_next"
+                    android:text="@string/no_limit"/>
+            </LinearLayout>
+
+
+            <LinearLayout
+                style="@style/LayoutDetailsH"
+                android:background="@drawable/bg_detail">
+
+                <TextView
+                    android:text="@string/price_biaozhun"
+                    style="@style/TvDetailsNotif"
+                    android:textColor="@color/tv_dark"/>
+
+                <TextView
+                    android:id="@+id/price_biaozhun"
+                    style="@style/TvDetailsValue"
+                    android:drawableRight="@mipmap/ic_next"/>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/view_repair_man"
+                style="@style/LayoutDetailsH"
+                android:background="@drawable/bg_detail"
+                >
+
+                <TextView
+                    android:text="@string/limit_diaoer"
+                    style="@style/TvDetailsNotif"
+                    android:textColor="@color/tv_dark"/>
+
+                <TextView
+                    android:id="@+id/limit_diaoer"
+                    style="@style/TvDetailsValue"
+                    android:drawableRight="@mipmap/ic_next"/>
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                style="@style/LayoutDetailsH"
+                android:background="@drawable/bg_detail">
+
+                <TextView
+                    style="@style/TvDetailsNotif"
+                    android:text="@string/other_say"
+                    android:textColor="@color/tv_dark"/>
+
+                <TextView
+                    android:id="@+id/other_say"
+                    style="@style/TvDetailsValue"
+                    android:drawableRight="@mipmap/ic_next"/>
+            </LinearLayout>
+
+
+
+            <ImageButton
+                android:id="@+id/btn"
+                style="@style/BtnBlue"
+                android:text="@string/ok"
+                android:layout_margin="@dimen/d8"
+                android:layout_height="56dp"
+                android:src="@mipmap/ic_camera"/>
+
+
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <include layout="@layout/view_base_title_bar"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                style="@style/LayoutDetailsH"
+                android:background="@drawable/bg_detail">
+
+                <TextView
+                    style="@style/TvDetailsNotif"
+                    android:text="渔场名称"
+                    android:textColor="@color/tv_dark"/>
+
+                <TextView
+                    style="@style/TvDetailsValue"
+                    android:singleLine="false"
+                    android:background="@null"
+                    android:inputType="number"
+                    android:layout_weight="3"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:paddingBottom="@dimen/d20"
+                    android:hint="渔场名称"/>
+
+                map/ic_next"/>
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/LayoutDetailsH"
+                android:background="@drawable/bg_detail">
+
+                <TextView
+                    style="@style/TvDetailsNotif"
+                    android:text="负责人"
+                    android:textColor="@color/tv_dark"/>
+
+                <TextView
+                    style="@style/TvDetailsValue"
+                    android:singleLine="false"
+                    android:background="@null"
+                    android:inputType="number"
+                    android:layout_weight="3"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:paddingBottom="@dimen/d20"
+                    android:hint="负责人"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/LayoutDetailsH"
+                android:background="@drawable/bg_detail">
+
+                <TextView
+                    style="@style/TvDetailsNotif"
+                    android:text="钓场电话"
+                    android:textColor="@color/tv_dark"/>
+
+                <TextView
+                    style="@style/TvDetailsValue"
+                    android:singleLine="false"
+                    android:background="@null"
+                    android:inputType="number"
+                    android:layout_weight="3"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:paddingBottom="@dimen/d20"
+                    android:hint="负责人"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/LayoutDetailsH"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_detail">
+
+                <TextView
+                    android:text="钓场地址"
+                    style="@style/TvDetailsNotif"
+                    android:layout_height="@dimen/d48"
+                    android:textColor="@color/tv_dark"/>
+
+                <TextView
+                    style="@style/TvDetailsValue"
+                    android:singleLine="false"
+                    android:background="@null"
+                    android:inputType="number"
+                    android:layout_weight="3"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:paddingBottom="@dimen/d20"
+                    android:hint="地址"
+                    android:drawableRight="@mipmap/ic_next"/>
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/LayoutDetailsH"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_detail">
+
+                <TextView
+                    android:text="钓场面积"
+                    style="@style/TvDetailsNotif"
+                    android:layout_height="@dimen/d48"
+                    android:textColor="@color/tv_dark"/>
+
+                <EditText
+                    android:id="@+id/fangyu_weight"
+                    style="@style/TvDetailsValue"
+                    android:singleLine="false"
+                    android:background="@null"
+                    android:inputType="number"
+                    android:hint="10"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/d20"/>
+
+                <TextView
+                    android:text="亩"
+                    android:layout_width="40dp"
+                    android:singleLine="false"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/d20"/>
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/LayoutDetailsH"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_detail">
+
+                <TextView
+                    android:text="钓位个数"
+                    style="@style/TvDetailsNotif"
+                    android:layout_height="@dimen/d48"
+                    android:textColor="@color/tv_dark"/>
+
+                <EditText
+                    style="@style/TvDetailsValue"
+                    android:singleLine="false"
+                    android:background="@null"
+                    android:inputType="number"
+                    android:hint="120"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/d20"/>
+
+                <TextView
+                    android:text="个"
+                    android:layout_width="40dp"
+                    android:singleLine="false"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/d20"/>
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/LayoutDetailsH"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_detail">
+
+                <TextView
+                    android:text="钓场水深"
+                    style="@style/TvDetailsNotif"
+                    android:layout_height="@dimen/d48"
+                    android:textColor="@color/tv_dark"/>
+
+                <EditText
+                    style="@style/TvDetailsValue"
+                    android:singleLine="false"
+                    android:background="@null"
+                    android:inputType="number"
+                    android:hint="2.5"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/d20"/>
+
+                <TextView
+                    android:text="米"
+                    android:layout_width="40dp"
+                    android:singleLine="false"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/d20"/>
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/LayoutDetailsH"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_detail">
+
+                <TextView
+                    android:text="钓场鱼种"
+                    style="@style/TvDetailsNotif"
+                    android:layout_height="@dimen/d48"
+                    android:textColor="@color/tv_dark"/>
+
+                <TextView
+                    style="@style/TvDetailsValue"
+                    android:singleLine="false"
+                    android:background="@null"
+                    android:inputType="number"
+                    android:layout_weight="3"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:paddingBottom="@dimen/d20"
+                    android:hint="其他"
+                    android:drawableRight="@mipmap/ic_next"/>
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/LayoutDetailsH"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_detail">
+
+                <TextView
+                    android:text="钓场特色"
+                    style="@style/TvDetailsNotif"
+                    android:layout_height="@dimen/d48"
+                    android:textColor="@color/tv_dark"/>
+
+                <TextView
+                    style="@style/TvDetailsValue"
+                    android:singleLine="false"
+                    android:background="@null"
+                    android:inputType="number"
+                    android:layout_weight="3"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:paddingBottom="@dimen/d20"
+                    android:hint="是否打窝 是否滑动"
+                    android:drawableRight="@mipmap/ic_next"/>
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/LayoutDetailsH"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_detail">
+
+                <TextView
+                    android:text="钓场描述"
+                    style="@style/TvDetailsNotif"
+                    android:layout_height="@dimen/d48"
+                    android:textColor="@color/tv_dark"/>
+
+                <TextView
+                    style="@style/TvDetailsValue"
+                    android:singleLine="false"
+                    android:background="@null"
+                    android:inputType="number"
+                    android:layout_weight="3"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:paddingBottom="@dimen/d20"
+                    android:hint="呵呵呵呵呵"
+                    android:drawableRight="@mipmap/ic_next"/>
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/LayoutDetailsH"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_detail">
+
+                <TextView
+                    android:text="钓场相册"
+                    style="@style/TvDetailsNotif"
+                    android:layout_height="@dimen/d48"
+                    android:textColor="@color/tv_dark"
+                    android:drawableRight="@mipmap/ic_next"/>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

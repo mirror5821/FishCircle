@@ -80,8 +80,7 @@
 
             <LinearLayout
                 style="@style/LayoutDetailsH"
-                android:background="@drawable/bg_detail"
-                android:layout_marginTop="1dp">
+                android:background="@drawable/bg_detail">
 
                 <TextView
                     android:text="@string/kaidiao_time"
@@ -157,10 +156,15 @@
                     android:text="@string/other_say"
                     android:textColor="@color/tv_dark"/>
 
-                <TextView
+                <EditText
                     android:id="@+id/other_say"
                     style="@style/TvDetailsValue"
-                    android:drawableRight="@mipmap/ic_next"/>
+                    android:drawableRight="@mipmap/ic_next"
+                    android:background="@color/white"
+                    android:hint="请输入其他说明"
+                    android:layout_weight="3"
+                    android:singleLine="false"
+                    android:gravity="left|center_vertical"/>
             </LinearLayout>
 
 
@@ -170,7 +174,6 @@
                 style="@style/BtnBlue"
                 android:text="@string/ok"
                 android:layout_margin="@dimen/d8"
-                android:layout_height="56dp"
                 android:src="@mipmap/ic_camera"/>
 
 

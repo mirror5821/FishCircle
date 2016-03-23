@@ -12,7 +12,7 @@ public class YuChang {
     private List<Yu> fisheryfeature;
     private FisheryArea fisheryarea;
 
-    public static class Fishery{
+    public static class Fishery {
         private int fid;//private String 2private String ,
         private int uid;//private String 2private String ,
         private String lan;//null,
@@ -177,18 +177,18 @@ public class YuChang {
         }
     }
 
-    public static class Yu{
-        private String id;//private String 1private String ,
+    public static class Yu implements AddrBase{
+        private int id;//private String 1private String ,
         private String type;//private String 1private String ,
         private String name;//private String 鲤鱼private String ,
         private String ordernum;//private String 1private String ,
         private String describes;//private String 鱼种类private String
 
-        public String getId() {
+        public int getId() {
             return id;
         }
 
-        public void setId(String id) {
+        public void setId(int id) {
             this.id = id;
         }
 
@@ -222,6 +222,11 @@ public class YuChang {
 
         public void setDescribes(String describes) {
             this.describes = describes;
+        }
+
+        @Override
+        public String getAddrName() {
+            return name;
         }
     }
 

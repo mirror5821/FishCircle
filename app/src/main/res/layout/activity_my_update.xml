@@ -30,7 +30,6 @@
                     style="@style/TvDetailsValue"
                     android:singleLine="false"
                     android:background="@null"
-                    android:inputType="number"
                     android:layout_weight="3"
                     android:layout_height="wrap_content"
                     android:gravity="left"
@@ -53,7 +52,6 @@
                     style="@style/TvDetailsValue"
                     android:singleLine="false"
                     android:background="@null"
-                    android:inputType="number"
                     android:layout_weight="3"
                     android:layout_height="wrap_content"
                     android:gravity="left"
@@ -106,11 +104,67 @@
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:paddingBottom="@dimen/d20"
-                    android:hint="地址"
+                    android:hint="地区"
                     android:drawableRight="@mipmap/ic_next"/>
 
 
             </LinearLayout>
+
+            <LinearLayout
+                style="@style/LayoutDetailsH"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_detail">
+
+                <TextView
+                    android:text=""
+                    style="@style/TvDetailsNotif"
+                    android:layout_height="@dimen/d48"
+                    android:textColor="@color/tv_dark"/>
+
+                <EditText
+                    android:id="@+id/address2"
+                    style="@style/TvDetailsValue"
+                    android:singleLine="false"
+                    android:background="@null"
+                    android:layout_weight="3"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:paddingBottom="@dimen/d20"
+                    android:hint="详细地址"
+                    android:drawableRight="@mipmap/ic_next"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/LayoutDetailsH"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_detail">
+
+                <TextView
+                    android:text="钓场年限"
+                    style="@style/TvDetailsNotif"
+                    android:layout_height="@dimen/d48"
+                    android:textColor="@color/tv_dark"/>
+
+                <EditText
+                    android:id="@+id/age"
+                    style="@style/TvDetailsValue"
+                    android:singleLine="false"
+                    android:background="@null"
+                    android:inputType="number"
+                    android:hint="10"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/d20"/>
+
+                <TextView
+                    android:text="年"
+                    android:layout_width="40dp"
+                    android:singleLine="false"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/d20"/>
+            </LinearLayout>
+
 
             <LinearLayout
                 style="@style/LayoutDetailsH"
@@ -205,6 +259,31 @@
                 android:background="@drawable/bg_detail">
 
                 <TextView
+                    android:text="钓场类型"
+                    style="@style/TvDetailsNotif"
+                    android:layout_height="@dimen/d48"
+                    android:textColor="@color/tv_dark"/>
+
+                <TextView
+                    android:id="@+id/type"
+                    style="@style/TvDetailsValue"
+                    android:singleLine="false"
+                    android:background="@null"
+                    android:inputType="number"
+                    android:layout_weight="3"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:paddingBottom="@dimen/d20"
+                    android:hint="其他"
+                    android:drawableRight="@mipmap/ic_next"/>
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/LayoutDetailsH"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_detail">
+
+                <TextView
                     android:text="钓场鱼种"
                     style="@style/TvDetailsNotif"
                     android:layout_height="@dimen/d48"
@@ -265,12 +344,11 @@
                     style="@style/TvDetailsValue"
                     android:singleLine="false"
                     android:background="@null"
-                    android:inputType="number"
                     android:layout_weight="3"
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:paddingBottom="@dimen/d20"
-                    android:hint="呵呵呵呵呵"/>
+                    android:hint="请输入渔场描述"/>
             </LinearLayout>
 
             <LinearLayout
@@ -279,12 +357,24 @@
                 android:background="@drawable/bg_detail">
 
                 <TextView
-                    android:id="@+id/photo"
-                    android:text="钓场相册"
+                    android:text="钓场照片"
                     style="@style/TvDetailsNotif"
                     android:layout_height="@dimen/d48"
-                    android:textColor="@color/tv_dark"
-                    android:drawableRight="@mipmap/ic_next"/>
+                    android:textColor="@color/tv_dark"/>
+
+                <TextView
+                    android:id="@+id/photo"
+                    style="@style/TvDetailsValue"
+                    android:singleLine="false"
+                    android:background="@null"
+                    android:inputType="number"
+                    android:layout_weight="3"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:paddingBottom="@dimen/d20"
+                    android:drawableRight="@mipmap/ic_next"
+                    android:hint="钓场相册"/>
+
 
 
             </LinearLayout>

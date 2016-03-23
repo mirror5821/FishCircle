@@ -16,7 +16,6 @@ import cc.dyjh.www.DiaoYuJiangHu.R;
 import cc.dyjh.www.DiaoYuJiangHu.app.AppContext;
 import cc.dyjh.www.DiaoYuJiangHu.bean.User;
 import cc.dyjh.www.DiaoYuJiangHu.util.AppAjaxCallback;
-import cc.dyjh.www.DiaoYuJiangHu.util.AppHttpClient;
 import cc.dyjh.www.DiaoYuJiangHu.util.SharePreferencesUtil;
 import dev.mirror.library.android.util.JsonUtils;
 import dev.mirror.library.android.util.MD5Util;
@@ -82,15 +81,12 @@ public class LoginActivity extends BaseActivity {
         Map<String,String> values = new HashMap<>();
         values.put("phone", phone);
         values.put("pwd", MD5Util.stringToMd5(pass));
-        /*RequestParams params = new RequestParams(BASE_URL+LOGIN);
-        params.addParameter("phone", phone);
-        params.addParameter("pwd", MD5Util.stringToMd5(pass));*/
 
         mHttpClient.postData1(LOGIN, values, new AppAjaxCallback.onResultListener() {
             @Override
             public void onResult(String data, String msg) {
                 AppContext.user = JsonUtils.parse(data,User.class);
-                showToast(msg);
+                showToast("登录成功");
                 SharePreferencesUtil.saveLoginInfo(getApplicationContext(), phone, pass);
                 SharePreferencesUtil.saveUserInfo(getApplicationContext(), data);
 

@@ -18,16 +18,19 @@ public interface Constants {
     public static final String V_PHONE_CODE = "User/griCheckSMSVerify";//验证手机验证码
     public static final String REGISTER = "User/griRegister";//注册
     public static final String GET_PHONE_CODE = "User/griSendSMSCode";//获取手机验证码
-    public static final String YUNCHANG_INFO = "Fishery/griGetFishery";
+    public static final String YUNCHANG_INFO = "Fishery/griGetFishery";//获取渔场资料
+    public static final String YUNCHANG_UPDATE = "Fishery/griEditFishery";//更新渔场资料
 
 
-    public static final String GET_YUXUN = "getYuxun";
+    public static final String INDEX = "Index/griIndex";//首页数据
+    public static final String USER_INFOMATION = "User/griGetUserInfo";//获取用户数据
 
     public final static String USER_INFO = "USER_INFO";
     public final static String USER_INFO_PHONE = "USER_INFO_PHONE";
     public final static String USER_INFO_PASS = "USER_INFO_PASS";
 
     //地址
+    public final static int MAP_CODE1 = 3001;
     public final static String LAT = "LAT";
     public final static String LNG = "LNG";
     public final static String ADDRESS = "ADDRESS";

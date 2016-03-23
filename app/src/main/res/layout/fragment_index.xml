@@ -24,6 +24,7 @@
                 android:layout_margin="@dimen/d8"/>
 
             <TextView
+                android:text="钓鱼江湖"
                 style="@style/TvTitle"
                 android:layout_centerHorizontal="true"
                 android:layout_centerInParent="true"/>
@@ -44,14 +45,20 @@
                 android:layout_marginBottom="@dimen/d16">
 
                 <TextView
+                    android:id="@+id/tv_fans"
                     style="@style/TvTitle"
+                    android:text="0"
+                    android:textSize="18sp"
                     android:layout_centerHorizontal="true"
                     android:layout_centerInParent="true"/>
 
                 <TextView
                     style="@style/TvTitle"
                     android:layout_centerHorizontal="true"
-                    android:layout_centerInParent="true"/>
+                    android:layout_centerInParent="true"
+                    android:text="粉丝"
+                    android:layout_marginTop="@dimen/d8"
+                    android:textSize="16sp"/>
 
 
             </LinearLayout>
@@ -65,14 +72,20 @@
                 android:layout_marginBottom="@dimen/d16">
 
                 <TextView
+                    android:id="@+id/tv_comment"
                     style="@style/TvTitle"
+                    android:textSize="18sp"
+                    android:text="0"
                     android:layout_centerHorizontal="true"
                     android:layout_centerInParent="true"/>
 
                 <TextView
                     style="@style/TvTitle"
                     android:layout_centerHorizontal="true"
-                    android:layout_centerInParent="true"/>
+                    android:layout_centerInParent="true"
+                    android:text="评价"
+                    android:layout_marginTop="@dimen/d8"
+                    android:textSize="16sp"/>
             </LinearLayout>
 
 
@@ -95,22 +108,32 @@
             android:orientation="vertical"
             android:gravity="center_horizontal">
 
-            <TextView
-                android:id="@+id/tv1"
-                style="@style/TvIndex"
-                android:layout_centerHorizontal="true"
-                android:layout_centerInParent="true"
-                android:drawableTop="@mipmap/ic_index_1"
-                android:text="@string/news"/>
+            <LinearLayout
+                android:id="@+id/view1"
+                style="@style/LayoutIndex">
 
-            <TextView
-                android:id="@+id/tv3"
-                style="@style/TvIndex"
-                android:layout_marginTop="1dp"
-                android:layout_centerHorizontal="true"
-                android:layout_centerInParent="true"
-                android:drawableTop="@mipmap/ic_index_3"
-                android:text="@string/pakeage"/>
+                <TextView
+                    android:drawableTop="@mipmap/ic_index_1"
+                    style="@style/TvIndex"
+                    android:text="@string/news"/>
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:id="@+id/view3"
+                style="@style/LayoutIndex"
+                android:layout_marginTop="1dp">
+
+                <TextView
+                    style="@style/TvIndex"
+                    android:layout_marginTop="1dp"
+                    android:drawableTop="@mipmap/ic_index_3"
+                    android:text="@string/pakeage"/>
+
+            </LinearLayout>
+
 
 
         </LinearLayout>
@@ -123,22 +146,31 @@
             android:gravity="center_horizontal"
             android:layout_marginLeft="1dp">
 
-            <TextView
-                android:id="@+id/tv2"
-                style="@style/TvIndex"
-                android:layout_centerHorizontal="true"
-                android:layout_centerInParent="true"
-                android:drawableTop="@mipmap/ic_index_2"
-                android:text="@string/coupon"/>
+            <LinearLayout
+                android:id="@+id/view2"
+                style="@style/LayoutIndex">
 
-            <TextView
-                android:id="@+id/tv4"
-                style="@style/TvIndex"
-                android:layout_marginTop="1dp"
-                android:layout_centerHorizontal="true"
-                android:layout_centerInParent="true"
-                android:drawableTop="@mipmap/ic_index_4"
-                android:text="@string/shop_info"/>
+                <TextView
+                    android:drawableTop="@mipmap/ic_index_2"
+                    style="@style/TvIndex"
+                    android:text="@string/coupon"/>
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:id="@+id/view4"
+                style="@style/LayoutIndex"
+                android:layout_marginTop="1dp">
+
+                <TextView
+                    style="@style/TvIndex"
+                    android:layout_marginTop="1dp"
+                    android:drawableTop="@mipmap/ic_index_4"
+                    android:text="@string/shop_info"/>
+
+            </LinearLayout>
         </LinearLayout>
 
 

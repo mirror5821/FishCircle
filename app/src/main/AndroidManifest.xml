@@ -26,6 +26,9 @@
         <activity android:name=".activity.MapSelectActivity"/>
 
 
+        <activity
+            android:configChanges="orientation|screenSize"
+            android:name="dev.mirror.library.android.activity.MultiImageSelectorActivity"/>
 
     </application>
 

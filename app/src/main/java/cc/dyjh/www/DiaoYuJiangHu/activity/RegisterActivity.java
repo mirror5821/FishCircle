@@ -1,22 +1,17 @@
 package cc.dyjh.www.DiaoYuJiangHu.activity;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import org.xutils.common.Callback;
-import org.xutils.http.RequestParams;
 import org.xutils.x;
 
 import java.util.HashMap;
@@ -26,7 +21,6 @@ import cc.dyjh.www.DiaoYuJiangHu.R;
 import cc.dyjh.www.DiaoYuJiangHu.app.AppContext;
 import cc.dyjh.www.DiaoYuJiangHu.bean.User;
 import cc.dyjh.www.DiaoYuJiangHu.util.AppAjaxCallback;
-import cc.dyjh.www.DiaoYuJiangHu.util.AppHttpClient;
 import cc.dyjh.www.DiaoYuJiangHu.util.SharePreferencesUtil;
 import dev.mirror.library.android.util.JsonUtils;
 import dev.mirror.library.android.util.MD5Util;
@@ -296,7 +290,7 @@ public class RegisterActivity extends BaseActivity {
             @Override
             public void onResult(String data, String msg) {
                 AppContext.user = JsonUtils.parse(data,User.class);
-                showToast(msg);
+                showToast("登录成功");
                 SharePreferencesUtil.saveLoginInfo(getApplicationContext(), phone, pass);
                 SharePreferencesUtil.saveUserInfo(getApplicationContext(), data);
 

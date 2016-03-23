@@ -96,6 +96,15 @@
     </style>
 
     <style name="TvIndex">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textColor">@color/tv_dark</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:text">@string/loading_data</item>
+        <item name="android:drawablePadding">@dimen/d16</item>
+    </style>
+
+    <style name="LayoutIndex">
         <item name="android:layout_height">0dp</item>
         <item name="android:layout_weight">1</item>
         <item name="android:layout_width">match_parent</item>
@@ -104,9 +113,12 @@
         <item name="android:text">@string/loading_data</item>
         <item name="android:gravity">center</item>
         <item name="android:paddingTop">@dimen/d16</item>
-
+        <item name="android:orientation">vertical</item>
         <item name="android:background">@drawable/bg_normal_press_w</item>
     </style>
+
+
+
 
 
     <style name="TvDetailsNotif" parent="TvDetailsCommen">

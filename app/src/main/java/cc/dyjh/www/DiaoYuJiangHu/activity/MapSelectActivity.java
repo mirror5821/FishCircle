@@ -199,6 +199,8 @@ public class MapSelectActivity extends BaseActivity {
 				mBaiduMap.animateMapStatus(u);
 
 				mLocClient.stop();
+
+				getAddstrs(ll);
 			}
 
 		}

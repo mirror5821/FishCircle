@@ -20,6 +20,11 @@
         <activity android:name=".activity.MainActivity"/>
         <activity android:name=".activity.YuXunPublishActivity"/>
         <activity android:name=".activity.RegisterActivity"/>
+        <activity android:name=".activity.UserSelectActivity"/>
+        <activity android:name=".activity.UserInfoActivity"/>
+        <activity android:name=".activity.UserInfoUpdateActivity"/>
+        <activity android:name=".activity.MapSelectActivity"/>
+
 
 
     </application>

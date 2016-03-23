@@ -32,6 +32,7 @@ public class AppAjaxCallback<T> implements Callback.CommonCallback<String> {
      */
     public interface onResultListener{
         void onResult(String data, String msg);
+        void onOtherResult(String data, int status);
         void onError(String msg);
     }
 
@@ -55,7 +56,7 @@ public class AppAjaxCallback<T> implements Callback.CommonCallback<String> {
         if(!TextUtils.isEmpty(t)){
             try{
                 JSONObject jb = new JSONObject(t);
-                String status = jb.getString("status");
+                int status = jb.getInt("status");
                 /**
                  * 0=>'成功',
                  101=>'账号状态异常',
@@ -75,7 +76,7 @@ public class AppAjaxCallback<T> implements Callback.CommonCallback<String> {
 
                 String msg = jb.getString("msg");
                 //如果==0，表示查询成功
-                if(status.equals("0")){
+                if(status == 0){
                     String data = jb.getString("result").toString();
                     //表示请求是列表数据
                     if(mRecevierDataListener !=null){
@@ -101,12 +102,16 @@ public class AppAjaxCallback<T> implements Callback.CommonCallback<String> {
                     }else{
                         mListener.onResult(data,msg);
                     }
-                }else{//表示没有返回数据
-                    if(mRecevierDataListener!=null){
+                }else{
+                    String data = jb.getString("result").toString();
+                    //表示返回其他状态
+                    mListener.onOtherResult(data,status);
+
+                    /*if(mRecevierDataListener!=null){
                         mRecevierDataListener.onReceiverError(msg);
                     }else{
                         mListener.onError(msg);
-                    }
+                    }*/
                 }
             }catch(JSONException e){
 //				if(mRecevieDataListener!=null){

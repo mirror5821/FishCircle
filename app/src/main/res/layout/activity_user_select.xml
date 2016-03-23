@@ -6,6 +6,7 @@
     android:gravity="center">
 
     <TextView
+        android:id="@+id/tv1"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:background="@color/s1"
@@ -16,6 +17,7 @@
 
 
     <TextView
+        android:id="@+id/tv2"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:background="@color/s2"

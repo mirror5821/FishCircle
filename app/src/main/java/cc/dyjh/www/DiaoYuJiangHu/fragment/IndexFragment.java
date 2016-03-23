@@ -67,6 +67,11 @@ public class IndexFragment extends BaseFragment {
             }
 
             @Override
+            public void onOtherResult(String data, int status) {
+
+            }
+
+            @Override
             public void onError(String msg) {
                 showToast("err-------" + msg);
             }

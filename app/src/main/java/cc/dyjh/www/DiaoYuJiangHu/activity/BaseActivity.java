@@ -8,12 +8,14 @@ import android.widget.TextView;
 
 import cc.dyjh.www.DiaoYuJiangHu.R;
 import cc.dyjh.www.DiaoYuJiangHu.bean.Constants;
+import cc.dyjh.www.DiaoYuJiangHu.util.AppHttpClient;
 import dev.mirror.library.android.activity.DevBaseActivity;
 
 /**
  * Created by dongqian on 16/3/20.
  */
 public class BaseActivity extends DevBaseActivity implements Constants{
+    public AppHttpClient mHttpClient = new AppHttpClient();
     private ImageView mImgBack;
     private TextView mTvTitleRight;
     private TextView mTvTitleBar;

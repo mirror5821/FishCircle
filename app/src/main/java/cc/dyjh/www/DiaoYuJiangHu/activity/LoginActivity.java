@@ -2,6 +2,7 @@ package cc.dyjh.www.DiaoYuJiangHu.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -38,7 +39,7 @@ public class LoginActivity extends BaseActivity {
         mEtPhone = (EditText)findViewById(R.id.name);
         mEtPass = (EditText)findViewById(R.id.pass);
 
-        mEtPhone.setText("18312009596");
+        mEtPhone.setText("18837145615");//18312009596
         mEtPass.setText("111111");
         mBtnLogin = (Button)findViewById(R.id.btn_login);
         mBtnLogin.setOnClickListener(this);
@@ -65,6 +66,19 @@ public class LoginActivity extends BaseActivity {
         final String phone = mEtPhone.getText().toString();
         final String pass = mEtPass.getText().toString();
 
+        if(TextUtils.isEmpty(phone)){
+            showToast(getString(R.string.input_phone));
+            cancelProgressDialog();
+            return;
+        }
+
+        if(TextUtils.isEmpty(pass)){
+            showToast(getString(R.string.input_pass));
+            cancelProgressDialog();
+            return;
+        }
+
+        showProgressDialog("正在登录");
         Map<String,String> values = new HashMap<>();
         values.put("phone", phone);
         values.put("pwd", MD5Util.stringToMd5(pass));
@@ -72,7 +86,6 @@ public class LoginActivity extends BaseActivity {
         params.addParameter("phone", phone);
         params.addParameter("pwd", MD5Util.stringToMd5(pass));*/
 
-        AppHttpClient mHttpClient = new AppHttpClient();
         mHttpClient.postData1(LOGIN, values, new AppAjaxCallback.onResultListener() {
             @Override
             public void onResult(String data, String msg) {
@@ -82,11 +95,37 @@ public class LoginActivity extends BaseActivity {
                 SharePreferencesUtil.saveUserInfo(getApplicationContext(), data);
 
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                cancelProgressDialog();
+                finish();
+            }
+
+            @Override
+            public void onOtherResult(String data, int status) {
+                switch (status){
+                    case 101:
+                        AppContext.user = JsonUtils.parse(data,User.class);
+                        SharePreferencesUtil.saveLoginInfo(getApplicationContext(), phone, pass);
+                        SharePreferencesUtil.saveUserInfo(getApplicationContext(), data);
+
+                        startActivity(new Intent(LoginActivity.this, UserSelectActivity.class));
+                        cancelProgressDialog();
+                        finish();
+                        break;
+                    case 103:
+                        cancelProgressDialog();
+                        showToast("用户不存在");
+                        break;
+                    default:
+                        cancelProgressDialog();
+                        showToast("登录");
+                        break;
+                }
             }
 
             @Override
             public void onError(String msg) {
-                showToast("err-------" + msg);
+                showToast("登录失败");
+                cancelProgressDialog();
             }
         });
 

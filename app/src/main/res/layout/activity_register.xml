@@ -15,6 +15,7 @@
         android:paddingLeft="@dimen/d8"
         android:hint="@string/input_phone"
         android:drawablePadding="@dimen/d8"
+        android:maxLength="11"
         android:inputType="phone"
         android:background="@drawable/bg_normal_press_w"/>
 
@@ -38,8 +39,12 @@
 
         <ImageView
             android:id="@+id/img"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
+            android:layout_width="92dp"
+            android:layout_height="@dimen/d48"
+            android:background="#2e2e2e"
+            android:scaleType="fitXY"
+            android:paddingLeft="1dp"
+            android:paddingRight="1dp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -82,6 +87,7 @@
         android:paddingLeft="@dimen/d8"
         android:hint="@string/input_pass"
         android:drawablePadding="@dimen/d8"
+        android:inputType="textPassword"
         android:background="@drawable/bg_normal_press_w"/>
 
     <Button
@@ -89,4 +95,7 @@
         style="@style/BtnBlue"
         android:text="@string/register_login"
         android:layout_margin="@dimen/d16"/>
+
+
+
 </LinearLayout>

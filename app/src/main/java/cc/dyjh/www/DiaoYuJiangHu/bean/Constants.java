@@ -12,11 +12,31 @@ public interface Constants {
     public static final String BASE_URL = "http://m.dyjh.cc/appi.php?s=";//主url
 
 //    public final static String BASE_URL = "http://zmnyw.cn/index.php?s=/Home/Api/";
-    public static final String LOGIN = "User/griCheckLogin";
-    public static final String GET_V_CODE = "User/griGetImgVerify";
+    public static final String LOGIN = "User/griCheckLogin";//登录
+    public static final String GET_V_CODE = "User/griGetImgVerify";//获取图片验证码
+    public static final String V_CODE = "User/griCheckImgVerify";//验证图片验证码
+    public static final String V_PHONE_CODE = "User/griCheckSMSVerify";//验证手机验证码
+    public static final String REGISTER = "User/griRegister";//注册
+    public static final String GET_PHONE_CODE = "User/griSendSMSCode";//获取手机验证码
+    public static final String YUNCHANG_INFO = "Fishery/griGetFishery";
+
+
     public static final String GET_YUXUN = "getYuxun";
 
     public final static String USER_INFO = "USER_INFO";
     public final static String USER_INFO_PHONE = "USER_INFO_PHONE";
     public final static String USER_INFO_PASS = "USER_INFO_PASS";
+
+    //地址
+    public final static String LAT = "LAT";
+    public final static String LNG = "LNG";
+    public final static String ADDRESS = "ADDRESS";
+    public final static String CITY = "CITY";
+    public final static String COUNTRY = "COUNTRY";
+    public final static String DISTRICT = "DISTRICT";
+    public final static String PROVINCE = "PROVINCE";
+    public final static String NAME = "NAME";
+    public final static String PHONE = "PHONE";
+    public final static String ADDRESS_ID = "ADDRESS_ID";
+    public final static String ADR = "ADR";
 }

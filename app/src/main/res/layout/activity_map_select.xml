@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/main_bg"
+    android:orientation="vertical" >
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="48dp"
+        android:orientation="vertical"
+        android:background="@color/main_title" >
+
+
+        <ImageView
+            android:id="@+id/left_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"/>
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:background="@drawable/bg_search"
+            android:layout_margin="@dimen/d8"
+            android:layout_toRightOf="@id/left_icon">
+
+
+
+
+            <ImageView
+                android:id="@+id/search"
+                android:background="@mipmap/ic_search_o_d"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="8dp"
+                android:layout_marginLeft="@dimen/d4"/>
+
+
+            <EditText
+                android:id="@+id/et"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/no_color"
+                android:layout_toRightOf="@id/search"
+                android:hint="输入您要搜索的地区"
+                android:textSize="14sp"
+                android:textColor="@color/white"
+                android:singleLine="true"
+                android:imeOptions="actionSearch"/>
+
+
+            <!--ic_search_red-->
+
+        </RelativeLayout>
+
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+
+        <com.baidu.mapapi.map.MapView
+            android:id="@+id/bmapView"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:clickable="true" />
+
+        <ImageView android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@mipmap/ic_map_blue"
+            android:layout_centerInParent="true"/>
+
+
+        <ImageView
+            android:id="@+id/loc"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@mipmap/ic_local_my"
+            android:layout_alignParentRight="true"
+            android:layout_margin="@dimen/d8"/>
+
+
+    </RelativeLayout>
+
+    <TextView android:layout_width="fill_parent"
+        android:layout_height="32dp"
+        android:text="@string/select_address"
+        android:layout_marginLeft="8dp"
+        android:textColor="@color/red"
+        android:gravity="center_vertical"/>
+
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+</LinearLayout>

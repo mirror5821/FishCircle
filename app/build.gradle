@@ -21,7 +21,8 @@ android {
 
 dependencies {
     compile project(':devmirrorlibrary')
-//    compile project(':bmaplibrary')
+    compile project(':bmaplibrary')
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
+    compile files('libs/sun.misc.BASE64Decoder.jar')
 }

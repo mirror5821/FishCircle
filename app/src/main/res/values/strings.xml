@@ -70,4 +70,7 @@
     <string name="feed_back">意见反馈</string>
     <string name="version_check">软件版本检测</string>
 
+    <string name="service_phone">0371-60202005</string>
+    <string name="select_address">请在地图上选择钓场位置</string>
+
 </resources>

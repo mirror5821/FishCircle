@@ -2,6 +2,7 @@ package cc.dyjh.www.DiaoYuJiangHu.app;
 
 import com.baidu.mapapi.SDKInitializer;
 
+import cc.dyjh.www.DiaoYuJiangHu.bean.Index;
 import cc.dyjh.www.DiaoYuJiangHu.bean.User;
 import dev.mirror.library.android.app.BaseAppContext;
 
@@ -17,12 +18,16 @@ public class AppContext extends BaseAppContext {
     public static String LOC_AREA = "金水区";
 
     public static User user;
+    public static Index index;
     private static AppContext instance;
+
     @Override
     public void onCreate() {
         super.onCreate();
+        instance = this;
         // 在使用 SDK 各组间之前初始化 context 信息，传入 ApplicationContext
         SDKInitializer.initialize(this);
+
     }
 
     public static AppContext getInstance(){

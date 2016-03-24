@@ -2,7 +2,6 @@ package dev.mirror.library.android.app;
 
 import android.app.Application;
 import android.text.TextUtils;
-import android.view.View;
 import android.widget.ImageView;
 
 import org.xutils.image.ImageOptions;
@@ -30,11 +29,12 @@ public class BaseAppContext  extends Application{
      */
     public static void displayImage(ImageView v,String url){
         if(!TextUtils.isEmpty(url)){
-            if(!url.startsWith("http://")){
+            /*if(!url.startsWith("http://")){
                 x.image().bind(v,IMG_TOP+url);
             }else{
                 x.image().bind(v,url);
-            }
+            }*/
+            x.image().bind(v,url);
         }
     }
 
@@ -48,6 +48,13 @@ public class BaseAppContext  extends Application{
         if(!TextUtils.isEmpty(url)){
             x.image().bind(v,url,options);
         }
+    }
+
+    public static void displayHeaderImage(ImageView iv,String url){
+        ImageOptions imageOptions = new ImageOptions.Builder()
+                .setImageScaleType(ImageView.ScaleType.CENTER_CROP)
+                .build();
+        x.image().bind(iv, url,imageOptions);
     }
 
     /**

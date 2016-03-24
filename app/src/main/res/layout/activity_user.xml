@@ -48,23 +48,16 @@
 
 
             <TextView
-                android:id="@+id/tv_my"
+                android:id="@+id/name1"
                 android:text="@string/yuchang_info"
                 style="@style/TvAbout"/>
 
             <TextView
-                android:id="@+id/tv_user"
+                android:id="@+id/phone1"
                 android:text="@string/my_info"
                 style="@style/TvAbout"/>
 
-            <TextView
-                android:id="@+id/tv_feedback"
-                android:text="@string/feed_back"
-                style="@style/TvAbout"/>
 
-            <TextView
-                android:text="@string/version_check"
-                style="@style/TvAbout"/>
 
         </LinearLayout>
 

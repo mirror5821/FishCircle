@@ -26,8 +26,9 @@
         <activity android:name=".activity.MapSelectActivity"/>
         <activity android:name=".activity.PriceBZActivity"/>
         <activity android:name=".activity.CheckBoxSelectActivity"/>
-
-
+        <activity android:name=".activity.YuXunListActivity"/>
+        <activity android:name=".activity.UserCenterActivity"/>
+        <activity android:name=".activity.EditSingleTextActivity"/>
 
 
         <activity

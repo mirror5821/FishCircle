@@ -96,9 +96,9 @@ public class CircleImageView extends ImageView
 			return;
 		}
 
-		canvas.drawCircle(getWidth() / 2, getHeight() / 2, this.mDrawableRadius, 
+		canvas.drawCircle(getWidth() / 2, getHeight() / 2, this.mDrawableRadius,
 				this.mBitmapPaint);
-		canvas.drawCircle(getWidth() / 2, getHeight() / 2, this.mBorderRadius, 
+		canvas.drawCircle(getWidth() / 2, getHeight() / 2, this.mBorderRadius,
 				this.mBorderPaint);
 	}
 
@@ -169,7 +169,7 @@ public class CircleImageView extends ImageView
 			Bitmap bitmap = null;
 
 			if ((drawable instanceof ColorDrawable)) {
-				bitmap = Bitmap.createBitmap(1, 
+				bitmap = Bitmap.createBitmap(1,
 						1, BITMAP_CONFIG);
 			} else if ((drawable instanceof LayerDrawable)) {
 				TransitionDrawable drawable2 = (TransitionDrawable)drawable;
@@ -177,7 +177,7 @@ public class CircleImageView extends ImageView
 						.getNumberOfLayers() - 1);
 				setImageDrawable(drawable3);
 			} else {
-				bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), 
+				bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
 						drawable.getIntrinsicHeight(), BITMAP_CONFIG);
 			}
 			if (bitmap == null) {
@@ -202,7 +202,7 @@ public class CircleImageView extends ImageView
 			return;
 		}
 
-		this.mBitmapShader = new BitmapShader(this.mBitmap, Shader.TileMode.CLAMP, 
+		this.mBitmapShader = new BitmapShader(this.mBitmap, Shader.TileMode.CLAMP,
 				Shader.TileMode.CLAMP);
 
 		this.mBitmapPaint.setAntiAlias(true);
@@ -217,12 +217,12 @@ public class CircleImageView extends ImageView
 		this.mBitmapWidth = this.mBitmap.getWidth();
 
 		this.mBorderRect.set(0.0F, 0.0F, getWidth(), getHeight());
-		this.mBorderRadius = Math.min((this.mBorderRect.height() - this.mBorderWidth) / 2.0F, 
+		this.mBorderRadius = Math.min((this.mBorderRect.height() - this.mBorderWidth) / 2.0F,
 				(this.mBorderRect.width() - this.mBorderWidth) / 2.0F);
 
-		this.mDrawableRect.set(this.mBorderWidth, this.mBorderWidth, this.mBorderRect.width() - 
+		this.mDrawableRect.set(this.mBorderWidth, this.mBorderWidth, this.mBorderRect.width() -
 				this.mBorderWidth, this.mBorderRect.height() - this.mBorderWidth);
-		this.mDrawableRadius = Math.min(this.mDrawableRect.height() / 2.0F, 
+		this.mDrawableRadius = Math.min(this.mDrawableRect.height() / 2.0F,
 				this.mDrawableRect.width() / 2.0F);
 
 		updateShaderMatrix();
@@ -236,7 +236,7 @@ public class CircleImageView extends ImageView
 
 		this.mShaderMatrix.set(null);
 		float scale;
-		if (this.mBitmapWidth * this.mDrawableRect.height() > this.mDrawableRect.width() * 
+		if (this.mBitmapWidth * this.mDrawableRect.height() > this.mDrawableRect.width() *
 				this.mBitmapHeight) {
 			scale = this.mDrawableRect.height() / this.mBitmapHeight;
 			dx = (this.mDrawableRect.width() - this.mBitmapWidth * scale) * 0.5F;
@@ -246,7 +246,7 @@ public class CircleImageView extends ImageView
 		}
 
 		this.mShaderMatrix.setScale(scale, scale);
-		this.mShaderMatrix.postTranslate((int)(dx + 0.5F) + this.mBorderWidth, 
+		this.mShaderMatrix.postTranslate((int)(dx + 0.5F) + this.mBorderWidth,
 				(int)(dy + 0.5F) + this.mBorderWidth);
 
 		this.mBitmapShader.setLocalMatrix(this.mShaderMatrix);

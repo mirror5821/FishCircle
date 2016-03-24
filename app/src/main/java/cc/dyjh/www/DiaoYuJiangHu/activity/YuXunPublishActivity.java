@@ -150,7 +150,7 @@ public class YuXunPublishActivity<T> extends BaseActivity {
                         mXianGan.get(position);
                         mXG = mXianGan.get(position).getName();
                         mTvXG.setText(mXG);
-                        mXGId = mXianGan.get(position).getId();
+                        mXG = mXianGan.get(position).getId()+"";
                         break;
 
                 }
@@ -267,7 +267,7 @@ public class YuXunPublishActivity<T> extends BaseActivity {
         Map<String,String> values = new HashMap<>();
         values.put("fyzl", mYZ);
         values.put("fhid", mYuChang.getFhid()+"");
-        values.put("xgcd", mXGId+"");
+        values.put("xgcd", mXG);
         values.put("jyez", mERStr);
         values.put("qtsm", otherDec);
         values.put("dysj", dkTime);

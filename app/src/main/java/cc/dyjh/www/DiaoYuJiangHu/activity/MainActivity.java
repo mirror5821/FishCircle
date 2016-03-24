@@ -27,7 +27,7 @@ public class MainActivity extends BaseTabActivity {
 
 
 
-    private String [] mTabs = {"首页","验证","我的"};
+    private String [] mTabs = {"首页","我的"};
     @Override
     public String[] setTabTitles() {
         return mTabs;
@@ -35,12 +35,12 @@ public class MainActivity extends BaseTabActivity {
 
     @Override
     public int[] setTabIcons() {
-        return new int[]{R.drawable.tab1, R.drawable.tab2, R.drawable.tab3};
+        return new int[]{R.drawable.tab1, R.drawable.tab2};
     }
 
     @Override
     public <T extends Fragment> Class<T>[] setFragment() {
-        return new Class[]{IndexFragment.class,IndexFragment.class,
+        return new Class[]{IndexFragment.class,
                 MyFragment.class};
     }
 

@@ -22,6 +22,8 @@
             android:text="白钓"/>
 
         <EditText
+            android:id="@+id/p1"
+            android:inputType="number"
             style="@style/EtMatch"/>
 
         <TextView
@@ -29,6 +31,8 @@
             android:text="元"/>
 
         <EditText
+            android:id="@+id/h1"
+            android:inputType="number"
             style="@style/EtMatch"/>
 
         <TextView
@@ -48,6 +52,8 @@
             android:text="夜钓"/>
 
         <EditText
+            android:id="@+id/p2"
+            android:inputType="number"
             style="@style/EtMatch"/>
 
         <TextView
@@ -55,6 +61,8 @@
             android:text="元"/>
 
         <EditText
+            android:id="@+id/h2"
+            android:inputType="number"
             style="@style/EtMatch"/>
 
         <TextView
@@ -83,6 +91,8 @@
             android:text="白钓"/>
 
         <EditText
+            android:id="@+id/p3"
+            android:inputType="number"
             style="@style/EtMatch"/>
 
         <TextView
@@ -90,6 +100,8 @@
             android:text="元"/>
 
         <EditText
+            android:id="@+id/h3"
+            android:inputType="number"
             style="@style/EtMatch"/>
 
         <TextView
@@ -109,6 +121,8 @@
             android:text="夜钓"/>
 
         <EditText
+            android:id="@+id/p4"
+            android:inputType="number"
             style="@style/EtMatch"/>
 
         <TextView
@@ -116,6 +130,8 @@
             android:text="元"/>
 
         <EditText
+            android:id="@+id/h4"
+            android:inputType="number"
             style="@style/EtMatch"/>
 
         <TextView

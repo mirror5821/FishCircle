@@ -24,6 +24,10 @@
         <activity android:name=".activity.UserInfoActivity"/>
         <activity android:name=".activity.UserInfoUpdateActivity"/>
         <activity android:name=".activity.MapSelectActivity"/>
+        <activity android:name=".activity.PriceBZActivity"/>
+        <activity android:name=".activity.CheckBoxSelectActivity"/>
+
+
 
 
         <activity

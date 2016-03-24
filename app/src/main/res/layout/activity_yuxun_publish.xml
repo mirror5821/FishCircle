@@ -27,6 +27,7 @@
                 <TextView
                     android:id="@+id/fangyu_time"
                     style="@style/TvDetailsValue"
+                    android:layout_weight="3"
                     android:drawableRight="@mipmap/ic_next"/>
             </LinearLayout>
 
@@ -47,6 +48,7 @@
                     android:singleLine="false"
                     android:layout_height="wrap_content"
                     android:paddingBottom="@dimen/d20"
+                    android:layout_weight="3"
                     android:drawableRight="@mipmap/ic_next"/>
             </LinearLayout>
 
@@ -90,6 +92,7 @@
                 <TextView
                     android:id="@+id/kaidiao_time"
                     style="@style/TvDetailsValue"
+                    android:layout_weight="3"
                     android:drawableRight="@mipmap/ic_next"/>
             </LinearLayout>
 
@@ -100,13 +103,14 @@
                 android:background="@drawable/bg_detail">
 
                 <TextView
-                    android:text="@string/is_xiangan"
+                    android:text="限杆长度"
                     style="@style/TvDetailsNotif"
                     android:textColor="@color/tv_dark"/>
 
                 <TextView
                     android:id="@+id/is_xiangan"
                     style="@style/TvDetailsValue"
+                    android:layout_weight="3"
                     android:drawableRight="@mipmap/ic_next"
                     android:text="@string/no_limit"/>
             </LinearLayout>
@@ -124,6 +128,7 @@
                 <TextView
                     android:id="@+id/price_biaozhun"
                     style="@style/TvDetailsValue"
+                    android:layout_weight="3"
                     android:drawableRight="@mipmap/ic_next"/>
             </LinearLayout>
 
@@ -142,6 +147,7 @@
                 <TextView
                     android:id="@+id/limit_diaoer"
                     style="@style/TvDetailsValue"
+                    android:layout_weight="3"
                     android:drawableRight="@mipmap/ic_next"/>
             </LinearLayout>
 

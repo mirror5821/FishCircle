@@ -23,6 +23,7 @@ public  class AddrAdapter<T extends AddrBase> extends BaseAdapter {
         this.mType = type;
         this.mContext = context;
         this.mList = list;
+
     }
 
     @Override

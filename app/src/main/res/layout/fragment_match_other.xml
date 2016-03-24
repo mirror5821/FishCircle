@@ -5,6 +5,7 @@
     android:background="@color/main_bg">
 
     <EditText
+        android:id="@+id/et"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minLines="8"

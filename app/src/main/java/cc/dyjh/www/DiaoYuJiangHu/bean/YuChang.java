@@ -1,16 +1,23 @@
 package cc.dyjh.www.DiaoYuJiangHu.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
 /**
  * Created by 王沛栋 on 2016/3/23.
  */
 public class YuChang {
+    private int fhid;
     private List<Fishery> fishery;
     private List<Yu> yu;
     private List<Yu> fisherytype;
     private List<Yu> fisheryfeature;
     private FisheryArea fisheryarea;
+    private List<Yu> er;
+    private List<Yu> xiangan;
+    private YuXun yuxun;
 
     public static class Fishery {
         private int fid;//private String 2private String ,
@@ -177,12 +184,35 @@ public class YuChang {
         }
     }
 
-    public static class Yu implements AddrBase{
+    public static class Yu implements Parcelable, AddrBase{
+        public Yu(){
+
+        }
         private int id;//private String 1private String ,
         private String type;//private String 1private String ,
         private String name;//private String 鲤鱼private String ,
         private String ordernum;//private String 1private String ,
         private String describes;//private String 鱼种类private String
+
+        protected Yu(Parcel in) {
+            id = in.readInt();
+            type = in.readString();
+            name = in.readString();
+            ordernum = in.readString();
+            describes = in.readString();
+        }
+
+        public static final Creator<Yu> CREATOR = new Creator<Yu>() {
+            @Override
+            public Yu createFromParcel(Parcel in) {
+                return new Yu(in);
+            }
+
+            @Override
+            public Yu[] newArray(int size) {
+                return new Yu[size];
+            }
+        };
 
         public int getId() {
             return id;
@@ -228,6 +258,20 @@ public class YuChang {
         public String getAddrName() {
             return name;
         }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeInt(id);
+            dest.writeString(type);
+            dest.writeString(name);
+            dest.writeString(ordernum);
+            dest.writeString(describes);
+        }
     }
 
     public static class FisheryArea{
@@ -258,6 +302,14 @@ public class YuChang {
         public void setDistrict(String district) {
             this.district = district;
         }
+    }
+
+    public int getFhid() {
+        return fhid;
+    }
+
+    public void setFhid(int fhid) {
+        this.fhid = fhid;
     }
 
     public List<Fishery> getFishery() {
@@ -298,5 +350,29 @@ public class YuChang {
 
     public void setFisheryarea(FisheryArea fisheryarea) {
         this.fisheryarea = fisheryarea;
+    }
+
+    public List<Yu> getEr() {
+        return er;
+    }
+
+    public void setEr(List<Yu> er) {
+        this.er = er;
+    }
+
+    public List<Yu> getXiangan() {
+        return xiangan;
+    }
+
+    public void setXiangan(List<Yu> xiangan) {
+        this.xiangan = xiangan;
+    }
+
+    public YuXun getYuxun() {
+        return yuxun;
+    }
+
+    public void setYuxun(YuXun yuxun) {
+        this.yuxun = yuxun;
     }
 }

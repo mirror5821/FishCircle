@@ -38,7 +38,7 @@ public class LoginActivity extends BaseActivity {
         mEtPhone = (EditText)findViewById(R.id.name);
         mEtPass = (EditText)findViewById(R.id.pass);
 
-        mEtPhone.setText("18837145615");//18312009596
+        mEtPhone.setText("18312009596");//18312009596
         mEtPass.setText("111111");
         mBtnLogin = (Button)findViewById(R.id.btn_login);
         mBtnLogin.setOnClickListener(this);

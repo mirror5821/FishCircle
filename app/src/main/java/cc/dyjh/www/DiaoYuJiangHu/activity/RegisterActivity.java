@@ -301,6 +301,8 @@ public class RegisterActivity extends BaseActivity {
             public void onOtherResult(String data, int status) {
                 switch (status){
                     case 101:
+                        AppContext.user = JsonUtils.parse(data,User.class);
+                        SharePreferencesUtil.saveLoginInfo(getApplicationContext(), phone, pass);
                         startActivity(new Intent(RegisterActivity.this, UserSelectActivity.class));
                         break;
                     case 103:

@@ -7,6 +7,7 @@ public interface Constants {
 //    public static final String BASE_URL = "http://m.dyjh.cc/androidi.php?s=GRAPP/";
     //http://m.dyjh.cc/appi.php?s=User/griCheckLogin?phone=18312009596&pwd=96e79218965eb72c92a549dd5a330112  登录
     //http://m.dyjh.cc/appi.php?s=User/griGetImgVerify/rand/D3AQS8G52QJGT8O/QUERY/0  图片验证码
+    public final static String INTENT_ID = "INTENT_ID";
 
     public static final String BASE_IMG_URL = "http://m.dyjh.cc";//头像主url
     public static final String BASE_URL = "http://m.dyjh.cc/appi.php?s=";//主url
@@ -18,8 +19,12 @@ public interface Constants {
     public static final String V_PHONE_CODE = "User/griCheckSMSVerify";//验证手机验证码
     public static final String REGISTER = "User/griRegister";//注册
     public static final String GET_PHONE_CODE = "User/griSendSMSCode";//获取手机验证码
-    public static final String YUNCHANG_INFO = "Fishery/griGetFishery";//获取渔场资料
+    public static final String YUNCHANG_INFO = "Fishery/griGetFishery";//获取渔场资料Fishery/griGetFishery
     public static final String YUNCHANG_UPDATE = "Fishery/griEditFishery";//更新渔场资料
+    public static final String YUNCHANG_SELECT_INFO = "Fisherymsg/griGetFisherymsgs";//更新渔场资料
+    public static final String YUNCAHNG_SELECT_INFO2 = "Fisherymsg/griGetFisherymsg";//更新渔场资料  发布渔汛是用的这个
+    public static final String YUNCAHNG_INFO_UPDATE= "Fisherymsg/griEditFisherymsg";//编辑渔汛信息
+
 
 
     public static final String INDEX = "Index/griIndex";//首页数据

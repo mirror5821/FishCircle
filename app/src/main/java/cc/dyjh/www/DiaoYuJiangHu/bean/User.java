@@ -4,7 +4,7 @@ package cc.dyjh.www.DiaoYuJiangHu.bean;
  * Created by dongqian on 16/3/20.
  */
 public class User  {
-    private String id;
+    private int id;
     private String token;
 
     private String pic;//":"/upload/appupload/20160324/H15/20160324154808996.jpeg",
@@ -35,11 +35,11 @@ public class User  {
         this.phone = phone;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

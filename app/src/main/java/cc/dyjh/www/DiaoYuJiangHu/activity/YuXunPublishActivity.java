@@ -186,7 +186,7 @@ public class YuXunPublishActivity<T> extends BaseActivity {
 
     private void loadData(){
         Map<String,String> values = new HashMap<>();
-        values.put("id", AppContext.user.getId());
+        values.put("id", AppContext.ID+"");
 
         AppHttpClient mHttpClient = new AppHttpClient();
         mHttpClient.postData1(YUNCAHNG_SELECT_INFO2, values, new AppAjaxCallback.onResultListener() {

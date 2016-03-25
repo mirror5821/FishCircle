@@ -2,7 +2,9 @@ package cc.dyjh.www.DiaoYuJiangHu.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -19,6 +21,7 @@ import cc.dyjh.www.DiaoYuJiangHu.bean.DialogInterface;
 import cc.dyjh.www.DiaoYuJiangHu.bean.YuChang;
 import cc.dyjh.www.DiaoYuJiangHu.util.AppAjaxCallback;
 import cc.dyjh.www.DiaoYuJiangHu.util.AppHttpClient;
+import cc.dyjh.www.DiaoYuJiangHu.util.OptionUtil;
 import cc.dyjh.www.DiaoYuJiangHu.util.UIUtil;
 import dev.mirror.library.android.activity.MultiImageSelectorActivity;
 import dev.mirror.library.android.util.JsonUtils;
@@ -33,14 +36,11 @@ public class UserInfoUpdateActivity<T> extends BaseActivity {
     private YuChang.Fishery mFishery;//渔场信息
 
     private YuChang mYuChang;
-    private YuChang.Yu mYu;//鱼种
-    private int mYuId;
 
-    private YuChang.Yu mFishTS;//渔场特色
-    private int mFishTSId;
+    private String mFisherTypeId;
 
-    private YuChang.Yu mFishType;//渔场特色
-    private int mFishTypeId;
+    private static final int REQUSET_CODE_1 = 6001;
+    private static final int REQUSET_CODE_2 = 6002;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +74,7 @@ public class UserInfoUpdateActivity<T> extends BaseActivity {
         loadData();
     }
 
+
     @Override
     public void onClick(View v) {
         super.onClick(v);
@@ -82,12 +83,21 @@ public class UserInfoUpdateActivity<T> extends BaseActivity {
                 startActivityForResult(new Intent(UserInfoUpdateActivity.this,MapSelectActivity.class),MAP_CODE1);
                 break;
             case R.id.yu_type:
-                initSelectView(1, (List<T>) mYuChang.getYu());
+                startActivityForResult(new Intent(UserInfoUpdateActivity.this,CheckBoxSelectActivity.class).
+                                putParcelableArrayListExtra(INTENT_ID, (ArrayList<? extends Parcelable>) mYuChang.getYu()),
+                        REQUSET_CODE_1);
+//                initSelectView(1, (List<T>) mYuChang.getYu());
                 break;
             case R.id.tese:
-                initSelectView(2, (List<T>) mYuChang.getFisheryfeature());//fisheryfeature
+                startActivityForResult(new Intent(UserInfoUpdateActivity.this,CheckBoxSelectActivity.class).
+                                putParcelableArrayListExtra(INTENT_ID, (ArrayList<? extends Parcelable>) mYuChang.getFisheryfeature()),
+                        REQUSET_CODE_2);
+//                initSelectView(2, (List<T>) mYuChang.getFisheryfeature());//fisheryfeature
                 break;
             case R.id.type:
+//                startActivityForResult(new Intent(UserInfoUpdateActivity.this,CheckBoxSelectActivity.class).
+//                                putParcelableArrayListExtra(INTENT_ID, (ArrayList<? extends Parcelable>) mYuChang.getFisherytype()),
+//                        REQUSET_CODE_3);
                 initSelectView(3, (List<T>) mYuChang.getFisherytype());//fisheryfeature
                 break;
             case R.id.photo:
@@ -134,20 +144,20 @@ public class UserInfoUpdateActivity<T> extends BaseActivity {
             @Override
             public void getPosition(int position) {
                 switch (type) {
-                    case 1:
+                   /* case 1:
                         mYu = mYuChang.getYu().get(position);
                         mTvYZ.setText(mYu.getName());
                         mYuId = mYu.getId();
-                        break;
-                    case 2:
+                        break;*/
+                   /* case 2:
                         mFishTS = mYuChang.getFisheryfeature().get(position);
                         mTvTS.setText(mFishTS.getName());
                         mFishTSId = mFishTS.getId();
-                        break;
+                        break;*/
                     case 3:
-                        mFishType = mYuChang.getFisherytype().get(position);
+                        YuChang.Yu mFishType = mYuChang.getFisherytype().get(position);
                         mTvType.setText(mFishType.getName());
-                        mFishTypeId = mFishType.getId();
+                        mFisherTypeId = String.valueOf(mFishType.getId());
                         break;
                 }
             }
@@ -174,13 +184,23 @@ public class UserInfoUpdateActivity<T> extends BaseActivity {
                     mSelectPath = data.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT);
                     mTvPhoto.setText("已选择 "+mSelectPath.size()+" 张");
                     break;
+                case REQUSET_CODE_1://鱼种类
+                    Uri yzData = data.getData();
+                    mYZ = yzData.toString();
+                    mTvYZ.setText("已编辑");
+                    break;
+                case REQUSET_CODE_2://渔场特色
+                    Uri tsData = data.getData();
+                    mTS = tsData.toString();
+                    mTvTS.setText("已编辑");
+                    break;
             }
         }
     }
 
     private void loadData(){
         Map<String,String> values = new HashMap<>();
-        values.put("id", AppContext.user.getId());
+        values.put("id", AppContext.ID+"");
 
         AppHttpClient mHttpClient = new AppHttpClient();
         mHttpClient.postData1(YUNCHANG_INFO, values, new AppAjaxCallback.onResultListener() {
@@ -190,7 +210,27 @@ public class UserInfoUpdateActivity<T> extends BaseActivity {
                 mYuChang = JsonUtils.parse(data, YuChang.class);
 
                 mFishery = mYuChang.getFishery().get(0);
-                mTvPhone.setText(mFishery.getPhone());
+
+
+                YuChang.FisheryArea fArea = mYuChang.getFisheryarea();
+                mTS = mFishery.getFisheryfeature();
+                mYZ = mFishery.getFishtype();
+                mFisherTypeId = mFishery.getFisherytype();
+
+                mEtName.setText(mFishery.getFisheryname());//渔场姓名
+                mEtContacts.setText(mFishery.getPrincipal());//负责人姓名
+                mTvPhone.setText(mFishery.getPhone());//渔场电话
+                mTvAddress.setText(fArea.getProvince()+fArea.getCity()+fArea.getDistrict());//省份地址
+                mEtAddress2.setText(mFishery.getPosition());//详细地址
+                mEtMJ.setText(mFishery.getAcreage());//渔场面积
+                mEtDW.setText(mFishery.getSeatcount());//钓位个数
+                mEtSS.setText(mFishery.getWaterdepth());// 水深
+                mTvYZ.setText(OptionUtil.getYu(mYuChang.getYu(),mFishery.getFishtype()));//放鱼鱼种
+                mTvTS.setText(OptionUtil.getYu(mYuChang.getFisheryfeature(),mFishery.getFisheryfeature()));//渔场特色
+                mEtDec.setText(mFishery.getFdescribe());//渔场描述
+                mTvPhoto.setText(mFishery.getAlbum());//渔场相片
+                mEtAge.setText(mFishery.getFisheryage());//渔场年限
+                mTvType.setText(OptionUtil.getYu(mYuChang.getFisherytype(),mFishery.getFisherytype()));//渔场类型
             }
 
             @Override
@@ -225,25 +265,25 @@ public class UserInfoUpdateActivity<T> extends BaseActivity {
      fdescribe:描述
      */
 
+    private String mYZ;//鱼种类
+    private String mTS;//渔场特色
     private void sub(){
         String address = mTvAddress.getText().toString();
         String address2 = mEtAddress2.getText().toString();
         String name = mEtName.getText().toString();
-        String type = mTvType.getText().toString();
-        String fishtype = mTvYZ.getText().toString();
+//        String type = mTvType.getText().toString();
         String fisheryage = mEtAge.getText().toString();
         String principal = mEtContacts.getText().toString();
         String seatcount = mEtDW.getText().toString();
         String waterdepth = mEtSS.getText().toString();
         String acreage = mEtMJ.getText().toString();
-        String fisheryfeature = mTvTS.getText().toString();
         String fdescribe = mEtDec.getText().toString();
 
         if(TextUtils.isEmpty(fdescribe)){
             showToast("请输入渔场描述");
             return;
         }
-        if(TextUtils.isEmpty(fisheryfeature)){
+        if(TextUtils.isEmpty(mTS)){
             showToast("请选择渔场特色");
             return;
         }
@@ -275,11 +315,11 @@ public class UserInfoUpdateActivity<T> extends BaseActivity {
             showToast("请输入渔场名称");
             return;
         }
-        if(TextUtils.isEmpty(type)){
+        if(TextUtils.isEmpty(mFisherTypeId)){
             showToast("请输入渔场类型");
             return;
         }
-        if(TextUtils.isEmpty(fishtype)){
+        if(TextUtils.isEmpty(mYZ)){
             showToast("请选择钓场鱼种");
             return;
         }
@@ -290,21 +330,21 @@ public class UserInfoUpdateActivity<T> extends BaseActivity {
 
         showProgressDialog("正在提交数据");
         Map<String,String> values = new HashMap<>();
-        values.put("id", AppContext.user.getId());
+        values.put("id", AppContext.ID+"");
         values.put("fishtryid",mFishery.getFid()+"");
         values.put("lan",AppContext.Longitude+"");
         values.put("lat",AppContext.Latitude+"");
         values.put("area",address);
         values.put("position",address2);
         values.put("fisheryname", name);
-        values.put("fisherytype",type);
-        values.put("fishtype",fishtype);
+        values.put("fisherytype",mFisherTypeId+"");
+        values.put("fishtype",mYZ);
         values.put("fisheryage",fisheryage);
         values.put("principal",principal);
         values.put("seatcount",seatcount);
         values.put("waterdepth",waterdepth);
         values.put("acreage",acreage);
-        values.put("fisheryfeature",fisheryfeature);
+        values.put("fisheryfeature",mTS);
         values.put("fdescribe",fdescribe);
 
 
@@ -331,4 +371,9 @@ public class UserInfoUpdateActivity<T> extends BaseActivity {
             }
         });
     }
+
+   /* http://m.dyjh.cc/appi.php?s=Fishery/griEditFishery?id=2&principal=杨德浩&seatcount=12&lan=34.767132&position=
+   世界上还是少说话少&phone=18312009596&area=500&waterdepth=1.5&lat=113.710459&fishtype=11&fisherytype=22
+   &fisheryfeature=25&acreage=11&fishtryid=3&fisheryname=小三钓场&fdescribe=&fisheryage=12
+    area 传区的id*/
 }

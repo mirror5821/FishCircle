@@ -63,6 +63,10 @@
 
     </RelativeLayout>
 
+    <TextView
+        android:id="@+id/tv_area"
+        style="@style/TvAbout"
+        android:text="请选择地区"/>
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="0dp"

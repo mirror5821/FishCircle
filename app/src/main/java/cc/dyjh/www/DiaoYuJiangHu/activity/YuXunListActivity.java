@@ -22,7 +22,7 @@ public class YuXunListActivity extends BaseRecyclerViewActivity{
     @Override
     public void loadData() {
         final Map<String,String> values = new HashMap<>();
-        values.put("id", AppContext.user.getId());
+        values.put("id", AppContext.ID+"");
         values.put("status","0");
 
         mHttpClient.postData1(YUXUN_LIST, values, new AppAjaxCallback.onResultListener() {

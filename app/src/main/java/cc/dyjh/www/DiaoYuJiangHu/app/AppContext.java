@@ -20,6 +20,7 @@ public class AppContext extends BaseAppContext {
     public static User user;
     public static Index index;
     private static AppContext instance;
+    public static int ID;
 
     @Override
     public void onCreate() {

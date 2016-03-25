@@ -30,7 +30,7 @@ public class UIUtil<T> {
 
 
         final AlertDialog dialog = new AlertDialog.Builder(context)
-                .setTitle("请选择签约单位").setView(view)//在这里把写好的这个listview的布局加载dialog中
+                .setTitle("请选择").setView(view)//在这里把写好的这个listview的布局加载dialog中
                 .create();
         dialog.setCanceledOnTouchOutside(false);//使除了dialog以外的地方不能被点击
         dialog.show();

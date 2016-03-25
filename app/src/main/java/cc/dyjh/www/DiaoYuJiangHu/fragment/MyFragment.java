@@ -78,7 +78,7 @@ public class MyFragment extends BaseFragment {
     private User mUser;
     private void loadData(){
         final Map<String,String> values = new HashMap<>();
-        values.put("id", AppContext.user.getId());
+        values.put("id", AppContext.ID+"");
 
         mHttpClient.postData1(USER_INFOMATION, values, new AppAjaxCallback.onResultListener() {
             @Override

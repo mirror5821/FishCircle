@@ -1,7 +1,5 @@
 package cc.dyjh.www.DiaoYuJiangHu.activity;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
@@ -17,14 +15,14 @@ public class MainActivity extends BaseTabActivity {
 
     }
 
-    @Override
+    /*@Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == Activity.RESULT_OK){
 
         }
     }
-
+*/
 
 
     private String [] mTabs = {"首页","我的"};

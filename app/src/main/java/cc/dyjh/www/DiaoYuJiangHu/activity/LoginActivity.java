@@ -38,7 +38,7 @@ public class LoginActivity extends BaseActivity {
         mEtPhone = (EditText)findViewById(R.id.name);
         mEtPass = (EditText)findViewById(R.id.pass);
 
-        mEtPhone.setText("18312009596");//18312009596
+        mEtPhone.setText("18837145615");//18312009596
         mEtPass.setText("111111");
         mBtnLogin = (Button)findViewById(R.id.btn_login);
         mBtnLogin.setOnClickListener(this);
@@ -86,6 +86,7 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onResult(String data, String msg) {
                 AppContext.user = JsonUtils.parse(data,User.class);
+                AppContext.ID = AppContext.user.getId();
                 showToast("登录成功");
                 SharePreferencesUtil.saveLoginInfo(getApplicationContext(), phone, pass);
                 SharePreferencesUtil.saveUserInfo(getApplicationContext(), data);
@@ -100,6 +101,7 @@ public class LoginActivity extends BaseActivity {
                 switch (status){
                     case 101:
                         AppContext.user = JsonUtils.parse(data,User.class);
+                        AppContext.ID = AppContext.user.getId();
                         SharePreferencesUtil.saveLoginInfo(getApplicationContext(), phone, pass);
                         SharePreferencesUtil.saveUserInfo(getApplicationContext(), data);
 

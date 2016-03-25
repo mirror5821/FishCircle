@@ -75,7 +75,7 @@ public class IndexFragment extends BaseFragment {
 
     private void loadData(){
         final Map<String,String> values = new HashMap<>();
-        values.put("id", AppContext.user.getId());
+        values.put("id", AppContext.ID+"");
 
         mHttpClient.postData1(INDEX, values, new AppAjaxCallback.onResultListener() {
             @Override
@@ -100,7 +100,7 @@ public class IndexFragment extends BaseFragment {
 
     private void loadUserData(){
         final Map<String,String> values = new HashMap<>();
-        values.put("id", AppContext.user.getId());
+        values.put("id", AppContext.ID+"");
 
         mHttpClient.postData1(USER_INFOMATION, values, new AppAjaxCallback.onResultListener() {
             @Override

@@ -18,6 +18,8 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import cc.dyjh.www.DiaoYuJiangHu.R;
+import cc.dyjh.www.DiaoYuJiangHu.bean.ServiceArea;
+import cc.dyjh.www.DiaoYuJiangHu.iface.AreaInterface;
 import cc.dyjh.www.DiaoYuJiangHu.iface.TimeInterface;
 import dev.mirror.library.android.view.WheelView;
 
@@ -34,7 +36,6 @@ public class DialogHelper {
     private static String mTimeStr;
     private static String mHourStr = null;
     public static void initSelectTime(Activity activity, final TimeInterface iface){
-
         //日期的集合
         List<String> mListDate = new ArrayList<String>();
         mListDate.clear();
@@ -104,7 +105,7 @@ public class DialogHelper {
 
         AlertDialog.Builder mTimeBuilder = new AlertDialog.Builder(activity);
 
-        mTimeBuilder.setTitle("请选择配送时间!");
+        mTimeBuilder.setTitle("请选择时间!");
         mTimeBuilder.setView(outerView);
         mTimeBuilder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
 
@@ -112,6 +113,182 @@ public class DialogHelper {
             public void onClick(DialogInterface dialog, int which) {
                 iface.getData(mTimeStr+mHourStr);//2016年03月24日09时
                 iface.getHour(mHourStr);
+                return;
+
+            }
+        });
+        mTimeBuilder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        Dialog mTimeDialog = mTimeBuilder.create();
+
+        if(mTimeDialog.isShowing()){
+            mTimeDialog.dismiss();
+            mTimeDialog.cancel();
+        }else{
+            mTimeDialog.show();
+        }
+
+    }
+
+
+    static List<ServiceArea> provinceList = new ArrayList<>();
+    static List<ServiceArea.City> cityList= new ArrayList<>();
+    static List<ServiceArea.City.District> districtList= new ArrayList<>();
+    static int provinceId;
+    static int cityId;
+    static int districtId;
+
+    static String provinceName;
+    static String cityName;
+    static String districtName;
+
+    public static void initArea(Activity activity, final AreaInterface iface){
+        provinceList.clear();
+        cityList.clear();
+        districtList.clear();
+        provinceList.addAll(ServiceAreaUtil.getCityList(activity));
+        cityList.addAll( provinceList.get(0).getCity());
+        districtList.addAll(cityList.get(0).getDistrict());
+
+        provinceId = provinceList.get(0).getProvince_id();
+        cityId = cityList.get(0).getCity_id();
+        districtId = districtList.get(0).getDistrict_id();
+
+        provinceName = provinceList.get(0).getProvince_name();
+        cityName = cityList.get(0).getCity_name();
+        districtName = districtList.get(0).getDistrict_name();
+
+        final List<String> mListProvince = new ArrayList<String>();
+
+        for(int i=0;i<provinceList.size();i++){
+            mListProvince.add(provinceList.get(i).getProvince_name());
+        }
+
+        View outerView = LayoutInflater.from(activity).inflate(R.layout.view_wheelview_area, null);
+        //日期wheel
+        WheelView mWheelProvince = (WheelView) outerView.findViewById(R.id.wheel1);
+        mWheelProvince.setItems(mListProvince);
+
+        //时间wheel
+        final WheelView mWheelCity= (WheelView) outerView.findViewById(R.id.wheel2);
+
+        //默认加载第一次的时间
+        final List<String> mListCity = new ArrayList<String>();
+        for(int j=0;j<cityList.size();j++){
+           mListCity.add(cityList.get(j).getCity_name());
+        }
+        mWheelCity.setItems(mListCity);
+
+
+        //时间wheel
+        final WheelView mWheelDistrict= (WheelView) outerView.findViewById(R.id.wheel3);
+
+        //默认加载第一次的时间
+        final List<String> mListDistrict = new ArrayList<String>();
+        for(int j=0;j<districtList.size();j++){
+            mListDistrict.add(districtList.get(j).getDistrict_name());
+        }
+        mWheelDistrict.setItems(mListDistrict);
+
+
+        mWheelProvince.setOnWheelViewListener(new WheelView.OnWheelViewListener() {
+            @Override
+            public void onSelected(int selectedIndex, String item) {
+                System.out.println("--------------!!!!"+selectedIndex);
+
+                cityList.clear();
+                districtList.clear();
+
+                mListCity.clear();
+                mListDistrict.clear();
+
+                cityList.addAll(provinceList.get(selectedIndex-1).getCity());
+                districtList.addAll(cityList.get(0).getDistrict());
+                for(int j=0;j<cityList.size();j++){
+                    mListCity.add(cityList.get(j).getCity_name());
+                }
+                mWheelCity.setItems(mListCity);
+
+                for(int j=0;j<districtList.size();j++){
+                    mListDistrict.add(districtList.get(j).getDistrict_name());
+                }
+                mWheelDistrict.setItems(mListDistrict);
+
+                try {
+                    provinceId = provinceList.get(selectedIndex-1).getProvince_id();
+                    cityId = cityList.get(0).getCity_id();
+                    districtId = districtList.get(0).getDistrict_id();
+
+                    provinceName = provinceList.get(selectedIndex-1).getProvince_name();
+                    cityName = cityList.get(0).getCity_name();
+                    districtName = districtList.get(0).getDistrict_name();
+                }catch (Exception e){
+
+                }
+
+            }
+        });
+
+        mWheelCity.setOnWheelViewListener(new WheelView.OnWheelViewListener() {
+            @Override
+            public void onSelected(int selectedIndex, String item) {
+                districtList.clear();
+                mListDistrict.clear();
+
+                System.out.println("---------------"+selectedIndex);
+
+                districtList.addAll(cityList.get(selectedIndex-1).getDistrict());
+                for(int j=0;j<districtList.size();j++){
+                    mListDistrict.add(districtList.get(j).getDistrict_name());
+                }
+                mWheelDistrict.setItems(mListDistrict);
+
+                try{
+                    cityId = cityList.get(selectedIndex-1).getCity_id();
+                    districtId = districtList.get(0).getDistrict_id();
+
+                    cityName = cityList.get(selectedIndex-1).getCity_name();
+                    districtName = districtList.get(0).getDistrict_name();
+                }catch (Exception e){
+
+                }
+
+
+            }
+        });
+
+
+        mWheelDistrict.setOnWheelViewListener(new WheelView.OnWheelViewListener(){
+            @Override
+            public void onSelected(int selectedIndex, String item) {
+                super.onSelected(selectedIndex, item);
+                try {
+                    districtId = districtList.get(selectedIndex-1).getDistrict_id();
+                    districtName = districtList.get(selectedIndex-1).getDistrict_name();
+                }catch (Exception e){
+
+                }
+
+            }
+        });
+
+        AlertDialog.Builder mTimeBuilder = new AlertDialog.Builder(activity);
+
+        mTimeBuilder.setTitle("请选择地区!");
+        mTimeBuilder.setView(outerView);
+        mTimeBuilder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String data = provinceId+","+cityId+","+districtId+";"+provinceName+","+cityName+","+districtName;
+                iface.getAllData(data);
+
                 return;
 
             }

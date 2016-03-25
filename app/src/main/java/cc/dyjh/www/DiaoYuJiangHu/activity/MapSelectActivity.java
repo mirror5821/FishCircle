@@ -44,9 +44,14 @@ import cc.dyjh.www.DiaoYuJiangHu.R;
 import cc.dyjh.www.DiaoYuJiangHu.adapter.AddrAdapter;
 import cc.dyjh.www.DiaoYuJiangHu.app.AppContext;
 import cc.dyjh.www.DiaoYuJiangHu.bean.Address;
+import cc.dyjh.www.DiaoYuJiangHu.iface.AreaInterface;
+import cc.dyjh.www.DiaoYuJiangHu.iface.TimeInterface;
+import cc.dyjh.www.DiaoYuJiangHu.util.DialogHelper;
+import cc.dyjh.www.DiaoYuJiangHu.util.ServiceAreaUtil;
 import dev.mirror.library.android.util.JsonUtils;
 
 public class MapSelectActivity extends BaseActivity {
+	private TextView mTvArea;
 	private ListView mListView;
 	private ImageView mImgLoc;
 	private EditText mEtSearch;
@@ -74,6 +79,9 @@ public class MapSelectActivity extends BaseActivity {
 		mImgLoc = (ImageView)findViewById(R.id.loc);
 		mEtSearch = (EditText)findViewById(R.id.et);
 		mImgSearch = (ImageView)findViewById(R.id.search);
+
+		mTvArea = (TextView)findViewById(R.id.tv_area);
+		mTvArea.setOnClickListener(this);
 
 		mEtSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 			@Override
@@ -165,6 +173,30 @@ public class MapSelectActivity extends BaseActivity {
 				}
 				getLatLngByAddressStr(addStr);
 
+				break;
+			case R.id.tv_area:
+				DialogHelper.initArea(MapSelectActivity.this, new AreaInterface() {
+					@Override
+					public void getAllData(String data) {
+						mTvArea.setText(data);
+						showToast(data);
+					}
+
+					@Override
+					public void getProvince(String province) {
+
+					}
+
+					@Override
+					public void getCity(String city) {
+
+					}
+
+					@Override
+					public void getDistrict(String district) {
+
+					}
+				});
 				break;
 		}
 	}

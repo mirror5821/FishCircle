@@ -24,6 +24,8 @@
             style="@style/EtLogin"
             android:drawableLeft="@mipmap/ic_login_accout"
             android:hint="@string/input_phone"
+            android:textColorHint="#b4b2ae"
+            android:textColor="@color/white"
             android:drawablePadding="@dimen/d8"/>
 
         <EditText
@@ -33,7 +35,9 @@
             android:hint="@string/login_notifi_pass"
             android:drawablePadding="@dimen/d8"
             android:layout_marginTop="@dimen/d4"
-            android:password="true"/>
+            android:textColorHint="#b4b2ae"
+            android:textColor="@color/white"
+            android:inputType="textPassword"/>
 
         <Button
             android:id="@+id/btn_login"

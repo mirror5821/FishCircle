@@ -4,13 +4,26 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.xutils.image.ImageOptions;
+import org.xutils.x;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import cc.dyjh.www.DiaoYuJiangHu.R;
 import cc.dyjh.www.DiaoYuJiangHu.app.AppContext;
 import cc.dyjh.www.DiaoYuJiangHu.bean.User;
+import cc.dyjh.www.DiaoYuJiangHu.util.AppAjaxCallback;
+import dev.mirror.library.android.activity.MultiImageSelectorActivity;
+import dev.mirror.library.android.util.ImageTools;
 
 /**
  * Created by mirror on 16/3/24.
@@ -21,12 +34,15 @@ public class UserCenterActivity extends BaseActivity {
     private TextView mTvName,mTvPhone;
     private TextView mTvName1,mTvPhone1;
 
+    private ImageTools mImageTools;
     private User mUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
 
+        mImageTools = new ImageTools(this);
+        mList = new ArrayList<>();
         mImgHeader = (ImageView)findViewById(R.id.header);
         mTvName = (TextView)findViewById(R.id.name);
         mTvPhone = (TextView)findViewById(R.id.phone);
@@ -36,12 +52,44 @@ public class UserCenterActivity extends BaseActivity {
         mUser = AppContext.user;
         AppContext.displayHeaderImage(mImgHeader, BASE_IMG_URL + mUser.getPic());
         mTvPhone.setText(mUser.getPhone());
-        mTvName.setText(mUser.getName());
+        mTvName.setText(TextUtils.isEmpty(mUser.getName())?"未设置昵称":mUser.getName());
+//        mTvName.setText(mUser.getName());
         mTvPhone1.setText(mUser.getPhone());
-        mTvName1.setText(mUser.getName());
+//        mTvName1.setText(mUser.getName());
+        mTvName1.setText(TextUtils.isEmpty(mUser.getName())?"未设置昵称":mUser.getName());
 
         mTvName1.setOnClickListener(this);
+
+        mImgHeader.setOnClickListener(this);
     }
+
+    private List<String> mList;
+    private ArrayList<String> mSelectPath;
+    private static final int REQUEST_IMAGE = 2;
+    private void openImage(){
+        int selectedMode = MultiImageSelectorActivity.MODE_MULTI;
+//        selectedMode = MultiImageSelectorActivity.MODE_SINGLE;
+
+
+        int maxNum = 1;
+        Intent intent = new Intent(UserCenterActivity.this, MultiImageSelectorActivity.class);
+        // 是否显示拍摄图片
+        intent.putExtra(MultiImageSelectorActivity.EXTRA_SHOW_CAMERA, true);
+        // 最大可选择图片数量
+        intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_COUNT, maxNum);
+        // 选择模式
+        intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_MODE, selectedMode);
+        // 默认选择
+//        if (mSelectPath != null && mSelectPath.size() > 0) {
+//            intent.putExtra(MultiImageSelectorActivity.EXTRA_DEFAULT_SELECTED_LIST, mSelectPath);
+//        }
+        if (mList != null && mList.size() > 1) {
+            mList.remove(mList.size() - 1);
+            intent.putExtra(MultiImageSelectorActivity.EXTRA_DEFAULT_SELECTED_LIST, (ArrayList) mList);
+        }
+        startActivityForResult(intent, REQUEST_IMAGE);
+    }
+
 
     @Override
     public void onClick(View v) {
@@ -51,9 +99,13 @@ public class UserCenterActivity extends BaseActivity {
                 startActivityForResult(new Intent(UserCenterActivity.this,EditSingleTextActivity.class).
                         putExtra(INTENT_ID,mUser.getName()),2001);
                 break;
+            case R.id.header:
+                openImage();
+                break;
         }
     }
 
+    private String mName;
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -61,12 +113,120 @@ public class UserCenterActivity extends BaseActivity {
             switch (requestCode) {
                 case 2001:
                     Uri nameData = data.getData();
-                    String name = nameData.toString();
-                    mTvName1.setText(name);
-                    mTvName.setText(name);
+                    mName = nameData.toString();
+                    update();
                     break;
 
+                case REQUEST_IMAGE:
+                    mSelectPath = data.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT);
+                    upload();
+                    break;
             }
+
         }
+    }
+
+    private void update(){
+        showProgressDialog("正在提交数据");
+        Map<String,String> values = new HashMap<>();
+        values.put("id", AppContext.ID+"");
+        values.put("name", mName);
+
+
+        mHttpClient.postData1(USER_NAME_UPDATE, values, new AppAjaxCallback.onResultListener() {
+            @Override
+            public void onResult(String data, String msg) {
+
+                showToast("操作成功");
+                cancelProgressDialog();
+            }
+
+            @Override
+            public void onOtherResult(String data, int status) {
+                switch (status) {
+                    case 101:
+
+                        finish();
+                        break;
+                    case 103:
+
+                        break;
+                    default:
+
+                        break;
+
+                }
+                cancelProgressDialog();
+                showToast("操作失败");
+            }
+
+            @Override
+            public void onError(String msg) {
+                cancelProgressDialog();
+                showToast("操作失败");
+            }
+        });
+
+    }
+
+    private ImageOptions mImageOptions;
+    private void upload(){
+        showProgressDialog("正在提交数据");
+        Map<String,String> values = new HashMap<>();
+        values.put("id", AppContext.ID+"");
+        values.put("imageData", mImageTools.filePathToString(mSelectPath.get(0)));
+        values.put("imageType", "png");
+
+        mHttpClient.postData1(USER_HEADER_UPDATE, values, new AppAjaxCallback.onResultListener() {
+            @Override
+            public void onResult(String data, String msg) {
+                AppContext.user.setName(mName);
+                mTvName1.setText(mName);
+                mTvName.setText(mName);
+                showToast("操作成功");
+                cancelProgressDialog();
+
+                if(mImageOptions == null){
+                    mImageOptions = new ImageOptions.Builder()
+                            // 如果ImageView的大小不是定义为wrap_content, 不要crop.
+                            .setCrop(true)
+                                    // 加载中或错误图片的ScaleType
+                                    //.setPlaceholderScaleType(ImageView.ScaleType.MATRIX)
+                            .setImageScaleType(ImageView.ScaleType.CENTER_CROP)
+                            .setLoadingDrawableId(R.mipmap.ic_default_error).setAutoRotate(true)
+                            .setFailureDrawableId(R.mipmap.ic_default_error)
+                            .build();
+                }
+
+                File imageFile = new File(mImageTools.filePathToString(mSelectPath.get(0)));
+                x.image().bind(mImgHeader, imageFile.toURI().toString(), mImageOptions);
+            }
+
+            @Override
+            public void onOtherResult(String data, int status) {
+                switch (status){
+                    case 101:
+
+                        finish();
+                        break;
+                    case 103:
+
+                        break;
+                    default:
+
+                        break;
+
+                }
+                cancelProgressDialog();
+                showToast("操作失败");
+            }
+
+            @Override
+            public void onError(String msg) {
+                cancelProgressDialog();
+                showToast("操作失败");
+            }
+        });
+
     }
 }

@@ -14,10 +14,8 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.GridView;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import cc.dyjh.www.DiaoYuJiangHu.R;
 import cc.dyjh.www.DiaoYuJiangHu.bean.AddrBase;
@@ -32,6 +30,7 @@ public class CheckBoxSelectActivity<T extends AddrBase> extends BaseActivity {
     private static HashMap<Integer,Boolean> mIsSelected;
     private CustomerAdapter mAdapter;
     private List<YuChang.Yu> mList;
+    private String mSelectStr;//接受已经选择的选项
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,9 +47,28 @@ public class CheckBoxSelectActivity<T extends AddrBase> extends BaseActivity {
 
     private void initView(){
         mList = getIntent().getParcelableArrayListExtra(INTENT_ID);
-        for(int i=0; i<mList.size();i++) {
-            mIsSelected.put(i,false);
+        mSelectStr = getIntent().getStringExtra("SELECT_TYPE");
+        if(!TextUtils.isEmpty(mSelectStr)){
+
+            for(int i =0;i<mList.size();i++){
+                YuChang.Yu  y = mList.get(i);
+                String [] str = mSelectStr.split(" ");
+
+                mIsSelected.put(i,false);
+                for(String s:str){
+                    if(y.getId() == Integer.valueOf(s)){
+                        mIsSelected.put(i, true);
+                    }
+                }
+
+
+            }
+        }else{
+            for(int i=0; i<mList.size();i++) {
+                mIsSelected.put(i,false);
+            }
         }
+
         mAdapter = new CustomerAdapter(getApplicationContext(),mList);
         mGridView.setAdapter(mAdapter);
 
@@ -60,6 +78,9 @@ public class CheckBoxSelectActivity<T extends AddrBase> extends BaseActivity {
 
             }
         });
+
+
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -69,7 +90,6 @@ public class CheckBoxSelectActivity<T extends AddrBase> extends BaseActivity {
             case R.id.right_text:
                 StringBuilder sb = new StringBuilder();
                 for(int i=0;i<mList.size();i++){
-
                     //如果选中
                     if(mIsSelected.get(i)){
                         sb.append(mList.get(i).getId()+" ");
@@ -122,6 +142,9 @@ public class CheckBoxSelectActivity<T extends AddrBase> extends BaseActivity {
             }
 
             final CheckBox cb = (CheckBox) convertView.findViewById(R.id.checkbox);
+
+            System.out.println("--------------xxxx" + mIsSelected.get(position).toString());
+
             cb.setChecked(mIsSelected.get(position)==null?false:mIsSelected.get(position));
             cb.setText(mList.get(position).getAddrName());
             cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

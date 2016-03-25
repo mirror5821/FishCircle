@@ -3,6 +3,7 @@ package cc.dyjh.www.DiaoYuJiangHu.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -17,7 +18,6 @@ import cc.dyjh.www.DiaoYuJiangHu.bean.Index;
 import cc.dyjh.www.DiaoYuJiangHu.bean.User;
 import cc.dyjh.www.DiaoYuJiangHu.util.AppAjaxCallback;
 import dev.mirror.library.android.util.JsonUtils;
-import dev.mirror.library.android.view.CircleImageView;
 
 /**
  * Created by dongqian on 16/3/20.
@@ -30,7 +30,7 @@ public class IndexFragment extends BaseFragment {
 
     private LinearLayout mView1,mView2,mView3,mView4;
     private TextView mTvFuns,mTvComment;
-    private CircleImageView mImgHeader;
+    private ImageView mImgHeader;
     private Index mIndex;
     private User mUser;
     @Override
@@ -43,7 +43,7 @@ public class IndexFragment extends BaseFragment {
 
         mTvFuns = (TextView)view.findViewById(R.id.tv_fans);
         mTvComment = (TextView)view.findViewById(R.id.tv_comment);
-        mImgHeader = (CircleImageView)view.findViewById(R.id.header);
+        mImgHeader = (ImageView)view.findViewById(R.id.header);
 
         mView1.setOnClickListener(this);
         mView2.setOnClickListener(this);

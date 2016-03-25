@@ -5,9 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -45,9 +43,7 @@ import cc.dyjh.www.DiaoYuJiangHu.adapter.AddrAdapter;
 import cc.dyjh.www.DiaoYuJiangHu.app.AppContext;
 import cc.dyjh.www.DiaoYuJiangHu.bean.Address;
 import cc.dyjh.www.DiaoYuJiangHu.iface.AreaInterface;
-import cc.dyjh.www.DiaoYuJiangHu.iface.TimeInterface;
 import cc.dyjh.www.DiaoYuJiangHu.util.DialogHelper;
-import cc.dyjh.www.DiaoYuJiangHu.util.ServiceAreaUtil;
 import dev.mirror.library.android.util.JsonUtils;
 
 public class MapSelectActivity extends BaseActivity {
@@ -56,6 +52,7 @@ public class MapSelectActivity extends BaseActivity {
 	private ImageView mImgLoc;
 	private EditText mEtSearch;
 	private ImageView mImgSearch;
+	private EditText mEtArea;
 	
 	private MapView mMapView = null;
 	private BaiduMap mBaiduMap;
@@ -71,9 +68,11 @@ public class MapSelectActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_map_select);
 		setBack();
+		setRightTitle("保存");
 //		setTitleText("选择位置");
 		mContext = getApplicationContext();
-		
+
+		mEtArea = (EditText)findViewById(R.id.et_area);
 		mMapView = (MapView) findViewById(R.id.bmapView);
 		mListView = (ListView)findViewById(R.id.list);
 		mImgLoc = (ImageView)findViewById(R.id.loc);
@@ -154,6 +153,8 @@ public class MapSelectActivity extends BaseActivity {
 
 	}
 
+	private String mAddressId;
+	private String mAddressAll;
 	@Override
 	public void onClick(View v) {
 		super.onClick(v);
@@ -179,7 +180,7 @@ public class MapSelectActivity extends BaseActivity {
 					@Override
 					public void getAllData(String data) {
 						mTvArea.setText(data);
-						showToast(data);
+						mAddressAll = data;
 					}
 
 					@Override
@@ -194,9 +195,35 @@ public class MapSelectActivity extends BaseActivity {
 
 					@Override
 					public void getDistrict(String district) {
-
+						mAddressId = district;
 					}
 				});
+				break;
+			case R.id.right_text:
+				String str = mEtArea.getText().toString();
+				if(TextUtils.isEmpty(str)){
+					showToast("请输入详细地址");
+					return;
+				}
+				if(TextUtils.isEmpty(mAddressId)){
+					showToast("请选择渔场所在城市");
+					return;
+				}
+
+
+				Intent i = new Intent(MapSelectActivity.this,UserInfoUpdateActivity.class);
+				i.putExtra(LAT, mLat);
+				i.putExtra(LNG,mLng );
+				i.putExtra(ADDRESS, str);
+				i.putExtra(COUNTRY,mCountry );
+				i.putExtra(PROVINCE, mProvince);
+				i.putExtra(CITY,mCity );
+				i.putExtra(DISTRICT, mDistrict);
+				i.putExtra("DID",mAddressId);
+				i.putExtra("AREA_ALL",mAddressAll);
+
+				setResult(RESULT_OK, i);
+				finish();
 				break;
 		}
 	}

@@ -3,12 +3,10 @@ package cc.dyjh.www.DiaoYuJiangHu.util;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -286,8 +284,10 @@ public class DialogHelper {
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                String data = provinceId+","+cityId+","+districtId+";"+provinceName+","+cityName+","+districtName;
+//                String data = provinceId+","+cityId+","+districtId+";"+provinceName+","+cityName+","+districtName;
+                String data =provinceName+cityName+districtName;
                 iface.getAllData(data);
+                iface.getDistrict(districtId+"");
 
                 return;
 

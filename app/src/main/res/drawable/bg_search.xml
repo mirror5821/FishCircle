@@ -30,7 +30,7 @@
             <!-- 圆角，你也可以对不同的角设置不同的数值 -->
             <corners android:radius="20.0dp" />
             <!-- 形状的填充色 -->
-            <solid android:color="@color/tv_hint" />
+            <solid android:color="@color/white" />
             <!-- 边框宽度和颜色 -->
             <stroke android:width="0.0dp" android:color="@color/btn_blue" />
         </shape>

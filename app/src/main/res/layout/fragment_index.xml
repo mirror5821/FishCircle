@@ -16,12 +16,12 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <dev.mirror.library.android.view.CircleImageView
+            <ImageView
                 android:id="@+id/header"
                 android:layout_width="@dimen/d48"
                 android:layout_height="@dimen/d48"
-                android:src="@mipmap/ic_default_header"
                 android:scaleType="centerCrop"
+                android:background="@mipmap/bg_logo"
                 android:layout_margin="@dimen/d8"/>
 
             <TextView

@@ -2,11 +2,14 @@ package cc.dyjh.www.DiaoYuJiangHu.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import cc.dyjh.www.DiaoYuJiangHu.R;
@@ -15,6 +18,7 @@ import cc.dyjh.www.DiaoYuJiangHu.activity.UserInfoActivity;
 import cc.dyjh.www.DiaoYuJiangHu.app.AppContext;
 import cc.dyjh.www.DiaoYuJiangHu.bean.User;
 import cc.dyjh.www.DiaoYuJiangHu.util.AppAjaxCallback;
+import dev.mirror.library.android.activity.MultiImageSelectorActivity;
 import dev.mirror.library.android.util.JsonUtils;
 import dev.mirror.library.android.util.UIHelper;
 
@@ -34,6 +38,8 @@ public class MyFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
         mImgHeader = (ImageView)view.findViewById(R.id.header);
         mTvName = (TextView)view.findViewById(R.id.name);
         mTvPhone = (TextView)view.findViewById(R.id.phone);
@@ -44,6 +50,7 @@ public class MyFragment extends BaseFragment {
         mTvMy.setOnClickListener(this);
         mTvUser.setOnClickListener(this);
         mTvFeedBack.setOnClickListener(this);
+        mImgHeader.setOnClickListener(this);
 
         if(AppContext.user == null){
             loadData();
@@ -51,13 +58,15 @@ public class MyFragment extends BaseFragment {
             mUser = AppContext.user;
             AppContext.displayHeaderImage(mImgHeader, BASE_IMG_URL + mUser.getPic());
             mTvPhone.setText(mUser.getPhone());
-            mTvName.setText(mUser.getName());
+            mTvName.setText(TextUtils.isEmpty(mUser.getName())?"未设置昵称":mUser.getName());
 
 //            AppContext.displayHeaderImage(mImgHeader,"http://avatar.csdn.net/B/D/1/1_dacainiao007.jpg");
 
         }
 
     }
+
+
 
     @Override
     public void onClick(View v) {
@@ -71,6 +80,9 @@ public class MyFragment extends BaseFragment {
                 break;
             case R.id.tv_feedback:
                 UIHelper.makePhoneCall(getActivity(),getString(R.string.service_phone));
+                break;
+            case R.id.header:
+                startActivity(new Intent(getActivity(), UserCenterActivity.class));
                 break;
         }
     }

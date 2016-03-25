@@ -69,7 +69,7 @@
                     android:text="钓场电话"
                     android:textColor="@color/tv_dark"/>
 
-                <TextView
+                <EditText
                     android:id="@+id/phone"
                     style="@style/TvDetailsValue"
                     android:singleLine="false"

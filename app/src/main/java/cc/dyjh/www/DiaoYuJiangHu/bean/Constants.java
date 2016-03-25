@@ -24,6 +24,8 @@ public interface Constants {
     public static final String YUNCAHNG_SELECT_INFO2 = "Fisherymsg/griGetFisherymsg";//更新渔场资料  发布渔汛是用的这个
     public static final String YUNCAHNG_INFO_UPDATE= "Fisherymsg/griEditFisherymsg";//编辑渔汛信息
     public static final String YUXUN_LIST= "Fisherymsg/griGetFisherymsgs";//获取渔汛列表
+    public static final String USER_NAME_UPDATE = "User/griEidtUserInfo";//编辑用户昵称
+    public static final String USER_HEADER_UPDATE = "User/griUploadUserPic";//用户头像编辑
 
 
     public static final String INDEX = "Index/griIndex";//首页数据

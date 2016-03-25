@@ -24,6 +24,7 @@ import cc.dyjh.www.DiaoYuJiangHu.iface.TimeInterface;
 import cc.dyjh.www.DiaoYuJiangHu.util.AppAjaxCallback;
 import cc.dyjh.www.DiaoYuJiangHu.util.AppHttpClient;
 import cc.dyjh.www.DiaoYuJiangHu.util.DialogHelper;
+import cc.dyjh.www.DiaoYuJiangHu.util.OptionUtil;
 import cc.dyjh.www.DiaoYuJiangHu.util.UIUtil;
 import dev.mirror.library.android.util.JsonUtils;
 
@@ -118,7 +119,8 @@ public class YuXunPublishActivity<T> extends BaseActivity {
                 break;
             case R.id.fangyu_type:
                 startActivityForResult(new Intent(YuXunPublishActivity.this,CheckBoxSelectActivity.class).
-                        putParcelableArrayListExtra(INTENT_ID, (ArrayList<? extends Parcelable>) mFishType),
+                        putParcelableArrayListExtra(INTENT_ID, (ArrayList<? extends Parcelable>) mFishType)
+                                .putExtra("SELECT_TYPE", mYZ),
                         REQUSET_CODE_YZ);
                 break;
             case R.id.is_xiangan:
@@ -126,7 +128,8 @@ public class YuXunPublishActivity<T> extends BaseActivity {
                 break;
             case R.id.limit_diaoer:
                 startActivityForResult(new Intent(YuXunPublishActivity.this,CheckBoxSelectActivity.class).
-                                putParcelableArrayListExtra(INTENT_ID, (ArrayList<? extends Parcelable>) mER),
+                                putParcelableArrayListExtra(INTENT_ID, (ArrayList<? extends Parcelable>) mER)
+                                .putExtra("SELECT_TYPE",mERStr),
                         REQUSET_CODE_ER);
                 break;
             case R.id.right_text:
@@ -167,16 +170,18 @@ public class YuXunPublishActivity<T> extends BaseActivity {
                     Uri sfData = data.getData();
                     mSf = sfData.toString();
                     mTvSF.setText("已编辑");
+
                     break;
                 case REQUSET_CODE_YZ:
                     Uri yzData = data.getData();
                     mYZ = yzData.toString();
-                    mTvType.setText("已编辑");
+                    mTvType.setText(OptionUtil.getYu(mYuChang.getYu(), mYZ));
+//                    mTvType.setText("已编辑");
                     break;
                 case REQUSET_CODE_ER:
                     Uri erData = data.getData();
                     mERStr = erData.toString();
-                    mTvJY.setText("已编辑");
+                    mTvJY.setText(OptionUtil.getYu(mYuChang.getEr(), mERStr));
                     break;
             }
         }
@@ -202,10 +207,27 @@ public class YuXunPublishActivity<T> extends BaseActivity {
 
                 mTvFYTime.setText(mYuXun.getFysj());//放鱼时间
                 mYZ = mYuXun.getFyzl();//放鱼种类
+                if(!TextUtils.isEmpty(mYZ)){
+                    mTvType.setText(OptionUtil.getYu(mYuChang.getYu(), mYZ));
+                }
+
+
+
                 mTvKDTime.setText(mYuXun.getDysj());//开钓时间
                 mXG = mYuXun.getXgcd();//是否限杆
+                if(!TextUtils.isEmpty(mXG)){
+                    mTvXG.setText(OptionUtil.getYu(mYuChang.getXiangan(), mXG));
+                }
+
                 mERStr = mYuXun.getJyez();//禁止钓饵
+                if(!TextUtils.isEmpty(mERStr)){
+                    mTvJY.setText(OptionUtil.getYu(mYuChang.getEr(), mERStr));
+                }
+
                 mSf = mYuXun.getSfbz();//收费标准
+                if(!TextUtils.isEmpty(mSf)){
+                    mTvSF.setText(mSf);
+                }
                 mEtOther.setText(mYuXun.getQtsm());//其他说明
                 mEtJin.setText(mYuXun.getFyjs());//放鱼斤数
             }

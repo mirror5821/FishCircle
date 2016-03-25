@@ -30,8 +30,8 @@ import dev.mirror.library.android.util.JsonUtils;
  * Created by 王沛栋 on 2016/3/23.
  */
 public class UserInfoUpdateActivity<T> extends BaseActivity {
-    private TextView mTvPhone,mTvYZ,mTvTS,mTvAddress,mTvType,mTvPhoto;
-    private EditText mEtName,mEtContacts,mEtMJ,mEtDW,mEtSS,mEtDec,mEtAddress2,mEtAge;
+    private TextView mTvYZ,mTvTS,mTvAddress,mTvType,mTvPhoto;
+    private EditText mEtName,mEtContacts,mEtMJ,mEtDW,mEtSS,mEtDec,mEtAddress2,mEtAge,mTvPhone;
 
     private YuChang.Fishery mFishery;//渔场信息
 
@@ -49,7 +49,7 @@ public class UserInfoUpdateActivity<T> extends BaseActivity {
         setTitleText("编辑渔场资料");
         mEtName = (EditText) findViewById(R.id.name);//渔场姓名
         mEtContacts = (EditText)findViewById(R.id.contacts);//负责人姓名
-        mTvPhone = (TextView)findViewById(R.id.phone);//渔场电话
+        mTvPhone = (EditText)findViewById(R.id.phone);//渔场电话
         mTvAddress = (TextView) findViewById(R.id.address);//地址
         mEtAddress2 = (EditText)findViewById(R.id.address2);//详细地址
         mEtMJ = (EditText)findViewById(R.id.fangyu_weight);//渔场面积
@@ -164,6 +164,8 @@ public class UserInfoUpdateActivity<T> extends BaseActivity {
         });
     }
 
+    private double mLat,mLng;
+    private String mDistritId;
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -175,10 +177,13 @@ public class UserInfoUpdateActivity<T> extends BaseActivity {
                     String cityName = mBundle.getString(CITY);
                     String areaName = mBundle.getString(DISTRICT);
                     String street = mBundle.getString(ADDRESS);
-                    double lat = mBundle.getDouble(LAT);
-                    double lng = mBundle.getDouble(LNG);
 
-                    mTvAddress.setText(provinceName+cityName+areaName+street);
+                    mDistritId = mBundle.getString("DID");
+                    mLat = mBundle.getDouble(LAT);
+                    mLng = mBundle.getDouble(LNG);
+
+                    mTvAddress.setText(mBundle.getString("AREA_ALL"));
+                    mEtAddress2.setText(street);
                     break;
                 case REQUEST_IMAGE:
                     mSelectPath = data.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT);
@@ -216,6 +221,7 @@ public class UserInfoUpdateActivity<T> extends BaseActivity {
                 mTS = mFishery.getFisheryfeature();
                 mYZ = mFishery.getFishtype();
                 mFisherTypeId = mFishery.getFisherytype();
+                mDistritId = mFishery.getArea();
 
                 mEtName.setText(mFishery.getFisheryname());//渔场姓名
                 mEtContacts.setText(mFishery.getPrincipal());//负责人姓名
@@ -268,7 +274,7 @@ public class UserInfoUpdateActivity<T> extends BaseActivity {
     private String mYZ;//鱼种类
     private String mTS;//渔场特色
     private void sub(){
-        String address = mTvAddress.getText().toString();
+//        String address = mTvAddress.getText().toString();
         String address2 = mEtAddress2.getText().toString();
         String name = mEtName.getText().toString();
 //        String type = mTvType.getText().toString();
@@ -278,7 +284,12 @@ public class UserInfoUpdateActivity<T> extends BaseActivity {
         String waterdepth = mEtSS.getText().toString();
         String acreage = mEtMJ.getText().toString();
         String fdescribe = mEtDec.getText().toString();
+        String phone = mTvPhone.getText().toString();
 
+        if(TextUtils.isEmpty(phone)){
+            showToast("请输入联系电话");
+            return;
+        }
         if(TextUtils.isEmpty(fdescribe)){
             showToast("请输入渔场描述");
             return;
@@ -303,7 +314,7 @@ public class UserInfoUpdateActivity<T> extends BaseActivity {
             showToast("请输入联系人");
             return;
         }
-        if(TextUtils.isEmpty(address)){
+        if(TextUtils.isEmpty(mDistritId)){
             showToast("请选择地区");
             return;
         }
@@ -332,9 +343,9 @@ public class UserInfoUpdateActivity<T> extends BaseActivity {
         Map<String,String> values = new HashMap<>();
         values.put("id", AppContext.ID+"");
         values.put("fishtryid",mFishery.getFid()+"");
-        values.put("lan",AppContext.Longitude+"");
-        values.put("lat",AppContext.Latitude+"");
-        values.put("area",address);
+        values.put("lan",mLng+"");
+        values.put("lat",mLat+"");
+        values.put("area",mDistritId);
         values.put("position",address2);
         values.put("fisheryname", name);
         values.put("fisherytype",mFisherTypeId+"");
@@ -346,6 +357,7 @@ public class UserInfoUpdateActivity<T> extends BaseActivity {
         values.put("acreage",acreage);
         values.put("fisheryfeature",mTS);
         values.put("fdescribe",fdescribe);
+        values.put("phone",phone);
 
 
         AppHttpClient mHttpClient = new AppHttpClient();
@@ -356,17 +368,19 @@ public class UserInfoUpdateActivity<T> extends BaseActivity {
                 showToast("修改成功");
 
                 cancelProgressDialog();
+
+                finish();
             }
 
             @Override
             public void onOtherResult(String data, int status) {
                 cancelProgressDialog();
-                showToast(status+data);
+                showToast("操作失败");
             }
 
             @Override
             public void onError(String msg) {
-                showToast(msg);
+                showToast("操作失败");
                 cancelProgressDialog();
             }
         });

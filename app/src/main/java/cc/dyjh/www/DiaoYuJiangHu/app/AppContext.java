@@ -18,6 +18,7 @@ public class AppContext extends BaseAppContext {
     public static String LOC_AREA = "金水区";
 
     public static String USER_HEADER;
+    public static String USER_NAME;
 
     public static User user;
     public static Index index;

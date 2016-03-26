@@ -1,5 +1,6 @@
 package cc.dyjh.www.DiaoYuJiangHu.fragment;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -7,18 +8,16 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import cc.dyjh.www.DiaoYuJiangHu.R;
+import cc.dyjh.www.DiaoYuJiangHu.activity.LoginActivity;
 import cc.dyjh.www.DiaoYuJiangHu.activity.UserCenterActivity;
 import cc.dyjh.www.DiaoYuJiangHu.activity.UserInfoActivity;
 import cc.dyjh.www.DiaoYuJiangHu.app.AppContext;
 import cc.dyjh.www.DiaoYuJiangHu.bean.User;
 import cc.dyjh.www.DiaoYuJiangHu.util.AppAjaxCallback;
-import dev.mirror.library.android.activity.MultiImageSelectorActivity;
 import dev.mirror.library.android.util.JsonUtils;
 import dev.mirror.library.android.util.UIHelper;
 
@@ -29,7 +28,7 @@ import dev.mirror.library.android.util.UIHelper;
 public class MyFragment extends BaseFragment {
     private ImageView mImgHeader;
     private TextView mTvName,mTvPhone;
-    private TextView mTvMy,mTvUser,mTvFeedBack;
+    private TextView mTvMy,mTvUser,mTvFeedBack,mTvLogout;
     @Override
     public int setLayoutId() {
         return R.layout.fragment_my;
@@ -43,6 +42,7 @@ public class MyFragment extends BaseFragment {
         mImgHeader = (ImageView)view.findViewById(R.id.header);
         mTvName = (TextView)view.findViewById(R.id.name);
         mTvPhone = (TextView)view.findViewById(R.id.phone);
+        mTvLogout = (TextView)view.findViewById(R.id.tv_logout);
 
         mTvMy = (TextView)view.findViewById(R.id.tv_my);
         mTvUser = (TextView)view.findViewById(R.id.tv_user);
@@ -51,6 +51,7 @@ public class MyFragment extends BaseFragment {
         mTvUser.setOnClickListener(this);
         mTvFeedBack.setOnClickListener(this);
         mImgHeader.setOnClickListener(this);
+        mTvLogout.setOnClickListener(this);
 
         initView();
 
@@ -63,7 +64,7 @@ public class MyFragment extends BaseFragment {
             mUser = AppContext.user;
             AppContext.displayHeaderImage(mImgHeader, AppContext.USER_HEADER);
             mTvPhone.setText(mUser.getPhone());
-            mTvName.setText(TextUtils.isEmpty(mUser.getName())?"未设置昵称":mUser.getName());
+            mTvName.setText(TextUtils.isEmpty(AppContext.USER_NAME)?"未设置昵称":AppContext.USER_NAME);
         }
     }
     @Override
@@ -87,6 +88,16 @@ public class MyFragment extends BaseFragment {
                 break;
             case R.id.header:
                 startActivity(new Intent(getActivity(), UserCenterActivity.class));
+                break;
+            case R.id.tv_logout:
+                showNormalDialog("退出", "确定退出?", "确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(getActivity(), LoginActivity.class));
+                        getActivity().finish();
+                    }
+                });
+
                 break;
         }
     }

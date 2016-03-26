@@ -23,7 +23,7 @@
                     android:id="@+id/header"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    android:background="@mipmap/bg_logo"
+                    android:background="@mipmap/ic_default_header2"
                     android:layout_margin="@dimen/d32"/>
                 
 

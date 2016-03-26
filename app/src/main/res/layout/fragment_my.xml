@@ -23,7 +23,7 @@
                     android:id="@+id/header"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    android:background="@mipmap/bg_logo"
+                    android:background="@mipmap/ic_default_header2"
                     android:layout_margin="@dimen/d32"/>
                 
 
@@ -64,6 +64,12 @@
 
             <TextView
                 android:text="@string/version_check"
+                style="@style/TvAbout"/>
+
+            <TextView
+                android:id="@+id/tv_logout"
+                android:text="退出登录"
+                android:textColor="#e61c52"
                 style="@style/TvAbout"/>
 
         </LinearLayout>

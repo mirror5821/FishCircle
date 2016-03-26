@@ -34,6 +34,7 @@ public class UserSelectActivity extends BaseActivity {
                 break;
             case R.id.tv2:
                 startActivity(new Intent(UserSelectActivity.this,UserInfoRegisterActivity.class));
+                finish();
                 break;
         }
     }

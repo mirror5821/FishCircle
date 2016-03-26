@@ -97,6 +97,14 @@ public class IndexFragment extends BaseFragment {
         });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        AppContext.displayHeaderImage(mImgHeader, AppContext.USER_HEADER);
+
+
+    }
 
     private void loadUserData(){
         final Map<String,String> values = new HashMap<>();
@@ -108,6 +116,8 @@ public class IndexFragment extends BaseFragment {
                 mUser = JsonUtils.parse(data, User.class);
                 AppContext.user = mUser;
                 AppContext.USER_HEADER = BASE_IMG_URL + mUser.getPic();
+                AppContext.USER_NAME = mUser.getName();
+
                 AppContext.displayHeaderImage(mImgHeader, AppContext.USER_HEADER);
             }
 

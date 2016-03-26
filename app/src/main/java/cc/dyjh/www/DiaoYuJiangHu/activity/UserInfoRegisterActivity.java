@@ -22,7 +22,6 @@ import cc.dyjh.www.DiaoYuJiangHu.bean.User;
 import cc.dyjh.www.DiaoYuJiangHu.bean.YuChang;
 import cc.dyjh.www.DiaoYuJiangHu.util.AppAjaxCallback;
 import cc.dyjh.www.DiaoYuJiangHu.util.AppHttpClient;
-import cc.dyjh.www.DiaoYuJiangHu.util.OptionUtil;
 import cc.dyjh.www.DiaoYuJiangHu.util.SharePreferencesUtil;
 import cc.dyjh.www.DiaoYuJiangHu.util.UIUtil;
 import dev.mirror.library.android.activity.MultiImageSelectorActivity;
@@ -110,7 +109,8 @@ public class UserInfoRegisterActivity<T> extends BaseActivity {
 //                startActivityForResult(new Intent(UserInfoUpdateActivity.this,CheckBoxSelectActivity.class).
 //                                putParcelableArrayListExtra(INTENT_ID, (ArrayList<? extends Parcelable>) mYuChang.getFisherytype()),
 //                        REQUSET_CODE_3);
-                initSelectView(3, (List<T>) mYuChang.getFisherytype());//fisheryfeature
+                if(mYuChang.getFisherytype() !=null)
+                    initSelectView(3, (List<T>) mYuChang.getFisherytype());//fisheryfeature
                 break;
             case R.id.photo:
                 openImage();
@@ -233,7 +233,7 @@ public class UserInfoRegisterActivity<T> extends BaseActivity {
                 mTS = mFishery.getFisheryfeature();
                 mYZ = mFishery.getFishtype();
                 mFisherTypeId = mFishery.getFisherytype();
-                if(!TextUtils.isEmpty(mFishery.getArea())){
+                /*if(!TextUtils.isEmpty(mFishery.getArea())){
                     mDistritId = mFishery.getArea();
                 }
                 mEtName.setText(TextUtils.isEmpty(mFishery.getFisheryname())?"":mFishery.getFisheryname());//渔场姓名
@@ -258,7 +258,7 @@ public class UserInfoRegisterActivity<T> extends BaseActivity {
                 mEtAge.setText(TextUtils.isEmpty(mFishery.getFisheryage())?"":mFishery.getFisheryage());//渔场年限
                 if(!TextUtils.isEmpty(mFishery.getFisherytype())) {
                     mTvType.setText(OptionUtil.getYu(mYuChang.getFisherytype(), mFishery.getFisherytype()));//渔场类型
-                }
+                }*/
             }
 
             @Override
@@ -391,6 +391,9 @@ public class UserInfoRegisterActivity<T> extends BaseActivity {
 
                 cancelProgressDialog();
 
+//                login();
+
+                startActivity(new Intent(UserInfoRegisterActivity.this,LoginActivity.class));
                 finish();
             }
 

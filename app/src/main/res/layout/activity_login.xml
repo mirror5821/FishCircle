@@ -26,6 +26,8 @@
             android:hint="@string/input_phone"
             android:textColorHint="#b4b2ae"
             android:textColor="@color/white"
+            android:inputType="number"
+            android:maxLength="11"
             android:drawablePadding="@dimen/d8"/>
 
         <EditText

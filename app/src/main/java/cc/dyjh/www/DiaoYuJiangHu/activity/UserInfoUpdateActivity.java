@@ -410,13 +410,23 @@ public class UserInfoUpdateActivity<T> extends BaseActivity {
         showProgressDialog("正在提交数据");
         //渔场id,imagedata:图片流,imagetype:图片类型, ablum:保留的原来图片
         Map<String,String> values = new HashMap<>();
-        values.put("fisheryid", mFishery.getFid()+"");
-        for(String img:mSelectPath){
-            values.put("imagedata[]", img);//（照片1的流,照片2的流）
+        values.put("fisheryid", mFishery.getFid() + "");
+
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0;i<mSelectPath.size();i++){
+            sb.append(mImageTool.filePathToString(mSelectPath.get(i)));
+            if(i!=mSelectPath.size()-1){
+                sb.append(",");
+            }
         }
+        values.put("imagedata[]",sb.toString());//
+
+//        for(String img:mSelectPath){
+//            values.put("imagedata[]", mImageTool.filePathToString(img));//（照片1的流,照片2的流）
+//        }
 //        values.put("imagedata[]", mImageTool.filePathToString(mSelectPath.get(0)));//（照片1的流,照片2的流）
         values.put("imagetype", "jpeg");
-        values.put("ablum","");
+        values.put("ablum[]","");//使用空格拼接
 
         mHttpClient.postData1(YUCHANG_IMG_UPLOAD, values, new AppAjaxCallback.onResultListener() {
             @Override

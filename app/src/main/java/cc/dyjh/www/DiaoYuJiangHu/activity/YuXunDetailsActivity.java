@@ -8,7 +8,6 @@ import android.os.Parcelable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -34,15 +33,15 @@ import dev.mirror.library.android.util.JsonUtils;
 /**
  * Created by dongqian on 16/3/22.
  */
-public class YuXunPublishActivity<T> extends BaseActivity {
+public class YuXunDetailsActivity<T> extends BaseActivity {
     private TextView mTvFYTime;//放鱼时间
     private TextView mTvType;//放鱼种类
-    private EditText mEtJin;//放鱼斤数
+    private TextView mEtJin;//放鱼斤数
     private TextView mTvKDTime;//开钓时间
     private TextView mTvXG;//是否限杆
     private TextView mTvSF;//收费标准
     private TextView mTvJY;//禁用钓饵
-    private EditText mEtOther;//其他说明
+    private TextView mEtOther;//其他说明
     private Button mBtn;
 
     private YuChang mYuChang;
@@ -65,10 +64,9 @@ public class YuXunPublishActivity<T> extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_yuxun_publish);
+        setContentView(R.layout.activity_yuxun_details);
         setBack();
-        setTitleText("发布渔讯");
-        setRightTitle("发布");
+        setTitleText("渔讯详情");
 
         mImageTools = new ImageTools(this);
 
@@ -78,9 +76,10 @@ public class YuXunPublishActivity<T> extends BaseActivity {
         mTvXG = (TextView)findViewById(R.id.is_xiangan);//是否限杆
         mTvSF = (TextView)findViewById(R.id.price_biaozhun);//收费标准
         mTvJY = (TextView)findViewById(R.id.limit_diaoer);//禁止钓饵
-        mEtOther = (EditText) findViewById(R.id.other_say);//其他说明
-        mEtJin = (EditText)findViewById(R.id.fangyu_weight);
+        mEtOther = (TextView) findViewById(R.id.other_say);//其他说明
+        mEtJin = (TextView)findViewById(R.id.fangyu_weight);
         mBtn = (Button)findViewById(R.id.btn);
+        mBtn.setVisibility(View.GONE);
 
         mTvFYTime.setOnClickListener(this);
         mTvType.setOnClickListener(this);
@@ -99,10 +98,10 @@ public class YuXunPublishActivity<T> extends BaseActivity {
         super.onClick(v);
         switch (v.getId()){
             case R.id.price_biaozhun:
-                startActivityForResult(new Intent(YuXunPublishActivity.this,PriceBZActivity.class),REQUSET_CODE_SF);
+                startActivityForResult(new Intent(YuXunDetailsActivity.this,PriceBZActivity.class),REQUSET_CODE_SF);
                 break;
             case R.id.kaidiao_time:
-                DialogHelper.initSelectTime(YuXunPublishActivity.this, new TimeInterface() {
+                DialogHelper.initSelectTime(YuXunDetailsActivity.this, new TimeInterface() {
                     @Override
                     public void getData(String data) {
                         mTvKDTime.setText(data);
@@ -115,7 +114,7 @@ public class YuXunPublishActivity<T> extends BaseActivity {
                 });
                 break;
             case R.id.fangyu_time:
-                DialogHelper.initSelectTime(YuXunPublishActivity.this, new TimeInterface() {
+                DialogHelper.initSelectTime(YuXunDetailsActivity.this, new TimeInterface() {
                     @Override
                     public void getData(String data) {
                         mTvFYTime.setText(data);
@@ -128,7 +127,7 @@ public class YuXunPublishActivity<T> extends BaseActivity {
                 });
                 break;
             case R.id.fangyu_type:
-                startActivityForResult(new Intent(YuXunPublishActivity.this,CheckBoxSelectActivity.class).
+                startActivityForResult(new Intent(YuXunDetailsActivity.this,CheckBoxSelectActivity.class).
                         putParcelableArrayListExtra(INTENT_ID, (ArrayList<? extends Parcelable>) mFishType)
                                 .putExtra("SELECT_TYPE", mYZ),
                         REQUSET_CODE_YZ);
@@ -137,14 +136,12 @@ public class YuXunPublishActivity<T> extends BaseActivity {
                 initSelectView(1, (List<T>) mXianGan);
                 break;
             case R.id.limit_diaoer:
-                startActivityForResult(new Intent(YuXunPublishActivity.this,CheckBoxSelectActivity.class).
+                startActivityForResult(new Intent(YuXunDetailsActivity.this,CheckBoxSelectActivity.class).
                                 putParcelableArrayListExtra(INTENT_ID, (ArrayList<? extends Parcelable>) mER)
                                 .putExtra("SELECT_TYPE",mERStr),
                         REQUSET_CODE_ER);
                 break;
-            case R.id.right_text:
-                sub();
-                break;
+            
             case R.id.btn:
                 openImage();
                 break;
@@ -158,7 +155,7 @@ public class YuXunPublishActivity<T> extends BaseActivity {
      */
     private void initSelectView(final int type, final List<T> mList){
         UIUtil uiHelper = new UIUtil();
-        uiHelper.initSelectListView(YuXunPublishActivity.this, mList, new DialogInterface() {
+        uiHelper.initSelectListView(YuXunDetailsActivity.this, mList, new DialogInterface() {
             @Override
             public void getPosition(int position) {
                 switch (type) {
@@ -356,7 +353,7 @@ public class YuXunPublishActivity<T> extends BaseActivity {
 //        selectedMode = MultiImageSelectorActivity.MODE_SINGLE;
 
         int maxNum = 6;
-        Intent intent = new Intent(YuXunPublishActivity.this, MultiImageSelectorActivity.class);
+        Intent intent = new Intent(YuXunDetailsActivity.this, MultiImageSelectorActivity.class);
         // 是否显示拍摄图片
         intent.putExtra(MultiImageSelectorActivity.EXTRA_SHOW_CAMERA, true);
         // 最大可选择图片数量
@@ -376,31 +373,12 @@ public class YuXunPublishActivity<T> extends BaseActivity {
         showProgressDialog("正在提交数据");
         //渔场id,imagedata:图片流,imagetype:图片类型, ablum:保留的原来图片
         Map<String,String> values = new HashMap<>();
-        values.put("fhid",mYuChang.getFhid()+"");
-//        String [] strs = new String[mSelectPath.size()];
-        StringBuilder sb = new StringBuilder();
-        for(int i = 0;i<mSelectPath.size();i++){
-            sb.append(mImageTools.filePathToString(mSelectPath.get(i)));
-            if(i!=mSelectPath.size()-1){
-                sb.append(",");
-            }
+        values.put("fhid",mYuXun.getId());
+        for(String img:mSelectPath){
+            values.put("imagedata[]", mImageTools.filePathToString(img));//（照片1的流,照片2的流）
         }
-        values.put("imagedata[]",sb.toString());//
-//        System.out.println("-----------------" + sb.toString());
-
-        /**
-         * http://m.dyjh.cc/appi.php?s=Fisherymsg/griUploadFisherymsgImgs?fhid=64&imagetype=jpeg&imagedata=(
-         111,
-         111
-         )
-         */
-
-
-//        for(String img:mSelectPath){
-//            values.put("imagedata[]", mImageTools.filePathToString(img));//（照片1的流,照片2的流）
-//        }
 //        values.put("imagedata", "("+mSelectPath.get(0).toString()+")");//（照片1的流,照片2的流）
-       values.put("imagetype", "jpeg");
+        values.put("imagetype", "jpeg");
 
 //        参数 fhid:渔汛id,imagedata:图片流,imagetype:图片类型
 
@@ -438,6 +416,7 @@ public class YuXunPublishActivity<T> extends BaseActivity {
                 showToast("操作失败");
             }
         });
+
     }
 
 }

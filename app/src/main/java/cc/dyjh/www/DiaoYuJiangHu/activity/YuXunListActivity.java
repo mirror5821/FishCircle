@@ -1,5 +1,6 @@
 package cc.dyjh.www.DiaoYuJiangHu.activity;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.TextView;
 
@@ -105,7 +106,7 @@ public class YuXunListActivity extends BaseRecyclerViewActivity{
         holder.getConvertView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                startActivity(new Intent(YuXunListActivity.this,YuXunDetailsActivity.class));
             }
         });
     }

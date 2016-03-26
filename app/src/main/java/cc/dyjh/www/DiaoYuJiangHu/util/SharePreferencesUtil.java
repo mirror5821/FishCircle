@@ -47,6 +47,23 @@ public class SharePreferencesUtil implements Constants {
         mSPreferences.edit().putString(USER_INFO_PASS, password).commit();
     }
 
+    public static User getLoginInfo(Context context){
+//		if(mSPreferences == null){
+//			mSPreferences = context.getSharedPreferences(USER_INFO, 0);
+//		}
+        mSPreferences = getInstance(context);
+
+        if(TextUtils.isEmpty(mSPreferences.getString(USER_INFO_PHONE, ""))){
+            User user = new User();
+            user.setName(mSPreferences.getString(USER_INFO_PHONE, ""));
+            user.setPhone(mSPreferences.getString(USER_INFO_PASS, ""));
+            return user;
+        }else{
+            return null;
+        }
+
+    }
+
     /**
      * 保存推送状态
      * @param context

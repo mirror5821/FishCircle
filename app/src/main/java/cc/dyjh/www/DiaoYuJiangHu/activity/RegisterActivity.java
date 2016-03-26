@@ -17,7 +17,6 @@ import org.xutils.x;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.regex.Matcher;
@@ -277,8 +276,7 @@ public class RegisterActivity extends BaseActivity {
                         if (mSeconds > 0) {
                             mBtnCode.setText(mSeconds + "秒\n后重发");
                         } else {
-                            mBtnCode.setText("重发");
-                            mBtnCode.setEnabled(true);
+
                             stop();
                         }
                     }
@@ -296,6 +294,9 @@ public class RegisterActivity extends BaseActivity {
         if (mTimerTask != null) {
             mTimerTask.cancel();
         }
+
+        mBtnCode.setText("重发");
+        mBtnCode.setEnabled(true);
     }
 
     private void vPhoneCode(){

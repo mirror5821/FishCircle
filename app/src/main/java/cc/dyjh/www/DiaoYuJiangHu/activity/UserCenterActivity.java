@@ -5,15 +5,10 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.xutils.image.ImageOptions;
-import org.xutils.x;
-
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -137,6 +132,9 @@ public class UserCenterActivity extends BaseActivity {
         mHttpClient.postData1(USER_NAME_UPDATE, values, new AppAjaxCallback.onResultListener() {
             @Override
             public void onResult(String data, String msg) {
+                AppContext.USER_NAME = mName;
+                mTvName.setText(mName);
+                mTvName1.setText(mName);
 
                 showToast("操作成功");
                 cancelProgressDialog();

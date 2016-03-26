@@ -14,14 +14,15 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/d16">
 
             <ImageView
                 android:id="@+id/header"
                 android:layout_width="@dimen/d48"
                 android:layout_height="@dimen/d48"
                 android:scaleType="centerCrop"
-                android:background="@mipmap/bg_logo"
+                android:background="@mipmap/ic_default_header2"
                 android:layout_margin="@dimen/d8"/>
 
             <TextView

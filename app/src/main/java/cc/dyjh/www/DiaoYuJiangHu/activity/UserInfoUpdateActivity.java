@@ -84,13 +84,15 @@ public class UserInfoUpdateActivity<T> extends BaseActivity {
                 break;
             case R.id.yu_type:
                 startActivityForResult(new Intent(UserInfoUpdateActivity.this,CheckBoxSelectActivity.class).
-                                putParcelableArrayListExtra(INTENT_ID, (ArrayList<? extends Parcelable>) mYuChang.getYu()),
+                                putParcelableArrayListExtra(INTENT_ID, (ArrayList<? extends Parcelable>) mYuChang.getYu())
+                                .putExtra("SELECT_TYPE", mYZ),
                         REQUSET_CODE_1);
 //                initSelectView(1, (List<T>) mYuChang.getYu());
                 break;
             case R.id.tese:
                 startActivityForResult(new Intent(UserInfoUpdateActivity.this,CheckBoxSelectActivity.class).
-                                putParcelableArrayListExtra(INTENT_ID, (ArrayList<? extends Parcelable>) mYuChang.getFisheryfeature()),
+                                putParcelableArrayListExtra(INTENT_ID, (ArrayList<? extends Parcelable>) mYuChang.getFisheryfeature())
+                                .putExtra("SELECT_TYPE", mTS),
                         REQUSET_CODE_2);
 //                initSelectView(2, (List<T>) mYuChang.getFisheryfeature());//fisheryfeature
                 break;

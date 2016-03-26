@@ -175,7 +175,7 @@ public class UserCenterActivity extends BaseActivity {
         Map<String,String> values = new HashMap<>();
         values.put("id", AppContext.ID+"");
         values.put("imageData", mImageTools.filePathToString(mSelectPath.get(0)));
-        values.put("imageType", "png");
+        values.put("imageType", "jpeg");
 
         mHttpClient.postData1(USER_HEADER_UPDATE, values, new AppAjaxCallback.onResultListener() {
             @Override

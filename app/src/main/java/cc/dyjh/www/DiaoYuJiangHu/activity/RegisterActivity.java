@@ -3,6 +3,7 @@ package cc.dyjh.www.DiaoYuJiangHu.activity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -16,6 +17,11 @@ import org.xutils.x;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import cc.dyjh.www.DiaoYuJiangHu.R;
 import cc.dyjh.www.DiaoYuJiangHu.app.AppContext;
@@ -89,6 +95,21 @@ public class RegisterActivity extends BaseActivity {
                 loadVImg();
                 break;
             case R.id.btn_code:
+                String phone = mEtPhone.getText().toString();
+                if(TextUtils.isEmpty(phone)){
+                    showToast(getString(R.string.input_phone));
+                    return;
+                }
+                //貌似有缓存 放到Appcontext死活不起作用
+                Pattern p = Pattern.compile("^0?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$");
+                Matcher m = p.matcher(phone);
+
+                if(!m.matches()){
+                    showToast("请输入正确的手机号码");
+                    return;
+                }
+
+                startCountDown();
                 getPhoneCode();
                 break;
             case R.id.btn:
@@ -170,11 +191,19 @@ public class RegisterActivity extends BaseActivity {
             showToast(getString(R.string.input_phone));
             return;
         }
+        //貌似有缓存 放到Appcontext死活不起作用
+        Pattern p = Pattern.compile("^0?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$");
+        Matcher m = p.matcher(phone);
 
+        if(!m.matches()){
+            showToast("请输入正确的手机号码");
+            return;
+        }
 
         Map<String,String> values = new HashMap<>();
         values.put("phone", phone);
         values.put("rand",mUUId);
+        values.put("requestType","0");// rand:标识,phone:手机号,requestType:请求类型 0注册 1找回密码
 
 
         mHttpClient.postData1(GET_PHONE_CODE, values, new AppAjaxCallback.onResultListener() {
@@ -185,7 +214,27 @@ public class RegisterActivity extends BaseActivity {
 
             @Override
             public void onOtherResult(String data, int status) {
+                /*
+                * 缺少参数 "status":201, "msg":" Required parameter missing","result":""
+                    服务器错误 "status":202, "msg":" Server error","result":""
+                    图片验证码不正确 "status":402, "msg":" Verification code input error","result":""
+                    手机号已注册 "status":601, "msg":" Phone number has been registeredd","result":"" */
+                switch (status){
+                    case 201:
+                        showToast("缺少参数");
+                        break;
+                    case 202:
+                        showToast("服务器错误");
+                        break;
+                    case 402:
+                        showToast("图片验证码不正确");
+                        break;
+                    case 601:
+                        showToast("手机号已注册");
+                        break;
 
+                }
+                stop();
             }
 
             @Override
@@ -193,6 +242,60 @@ public class RegisterActivity extends BaseActivity {
                 showToast("操作失败");
             }
         });
+    }
+
+    private final Handler mHandler = new Handler() {
+        @SuppressWarnings("unchecked")
+        @Override
+        public void handleMessage(android.os.Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+
+            }
+        }
+    };
+
+    private int mSeconds = 60;
+    private Timer mTimer;
+    private TimerTask mTimerTask;
+
+    private void startCountDown() {
+
+        mSeconds = 60;
+        stop();
+        mBtnCode.setEnabled(false);
+        mTimer = new Timer();
+        mTimerTask = new TimerTask() {
+
+            @Override
+            public void run() {
+                mSeconds--;
+                mHandler.post(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        if (mSeconds > 0) {
+                            mBtnCode.setText(mSeconds + "秒\n后重发");
+                        } else {
+                            mBtnCode.setText("重发");
+                            mBtnCode.setEnabled(true);
+                            stop();
+                        }
+                    }
+                });
+            }
+        };
+        mTimer.schedule(mTimerTask, 0, 1000);
+    }
+
+
+    private void stop() {
+        if (mTimer != null) {
+            mTimer.cancel();
+        }
+        if (mTimerTask != null) {
+            mTimerTask.cancel();
+        }
     }
 
     private void vPhoneCode(){
@@ -230,8 +333,8 @@ public class RegisterActivity extends BaseActivity {
     }
 
     private void sub(){
-        String phone = mEtPhone.getText().toString();
-        String pass = mEtPass.getText().toString();
+        final String phone = mEtPhone.getText().toString();
+        final String pass = mEtPass.getText().toString();
         if(TextUtils.isEmpty(phone)){
             showToast(getString(R.string.input_phone));
             cancelProgressDialog();
@@ -259,6 +362,9 @@ public class RegisterActivity extends BaseActivity {
         mHttpClient.postData1(REGISTER, values, new AppAjaxCallback.onResultListener() {
             @Override
             public void onResult(String data, String msg) {
+                AppContext.LOGIN_PHONE = phone;
+                AppContext.LOGIN_PASS = pass;
+
                 login();
                 showToast("注册成功,正在登录");
                 cancelProgressDialog();

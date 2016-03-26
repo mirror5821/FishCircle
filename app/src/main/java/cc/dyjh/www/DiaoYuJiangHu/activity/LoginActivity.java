@@ -8,6 +8,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,6 +28,7 @@ public class LoginActivity extends BaseActivity {
     private Button mBtnLogin,mBtnRegister;
     private EditText mEtPhone;
     private EditText mEtPass;
+    private TextView mTvTk;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +47,9 @@ public class LoginActivity extends BaseActivity {
 
         mBtnRegister = (Button)findViewById(R.id.btn);
         mBtnRegister.setOnClickListener(this);
+
+        mTvTk = (TextView)findViewById(R.id.tv_tk);
+        mTvTk.setOnClickListener(this);
     }
 
     @Override
@@ -56,6 +61,11 @@ public class LoginActivity extends BaseActivity {
                 break;
             case R.id.btn:
                 startActivity(new Intent(LoginActivity.this,RegisterActivity.class));
+                break;
+            case R.id.tv_tk:
+                startActivity(new Intent(LoginActivity.this,NormalWebViewActivity.class).
+                        putExtra(INTENT_ID,"http://m.dyjh.cc/agreement.html").
+                        putExtra("TITLE","服务条款"));
                 break;
         }
     }

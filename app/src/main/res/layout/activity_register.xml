@@ -71,6 +71,7 @@
             android:text="@string/get_code"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:textSize="14sp"
             style="@style/BtnBlue"
             android:layout_marginRight="4dp"/>
 

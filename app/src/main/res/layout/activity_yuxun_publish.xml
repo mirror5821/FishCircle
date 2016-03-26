@@ -175,12 +175,12 @@
 
 
 
-            <ImageButton
+            <Button
                 android:id="@+id/btn"
                 style="@style/BtnBlue"
-                android:text="@string/ok"
                 android:layout_margin="@dimen/d8"
-                android:src="@mipmap/ic_camera"/>
+                android:text="上传鱼汛照片"
+                android:gravity="center"/>
 
 
 

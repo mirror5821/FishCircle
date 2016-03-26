@@ -18,19 +18,22 @@ import java.util.Map;
 import cc.dyjh.www.DiaoYuJiangHu.R;
 import cc.dyjh.www.DiaoYuJiangHu.app.AppContext;
 import cc.dyjh.www.DiaoYuJiangHu.bean.DialogInterface;
+import cc.dyjh.www.DiaoYuJiangHu.bean.User;
 import cc.dyjh.www.DiaoYuJiangHu.bean.YuChang;
 import cc.dyjh.www.DiaoYuJiangHu.util.AppAjaxCallback;
 import cc.dyjh.www.DiaoYuJiangHu.util.AppHttpClient;
 import cc.dyjh.www.DiaoYuJiangHu.util.OptionUtil;
+import cc.dyjh.www.DiaoYuJiangHu.util.SharePreferencesUtil;
 import cc.dyjh.www.DiaoYuJiangHu.util.UIUtil;
 import dev.mirror.library.android.activity.MultiImageSelectorActivity;
 import dev.mirror.library.android.util.ImageTools;
 import dev.mirror.library.android.util.JsonUtils;
+import dev.mirror.library.android.util.MD5Util;
 
 /**
  * Created by 王沛栋 on 2016/3/23.
  */
-public class UserInfoUpdateActivity<T> extends BaseActivity {
+public class UserInfoRegisterActivity<T> extends BaseActivity {
     private TextView mTvYZ,mTvTS,mTvAddress,mTvType,mTvPhoto;
     private EditText mEtName,mEtContacts,mEtMJ,mEtDW,mEtSS,mEtDec,mEtAddress2,mEtAge,mTvPhone;
 
@@ -85,19 +88,19 @@ public class UserInfoUpdateActivity<T> extends BaseActivity {
         super.onClick(v);
         switch (v.getId()){
             case R.id.address:
-                startActivityForResult(new Intent(UserInfoUpdateActivity.this,MapSelectActivity.class).
+                startActivityForResult(new Intent(UserInfoRegisterActivity.this,MapSelectActivity.class).
                         putExtra(INTENT_ID,mDistritId).
                         putExtra("ALL_ADDRESS",mTvAddress.getText().toString()),MAP_CODE1);
                 break;
             case R.id.yu_type:
-                startActivityForResult(new Intent(UserInfoUpdateActivity.this,CheckBoxSelectActivity.class).
+                startActivityForResult(new Intent(UserInfoRegisterActivity.this,CheckBoxSelectActivity.class).
                                 putParcelableArrayListExtra(INTENT_ID, (ArrayList<? extends Parcelable>) mYuChang.getYu())
                                 .putExtra("SELECT_TYPE", mYZ),
                         REQUSET_CODE_1);
 //                initSelectView(1, (List<T>) mYuChang.getYu());
                 break;
             case R.id.tese:
-                startActivityForResult(new Intent(UserInfoUpdateActivity.this,CheckBoxSelectActivity.class).
+                startActivityForResult(new Intent(UserInfoRegisterActivity.this,CheckBoxSelectActivity.class).
                                 putParcelableArrayListExtra(INTENT_ID, (ArrayList<? extends Parcelable>) mYuChang.getFisheryfeature())
                                 .putExtra("SELECT_TYPE", mTS),
                         REQUSET_CODE_2);
@@ -125,7 +128,7 @@ public class UserInfoUpdateActivity<T> extends BaseActivity {
 //        selectedMode = MultiImageSelectorActivity.MODE_SINGLE;
 
         int maxNum = 6;
-        Intent intent = new Intent(UserInfoUpdateActivity.this, MultiImageSelectorActivity.class);
+        Intent intent = new Intent(UserInfoRegisterActivity.this, MultiImageSelectorActivity.class);
         // 是否显示拍摄图片
         intent.putExtra(MultiImageSelectorActivity.EXTRA_SHOW_CAMERA, true);
         // 最大可选择图片数量
@@ -149,7 +152,7 @@ public class UserInfoUpdateActivity<T> extends BaseActivity {
      */
     private void initSelectView(final int type,List<T> mList){
         UIUtil uiHelper = new UIUtil();
-        uiHelper.initSelectListView(UserInfoUpdateActivity.this, mList, new DialogInterface() {
+        uiHelper.initSelectListView(UserInfoRegisterActivity.this, mList, new DialogInterface() {
             @Override
             public void getPosition(int position) {
                 switch (type) {
@@ -405,6 +408,76 @@ public class UserInfoUpdateActivity<T> extends BaseActivity {
         });
     }
 
+
+    private void login(){
+        final String phone = AppContext.LOGIN_PHONE;
+        final String pass = AppContext.LOGIN_PASS;
+
+        if(TextUtils.isEmpty(phone)){
+            showToast(getString(R.string.input_phone));
+            cancelProgressDialog();
+            return;
+        }
+
+        if(TextUtils.isEmpty(pass)){
+            showToast(getString(R.string.input_pass));
+            cancelProgressDialog();
+            return;
+        }
+
+        showProgressDialog("正在登录");
+        Map<String,String> values = new HashMap<>();
+        values.put("phone", phone);
+        values.put("pwd", MD5Util.stringToMd5(pass));
+
+        mHttpClient.postData1(LOGIN, values, new AppAjaxCallback.onResultListener() {
+            @Override
+            public void onResult(String data, String msg) {
+                AppContext.user = JsonUtils.parse(data,User.class);
+                AppContext.ID = AppContext.user.getId();
+                showToast("登录成功");
+                SharePreferencesUtil.saveLoginInfo(getApplicationContext(), phone, pass);
+                SharePreferencesUtil.saveUserInfo(getApplicationContext(), data);
+
+                startActivity(new Intent(UserInfoRegisterActivity.this, MainActivity.class));
+                cancelProgressDialog();
+                finish();
+            }
+
+            @Override
+            public void onOtherResult(String data, int status) {
+                switch (status){
+                    case 101:
+                        AppContext.user = JsonUtils.parse(data,User.class);
+                        AppContext.ID = AppContext.user.getId();
+                        SharePreferencesUtil.saveLoginInfo(getApplicationContext(), phone, pass);
+                        SharePreferencesUtil.saveUserInfo(getApplicationContext(), data);
+
+                        startActivity(new Intent(UserInfoRegisterActivity.this, UserSelectActivity.class));
+                        cancelProgressDialog();
+                        finish();
+                        break;
+                    case 103:
+                        cancelProgressDialog();
+                        showToast("用户不存在");
+                        break;
+                    default:
+                        cancelProgressDialog();
+                        startActivity(new Intent(UserInfoRegisterActivity.this, LoginActivity.class));
+                        finish();
+                        break;
+                }
+            }
+
+            @Override
+            public void onError(String msg) {
+                showToast("登录失败");
+                startActivity(new Intent(UserInfoRegisterActivity.this, LoginActivity.class));
+                cancelProgressDialog();
+                finish();
+            }
+        });
+    }
 
     private void upload(){
         showProgressDialog("正在提交数据");

@@ -52,21 +52,25 @@ public class MyFragment extends BaseFragment {
         mTvFeedBack.setOnClickListener(this);
         mImgHeader.setOnClickListener(this);
 
+        initView();
+
+    }
+
+    private void initView(){
         if(AppContext.user == null){
             loadData();
         }else{
             mUser = AppContext.user;
-            AppContext.displayHeaderImage(mImgHeader, BASE_IMG_URL + mUser.getPic());
+            AppContext.displayHeaderImage(mImgHeader, AppContext.USER_HEADER);
             mTvPhone.setText(mUser.getPhone());
             mTvName.setText(TextUtils.isEmpty(mUser.getName())?"未设置昵称":mUser.getName());
-
-//            AppContext.displayHeaderImage(mImgHeader,"http://avatar.csdn.net/B/D/1/1_dacainiao007.jpg");
-
         }
-
     }
-
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        initView();
+    }
 
     @Override
     public void onClick(View v) {

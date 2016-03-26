@@ -81,6 +81,9 @@ public class MapSelectActivity extends BaseActivity {
 
 		mTvArea = (TextView)findViewById(R.id.tv_area);
 		mTvArea.setOnClickListener(this);
+		if(!TextUtils.isEmpty(getIntent().getStringExtra("ALL_ADDRESS"))){
+			mTvArea.setText(getIntent().getStringExtra("ALL_ADDRESS"));
+		}
 
 		mEtSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 			@Override

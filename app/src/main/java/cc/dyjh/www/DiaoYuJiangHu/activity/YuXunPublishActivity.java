@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -26,6 +27,7 @@ import cc.dyjh.www.DiaoYuJiangHu.util.AppHttpClient;
 import cc.dyjh.www.DiaoYuJiangHu.util.DialogHelper;
 import cc.dyjh.www.DiaoYuJiangHu.util.OptionUtil;
 import cc.dyjh.www.DiaoYuJiangHu.util.UIUtil;
+import dev.mirror.library.android.activity.MultiImageSelectorActivity;
 import dev.mirror.library.android.util.JsonUtils;
 
 /**
@@ -40,6 +42,7 @@ public class YuXunPublishActivity<T> extends BaseActivity {
     private TextView mTvSF;//收费标准
     private TextView mTvJY;//禁用钓饵
     private EditText mEtOther;//其他说明
+    private Button mBtn;
 
     private YuChang mYuChang;
     private List<YuChang.Yu> mFishType;//渔场特色
@@ -72,6 +75,7 @@ public class YuXunPublishActivity<T> extends BaseActivity {
         mTvJY = (TextView)findViewById(R.id.limit_diaoer);//禁止钓饵
         mEtOther = (EditText) findViewById(R.id.other_say);//其他说明
         mEtJin = (EditText)findViewById(R.id.fangyu_weight);
+        mBtn = (Button)findViewById(R.id.btn);
 
         mTvFYTime.setOnClickListener(this);
         mTvType.setOnClickListener(this);
@@ -79,6 +83,7 @@ public class YuXunPublishActivity<T> extends BaseActivity {
         mTvXG.setOnClickListener(this);
         mTvSF.setOnClickListener(this);
         mTvJY.setOnClickListener(this);
+        mBtn.setOnClickListener(this);
 
         loadData();
     }
@@ -135,6 +140,9 @@ public class YuXunPublishActivity<T> extends BaseActivity {
             case R.id.right_text:
                 sub();
                 break;
+            case R.id.btn:
+                openImage();
+                break;
         }
     }
 
@@ -169,19 +177,24 @@ public class YuXunPublishActivity<T> extends BaseActivity {
                 case REQUSET_CODE_SF:
                     Uri sfData = data.getData();
                     mSf = sfData.toString();
-                    mTvSF.setText("已编辑");
+                    mTvSF.setText("具体内容");
 
                     break;
                 case REQUSET_CODE_YZ:
                     Uri yzData = data.getData();
                     mYZ = yzData.toString();
                     mTvType.setText(OptionUtil.getYu(mYuChang.getYu(), mYZ));
-//                    mTvType.setText("已编辑");
+//                    mTvType.setText("具体内容");
                     break;
                 case REQUSET_CODE_ER:
                     Uri erData = data.getData();
                     mERStr = erData.toString();
                     mTvJY.setText(OptionUtil.getYu(mYuChang.getEr(), mERStr));
+                    break;
+                case REQUEST_IMAGE:
+                    mSelectPath = data.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT);
+                    mBtn.setText("已选择 "+mSelectPath.size()+" 张");
+                    upload();
                     break;
             }
         }
@@ -331,4 +344,79 @@ public class YuXunPublishActivity<T> extends BaseActivity {
             }
         });
     }
+
+    private ArrayList<String> mSelectPath;
+    private static final int REQUEST_IMAGE = 6;
+    private void openImage(){
+        int selectedMode = MultiImageSelectorActivity.MODE_MULTI;
+//        selectedMode = MultiImageSelectorActivity.MODE_SINGLE;
+
+        int maxNum = 6;
+        Intent intent = new Intent(YuXunPublishActivity.this, MultiImageSelectorActivity.class);
+        // 是否显示拍摄图片
+        intent.putExtra(MultiImageSelectorActivity.EXTRA_SHOW_CAMERA, true);
+        // 最大可选择图片数量
+        intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_COUNT, maxNum);
+        // 选择模式
+        intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_MODE, selectedMode);
+        // 默认选择
+        if (mSelectPath != null && mSelectPath.size() > 0) {
+            intent.putExtra(MultiImageSelectorActivity.EXTRA_DEFAULT_SELECTED_LIST, mSelectPath);
+        }
+
+        startActivityForResult(intent, REQUEST_IMAGE);
+    }
+
+
+    private void upload(){
+        showProgressDialog("正在提交数据");
+        //渔场id,imagedata:图片流,imagetype:图片类型, ablum:保留的原来图片
+        Map<String,String> values = new HashMap<>();
+//        values.put("fhid",  AppContext.ID+"");
+        values.put("fhid",mYuXun.getId());
+        for(String img:mSelectPath){
+            values.put("imagedata[]", img);//（照片1的流,照片2的流）
+        }
+//        values.put("imagedata", "("+mSelectPath.get(0).toString()+")");//（照片1的流,照片2的流）
+        values.put("imagetype", "jpeg");
+
+//        参数 fhid:渔汛id,imagedata:图片流,imagetype:图片类型
+
+        mHttpClient.postData1(YUXUN_IMG_UPDATE, values, new AppAjaxCallback.onResultListener() {
+            @Override
+            public void onResult(String data, String msg) {
+
+                showToast("操作成功");
+                cancelProgressDialog();
+
+            }
+
+            @Override
+            public void onOtherResult(String data, int status) {
+                switch (status){
+                    case 101:
+
+                        finish();
+                        break;
+                    case 103:
+
+                        break;
+                    default:
+
+                        break;
+
+                }
+                cancelProgressDialog();
+                showToast("操作失败");
+            }
+
+            @Override
+            public void onError(String msg) {
+                cancelProgressDialog();
+                showToast("操作失败");
+            }
+        });
+
+    }
+
 }

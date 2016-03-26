@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -169,37 +170,21 @@ public class UserCenterActivity extends BaseActivity {
 
     }
 
-    private ImageOptions mImageOptions;
     private void upload(){
         showProgressDialog("正在提交数据");
         Map<String,String> values = new HashMap<>();
         values.put("id", AppContext.ID+"");
-        values.put("imageData", mImageTools.filePathToString(mSelectPath.get(0)));
+        values.put("imageData[]", mImageTools.filePathToString(mSelectPath.get(0)));//（照片1的流,照片2的流）
         values.put("imageType", "jpeg");
 
         mHttpClient.postData1(USER_HEADER_UPDATE, values, new AppAjaxCallback.onResultListener() {
             @Override
             public void onResult(String data, String msg) {
-                AppContext.user.setName(mName);
-                mTvName1.setText(mName);
-                mTvName.setText(mName);
+
                 showToast("操作成功");
                 cancelProgressDialog();
-
-                if(mImageOptions == null){
-                    mImageOptions = new ImageOptions.Builder()
-                            // 如果ImageView的大小不是定义为wrap_content, 不要crop.
-                            .setCrop(true)
-                                    // 加载中或错误图片的ScaleType
-                                    //.setPlaceholderScaleType(ImageView.ScaleType.MATRIX)
-                            .setImageScaleType(ImageView.ScaleType.CENTER_CROP)
-                            .setLoadingDrawableId(R.mipmap.ic_default_error).setAutoRotate(true)
-                            .setFailureDrawableId(R.mipmap.ic_default_error)
-                            .build();
-                }
-
-                File imageFile = new File(mImageTools.filePathToString(mSelectPath.get(0)));
-                x.image().bind(mImgHeader, imageFile.toURI().toString(), mImageOptions);
+                AppContext.USER_HEADER = BASE_IMG_URL+data;
+                AppContext.displayImage(mImgHeader,AppContext.USER_HEADER);
             }
 
             @Override

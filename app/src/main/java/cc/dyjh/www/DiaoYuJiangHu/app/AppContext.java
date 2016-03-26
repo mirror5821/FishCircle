@@ -17,10 +17,15 @@ public class AppContext extends BaseAppContext {
     public static String LOC_CITY = "郑州市";
     public static String LOC_AREA = "金水区";
 
+    public static String USER_HEADER;
+
     public static User user;
     public static Index index;
     private static AppContext instance;
     public static int ID;
+
+    public static String LOGIN_PHONE;
+    public static String LOGIN_PASS;
 
     @Override
     public void onCreate() {

@@ -33,7 +33,7 @@ public class UserSelectActivity extends BaseActivity {
                 UIHelper.makePhoneCall(UserSelectActivity.this,getString(R.string.service_phone));
                 break;
             case R.id.tv2:
-                startActivity(new Intent(UserSelectActivity.this,UserInfoUpdateActivity.class));
+                startActivity(new Intent(UserSelectActivity.this,UserInfoRegisterActivity.class));
                 break;
         }
     }

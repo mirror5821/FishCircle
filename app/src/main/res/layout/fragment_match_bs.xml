@@ -19,7 +19,7 @@
 
         <TextView
             style="@style/TvMatch"
-            android:text="白钓"/>
+            android:text="日钓"/>
 
         <EditText
             android:id="@+id/p1"
@@ -88,7 +88,7 @@
 
         <TextView
             style="@style/TvMatch"
-            android:text="白钓"/>
+            android:text="日钓"/>
 
         <EditText
             android:id="@+id/p3"

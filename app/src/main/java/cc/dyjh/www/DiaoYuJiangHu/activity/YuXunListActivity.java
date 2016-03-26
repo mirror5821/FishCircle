@@ -84,10 +84,24 @@ public class YuXunListActivity extends BaseRecyclerViewActivity{
         TextView name1 = holder.getView(R.id.name1);
         TextView name2 = holder.getView(R.id.name2);
         TextView name3 = holder.getView(R.id.name3);
+        TextView status = holder.getView(R.id.status);
 
         name1.setText("放鱼时间: "+yu.getFyjs());
         name2.setText("开钓时间: "+yu.getDysj());
         name3.setText("放鱼斤数: "+yu.getFyjs()+" 斤");
+        //1已通过 2审核中3未通过
+        switch (Integer.valueOf(yu.getStatus())){
+            case 1:
+                status.setText("已通过");
+                break;
+            case 2:
+                status.setText("审核中");
+                break;
+            case 3:
+                status.setText("未通过");
+                break;
+        }
+
         holder.getConvertView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

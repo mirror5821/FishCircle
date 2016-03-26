@@ -153,7 +153,6 @@
                     android:singleLine="false"
                     android:background="@null"
                     android:inputType="number"
-                    android:hint="10"
                     android:layout_height="wrap_content"
                     android:paddingBottom="@dimen/d20"/>
 
@@ -183,7 +182,6 @@
                     android:singleLine="false"
                     android:background="@null"
                     android:inputType="number"
-                    android:hint="10"
                     android:layout_height="wrap_content"
                     android:paddingBottom="@dimen/d20"/>
 
@@ -212,7 +210,6 @@
                     android:singleLine="false"
                     android:background="@null"
                     android:inputType="number"
-                    android:hint="120"
                     android:layout_height="wrap_content"
                     android:paddingBottom="@dimen/d20"/>
 
@@ -241,7 +238,6 @@
                     android:singleLine="false"
                     android:background="@null"
                     android:inputType="number"
-                    android:hint="2.5"
                     android:layout_height="wrap_content"
                     android:paddingBottom="@dimen/d20"/>
 
@@ -274,7 +270,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:paddingBottom="@dimen/d20"
-                    android:hint="其他"
+                    android:hint="请选择类别"
                     android:drawableRight="@mipmap/ic_next"/>
             </LinearLayout>
 
@@ -299,7 +295,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:paddingBottom="@dimen/d20"
-                    android:hint="其他"
+                    android:hint="请选择类别"
                     android:drawableRight="@mipmap/ic_next"/>
             </LinearLayout>
 
@@ -324,7 +320,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:paddingBottom="@dimen/d20"
-                    android:hint="是否打窝 是否滑动"
+                    android:hint="请选择类别"
                     android:drawableRight="@mipmap/ic_next"/>
             </LinearLayout>
 
@@ -371,8 +367,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:paddingBottom="@dimen/d20"
-                    android:drawableRight="@mipmap/ic_next"
-                    android:hint="钓场相册"/>
+                    android:drawableRight="@mipmap/ic_next"/>
 
 
 

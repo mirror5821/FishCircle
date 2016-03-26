@@ -65,10 +65,10 @@ public class IndexFragment extends BaseFragment {
                 startActivity(new Intent(getActivity(), YuXunListActivity.class));
                 break;
             case R.id.view3:
-                showToast("功能建设中，敬请期待!");
+                showToast("牛B的功能即将上线");
                 break;
             case R.id.view4:
-                showToast("功能建设中，敬请期待!");
+                showToast("牛B的功能即将上线");
                 break;
         }
     }
@@ -107,7 +107,8 @@ public class IndexFragment extends BaseFragment {
             public void onResult(String data, String msg) {
                 mUser = JsonUtils.parse(data, User.class);
                 AppContext.user = mUser;
-//                AppContext.displayHeaderImage(mImgHeader, BASE_IMG_URL + mUser.getPic());
+                AppContext.USER_HEADER = BASE_IMG_URL + mUser.getPic();
+                AppContext.displayHeaderImage(mImgHeader, AppContext.USER_HEADER);
             }
 
             @Override

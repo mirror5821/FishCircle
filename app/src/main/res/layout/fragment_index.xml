@@ -57,7 +57,7 @@
                     style="@style/TvTitle"
                     android:layout_centerHorizontal="true"
                     android:layout_centerInParent="true"
-                    android:text="粉丝"
+                    android:text="浏览"
                     android:layout_marginTop="@dimen/d8"
                     android:textSize="16sp"/>
 
@@ -84,7 +84,7 @@
                     style="@style/TvTitle"
                     android:layout_centerHorizontal="true"
                     android:layout_centerInParent="true"
-                    android:text="评价"
+                    android:text="赞"
                     android:layout_marginTop="@dimen/d8"
                     android:textSize="16sp"/>
             </LinearLayout>

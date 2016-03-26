@@ -110,6 +110,13 @@ public class CheckBoxSelectActivity<T extends AddrBase> extends BaseActivity {
         }
     }
 
+    private void changeView(){
+        for(int i=0;i<mIsSelected.size();i++){
+            System.out.println(mIsSelected.get(i)==null?false:mIsSelected.get(i));
+        }
+        mAdapter.notifyDataSetChanged();
+    }
+
     public  class CustomerAdapter<T extends AddrBase> extends BaseAdapter {
         private Context mContext;
         private List<T> mList;
@@ -143,14 +150,30 @@ public class CheckBoxSelectActivity<T extends AddrBase> extends BaseActivity {
 
             final CheckBox cb = (CheckBox) convertView.findViewById(R.id.checkbox);
 
-            System.out.println("--------------xxxx" + mIsSelected.get(position).toString());
 
             cb.setChecked(mIsSelected.get(position)==null?false:mIsSelected.get(position));
             cb.setText(mList.get(position).getAddrName());
             cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    mIsSelected.put(position,  cb.isChecked());
+                    if(position == 0 && mList.get(position).getAddrName().equals("不限")){
+                        if(isChecked){
+                            for(int i=0; i<mList.size();i++) {
+                                mIsSelected.put(i,false);
+                            }
+                            /*
+                            for(int i=0;i<mIsSelected.size();i++){
+
+                                mIsSelected.put(position,  false);
+                            }*/
+                        }
+                        mIsSelected.put(0,  cb.isChecked());
+                    }else{
+                        mIsSelected.put(position,  cb.isChecked());
+                    }
+
+                    changeView();
+
                 }
             });
             return convertView;

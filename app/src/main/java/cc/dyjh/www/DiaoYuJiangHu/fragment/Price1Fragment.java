@@ -15,6 +15,14 @@ import cc.dyjh.www.DiaoYuJiangHu.bean.PriceListener;
 public class Price1Fragment extends BaseFragment {
     private EditText mEtP1,mEtP2,mEtP3,mEtP4;
     private EditText mEtH1,mEtH2,mEtH3,mEtH4;
+
+    private String mIntentId;
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mIntentId = getArguments().getString(INTENT_ID);
+    }
+
     @Override
     public int setLayoutId() {
         return R.layout.fragment_match_bs;
@@ -32,6 +40,18 @@ public class Price1Fragment extends BaseFragment {
         mEtH2 = (EditText)view.findViewById(R.id.h2);
         mEtH3 = (EditText)view.findViewById(R.id.h3);
         mEtH4 = (EditText)view.findViewById(R.id.h4);
+
+        if(!TextUtils.isEmpty(mIntentId)){
+            String [] ids = mIntentId.split(" ");
+            mEtP1.setText(ids[0]);
+            mEtH1.setText(ids[1]);
+            mEtP2.setText(ids[2]);
+            mEtH2.setText(ids[3]);
+            mEtP3.setText(ids[4]);
+            mEtH3.setText(ids[5]);
+            mEtP4.setText(ids[6]);
+            mEtH4.setText(ids[7]);
+        }
     }
 
     /**

@@ -99,7 +99,8 @@ public class YuXunPublishActivity<T> extends BaseActivity {
         super.onClick(v);
         switch (v.getId()){
             case R.id.price_biaozhun:
-                startActivityForResult(new Intent(YuXunPublishActivity.this,PriceBZActivity.class),REQUSET_CODE_SF);
+                startActivityForResult(new Intent(YuXunPublishActivity.this,PriceBZActivity.class).
+                        putExtra(INTENT_ID,mSf),REQUSET_CODE_SF);
                 break;
             case R.id.kaidiao_time:
                 DialogHelper.initSelectTime(YuXunPublishActivity.this, new TimeInterface() {
@@ -146,7 +147,10 @@ public class YuXunPublishActivity<T> extends BaseActivity {
                 sub();
                 break;
             case R.id.btn:
-                openImage();
+                startActivity(new Intent(YuXunPublishActivity.this,ImageAddActivity.class)
+                        .putExtra(INTENT_ID,mYuChang.getFhid())
+                        .putExtra("TYPE",1));
+//                openImage();
                 break;
         }
     }
@@ -182,7 +186,38 @@ public class YuXunPublishActivity<T> extends BaseActivity {
                 case REQUSET_CODE_SF:
                     Uri sfData = data.getData();
                     mSf = sfData.toString();
+
                     mTvSF.setText("具体内容");
+                    try{
+                        String [] sfbz = mSf.split(" ");
+                        StringBuilder sb = new StringBuilder();
+                        sb.append("放鱼:日钓");
+                        sb.append(sfbz[0]);
+                        sb.append("元");
+                        sb.append(sfbz[1]);
+                        sb.append("小时");
+
+                        sb.append(sfbz[2]);
+                        sb.append("元");
+                        sb.append(sfbz[3]);
+                        sb.append("小时");
+
+                        sb.append(sfbz[4]);
+                        sb.append("元");
+                        sb.append(sfbz[5]);
+                        sb.append("小时");
+
+                        sb.append(sfbz[6]);
+                        sb.append("元");
+                        sb.append(sfbz[7]);
+                        sb.append("小时");
+
+                        mTvSF.setText(sb.toString());
+                    }catch (Exception e){
+
+                    }
+
+
 
                     break;
                 case REQUSET_CODE_YZ:
@@ -244,6 +279,36 @@ public class YuXunPublishActivity<T> extends BaseActivity {
                 mSf = mYuXun.getSfbz();//收费标准
                 if (!TextUtils.isEmpty(mSf)) {
                     mTvSF.setText(mSf);
+                    try{
+                        String [] sfbz = mSf.split(" ");
+                        StringBuilder sb = new StringBuilder();
+                        sb.append("放鱼:日钓");
+                        sb.append(sfbz[0]);
+                        sb.append("元");
+                        sb.append(sfbz[1]);
+                        sb.append("小时");
+
+                        sb.append(sfbz[2]);
+                        sb.append("元");
+                        sb.append(sfbz[3]);
+                        sb.append("小时");
+
+                        sb.append(sfbz[4]);
+                        sb.append("元");
+                        sb.append(sfbz[5]);
+                        sb.append("小时");
+
+                        sb.append(sfbz[6]);
+                        sb.append("元");
+                        sb.append(sfbz[7]);
+                        sb.append("小时");
+
+                        mTvSF.setText(sb.toString());
+                    }catch (Exception e){
+
+                    }
+
+
                 }
                 mEtOther.setText(mYuXun.getQtsm());//其他说明
                 mEtJin.setText(mYuXun.getFyjs());//放鱼斤数

@@ -2,6 +2,7 @@ package cc.dyjh.www.DiaoYuJiangHu.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -82,7 +83,10 @@ public class UserInfoActivity extends BaseActivity {
                 mTvYZ.setText(OptionUtil.getYu(mYuChang.getYu(),mFishery.getFishtype()));//放鱼鱼种
                 mTvTS.setText(OptionUtil.getYu(mYuChang.getFisheryfeature(),mFishery.getFisheryfeature()));//渔场特色
                 mEtDec.setText(mFishery.getFdescribe());//渔场描述
-                mTvPhoto.setText(mFishery.getAlbum());//渔场相片
+                if(!TextUtils.isEmpty(mFishery.getAlbum())){
+                    mTvPhoto.setText("共 "+mFishery.getAlbum().split(" ").length+" 张");//渔场相片
+                }
+
                 mEtAge.setText(mFishery.getFisheryage());//渔场年限
                 mTvType.setText(OptionUtil.getYu(mYuChang.getFisherytype(),mFishery.getFisherytype()));//渔场类型
 

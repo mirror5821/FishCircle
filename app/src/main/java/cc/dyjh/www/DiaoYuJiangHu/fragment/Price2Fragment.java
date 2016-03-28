@@ -14,6 +14,14 @@ import cc.dyjh.www.DiaoYuJiangHu.bean.PriceListener;
  */
 public class Price2Fragment extends BaseFragment {
     private EditText mEt;
+
+    private String mIntentId;
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mIntentId = getArguments().getString(INTENT_ID);
+    }
+
     @Override
     public int setLayoutId() {
         return R.layout.fragment_match_other;
@@ -23,6 +31,11 @@ public class Price2Fragment extends BaseFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mEt = (EditText)view.findViewById(R.id.et);
+
+        if(!TextUtils.isEmpty(mIntentId)){
+            mEt.setText(mIntentId);
+        }
+
     }
 
     /**

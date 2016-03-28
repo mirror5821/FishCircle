@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <include layout="@layout/view_base_title_bar"/>
+
+    <dev.mirror.library.android.view.NoScrollGridView
+        android:id="@+id/gridview"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:horizontalSpacing="@dimen/product_list_spacing"
+        android:numColumns="4"
+        android:paddingLeft="2dp"
+        android:paddingRight="2dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:verticalSpacing="@dimen/product_list_spacing"
+        android:layout_margin="@dimen/view_margin_top"/>
+
+
+</LinearLayout>

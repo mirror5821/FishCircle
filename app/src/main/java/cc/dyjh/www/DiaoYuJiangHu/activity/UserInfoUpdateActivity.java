@@ -110,7 +110,11 @@ public class UserInfoUpdateActivity<T> extends BaseActivity {
                 initSelectView(3, (List<T>) mYuChang.getFisherytype());//fisheryfeature
                 break;
             case R.id.photo:
-                openImage();
+                //mFishery.getFid()
+                startActivity(new Intent(UserInfoUpdateActivity.this,ImageAddActivity.class)
+                        .putExtra(INTENT_ID,mFishery.getFid())
+                        .putExtra("TYPE",2).putExtra("ALBUM",mFishery.getAlbum()));
+//                openImage();
                 break;
             case R.id.right_text:
                 sub();
@@ -251,6 +255,9 @@ public class UserInfoUpdateActivity<T> extends BaseActivity {
                     mTvTS.setText(OptionUtil.getYu(mYuChang.getFisheryfeature(), mFishery.getFisheryfeature()));//渔场特色
                 }
                 mEtDec.setText(TextUtils.isEmpty(mFishery.getFdescribe())?"":mFishery.getFdescribe());//渔场描述
+                if(!TextUtils.isEmpty(mFishery.getAlbum())){
+                    mTvPhoto.setText("共 "+mFishery.getAlbum().split(" ").length+" 张");//渔场相片
+                }
 //                mTvPhoto.setText(mFishery.getAlbum());//渔场相片
                 mEtAge.setText(TextUtils.isEmpty(mFishery.getFisheryage())?"":mFishery.getFisheryage());//渔场年限
                 if(!TextUtils.isEmpty(mFishery.getFisherytype())) {
@@ -412,6 +419,7 @@ public class UserInfoUpdateActivity<T> extends BaseActivity {
         Map<String,String> values = new HashMap<>();
         values.put("fisheryid", mFishery.getFid() + "");
 
+
         StringBuilder sb = new StringBuilder();
         for(int i = 0;i<mSelectPath.size();i++){
             sb.append(mImageTool.filePathToString(mSelectPath.get(i)));
@@ -419,6 +427,7 @@ public class UserInfoUpdateActivity<T> extends BaseActivity {
                 sb.append(",");
             }
         }
+
         values.put("imagedata[]",sb.toString());//
 
 //        for(String img:mSelectPath){

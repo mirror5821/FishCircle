@@ -3,7 +3,9 @@ package cc.dyjh.www.DiaoYuJiangHu.activity;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.RadioGroup;
 
@@ -76,18 +78,30 @@ public class PriceBZActivity extends BaseViewPagerActivity {
         }
     }
 
+    private String mIntentId;
     private Price1Fragment mFragment1;
     private Price2Fragment mFragment2;
     @Override
     public Fragment setViewPagerFragment(int position) {
+        mIntentId = getIntent().getStringExtra(INTENT_ID);
+        if(TextUtils.isEmpty(mIntentId)){
+
+        }
         if(position == 0){
             if(mFragment1 == null){
                 mFragment1 = new Price1Fragment();
+                Bundle b = new Bundle();
+                b.putString(INTENT_ID, mIntentId);
+
+                mFragment1.setArguments(b);
             }
             return mFragment1;
         }else{
             if(mFragment2 == null){
                 mFragment2 = new Price2Fragment();
+                Bundle b = new Bundle();
+                b.putString(INTENT_ID, mIntentId);
+                mFragment2.setArguments(b);
             }
             return mFragment2;
         }

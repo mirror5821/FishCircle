@@ -48,12 +48,9 @@ public class SharePreferencesUtil implements Constants {
     }
 
     public static User getLoginInfo(Context context){
-//		if(mSPreferences == null){
-//			mSPreferences = context.getSharedPreferences(USER_INFO, 0);
-//		}
         mSPreferences = getInstance(context);
 
-        if(TextUtils.isEmpty(mSPreferences.getString(USER_INFO_PHONE, ""))){
+        if(!TextUtils.isEmpty(mSPreferences.getString(USER_INFO_PHONE, ""))){
             User user = new User();
             user.setName(mSPreferences.getString(USER_INFO_PHONE, ""));
             user.setPhone(mSPreferences.getString(USER_INFO_PASS, ""));

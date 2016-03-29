@@ -48,5 +48,26 @@ public class MainActivity extends BaseTabActivity {
         return null;
     }
 
+    private long last = 0;
+    @Override
+    public void onBackPressed() {
+        if (mFragmentTabHost.getCurrentTab() != 0) {
+            mFragmentTabHost.setCurrentTab(0);
+        } else {
+            if (System.currentTimeMillis() - last > 2000) {
+                showToast( "再按一次返回键退出");
+                last = System.currentTimeMillis();
+            } else {
+                super.onBackPressed();
+            }
+        }
 
+//		if (System.currentTimeMillis() - last > 2000) {
+//			showToast( "再按一次返回键退出");
+//			last = System.currentTimeMillis();
+//		} else {
+//			super.onBackPressed();
+//		}
+
+    }
 }

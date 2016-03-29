@@ -48,6 +48,7 @@ public class CheckBoxSelectActivity<T extends AddrBase> extends BaseActivity {
     private void initView(){
         mList = getIntent().getParcelableArrayListExtra(INTENT_ID);
         mSelectStr = getIntent().getStringExtra("SELECT_TYPE");
+
         if(!TextUtils.isEmpty(mSelectStr)){
 
             for(int i =0;i<mList.size();i++){
@@ -161,19 +162,19 @@ public class CheckBoxSelectActivity<T extends AddrBase> extends BaseActivity {
                             for(int i=0; i<mList.size();i++) {
                                 mIsSelected.put(i,false);
                             }
-                            /*
-                            for(int i=0;i<mIsSelected.size();i++){
-
-                                mIsSelected.put(position,  false);
-                            }*/
                         }
                         mIsSelected.put(0,  cb.isChecked());
                     }else{
-                        mIsSelected.put(position,  cb.isChecked());
+                        //如果第一个被选中  则默认不允许
+                        if(mIsSelected.get(0)&&mList.get(0).getAddrName().equals("不限")){
+                            mIsSelected.put(position,  false);
+                        }else{
+                            mIsSelected.put(position,  cb.isChecked());
+                        }
+
                     }
 
                     changeView();
-
                 }
             });
             return convertView;

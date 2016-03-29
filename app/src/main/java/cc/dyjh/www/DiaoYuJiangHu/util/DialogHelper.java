@@ -39,12 +39,14 @@ public class DialogHelper {
         mListDate.clear();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日");
 
-        Date curDate = new Date(System.currentTimeMillis());//获取当前时间
+//        Date curDate = new Date(System.currentTimeMillis());//获取当前时间
+        Date curDate = new Date(System.currentTimeMillis()+(30*24 * 3600 * 1000));//获取30天前时间
+        //
         String strNow = formatter.format(curDate);
 
         Date dateTime = new Date();
 
-        for(int i=0;i<30;i++){
+        for(int i=0;i<60;i++){
             try {
                 dateTime = formatter.parse(strNow);
             } catch (ParseException e) {

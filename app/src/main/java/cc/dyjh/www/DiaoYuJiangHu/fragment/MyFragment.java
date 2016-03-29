@@ -18,6 +18,7 @@ import cc.dyjh.www.DiaoYuJiangHu.activity.UserInfoActivity;
 import cc.dyjh.www.DiaoYuJiangHu.app.AppContext;
 import cc.dyjh.www.DiaoYuJiangHu.bean.User;
 import cc.dyjh.www.DiaoYuJiangHu.util.AppAjaxCallback;
+import cc.dyjh.www.DiaoYuJiangHu.util.SharePreferencesUtil;
 import dev.mirror.library.android.util.JsonUtils;
 import dev.mirror.library.android.util.UIHelper;
 
@@ -94,6 +95,7 @@ public class MyFragment extends BaseFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         startActivity(new Intent(getActivity(), LoginActivity.class));
+                        SharePreferencesUtil.deleteInfo(getActivity());
                         getActivity().finish();
                     }
                 });

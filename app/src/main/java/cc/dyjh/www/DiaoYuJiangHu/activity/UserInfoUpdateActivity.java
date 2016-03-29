@@ -206,12 +206,14 @@ public class UserInfoUpdateActivity<T> extends BaseActivity {
                 case REQUSET_CODE_1://鱼种类
                     Uri yzData = data.getData();
                     mYZ = yzData.toString();
-                    mTvYZ.setText("具体内容");
+                    mTvYZ.setText(OptionUtil.getYu(mYuChang.getYu(),mYZ));//放鱼鱼种
+//                    mTvYZ.setText("具体内容");
                     break;
                 case REQUSET_CODE_2://渔场特色
                     Uri tsData = data.getData();
                     mTS = tsData.toString();
-                    mTvTS.setText("具体内容");
+                    mTvTS.setText(OptionUtil.getYu(mYuChang.getFisheryfeature(),mTS));//渔场特色
+//                    mTvTS.setText("具体内容");
                     break;
             }
         }

@@ -42,6 +42,7 @@ public class LoginActivity extends BaseActivity {
         if(SharePreferencesUtil.getLoginInfo(getApplicationContext())!=null){
             mEtPhone.setText(SharePreferencesUtil.getLoginInfo(getApplicationContext()).getName());//18312009596
             mEtPass.setText(SharePreferencesUtil.getLoginInfo(getApplicationContext()).getPhone());
+            login();
         }
 
         mBtnLogin = (Button)findViewById(R.id.btn_login);
@@ -121,13 +122,16 @@ public class LoginActivity extends BaseActivity {
                         cancelProgressDialog();
                         finish();
                         break;
+                    case 102:
+                        showToast("密码不正确");
+                        break;
                     case 103:
                         cancelProgressDialog();
                         showToast("用户不存在");
                         break;
                     default:
                         cancelProgressDialog();
-                        showToast("登录");
+                        showToast("登录失败");
                         break;
                 }
             }

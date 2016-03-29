@@ -229,11 +229,11 @@ public class UserInfoRegisterActivity<T> extends BaseActivity {
 
                 mFishery = mYuChang.getFishery().get(0);
 
-                YuChang.FisheryArea fArea = mYuChang.getFisheryarea();
+                /*YuChang.FisheryArea fArea = mYuChang.getFisheryarea();
                 mTS = mFishery.getFisheryfeature();
                 mYZ = mFishery.getFishtype();
                 mFisherTypeId = mFishery.getFisherytype();
-                /*if(!TextUtils.isEmpty(mFishery.getArea())){
+                if(!TextUtils.isEmpty(mFishery.getArea())){
                     mDistritId = mFishery.getArea();
                 }
                 mEtName.setText(TextUtils.isEmpty(mFishery.getFisheryname())?"":mFishery.getFisheryname());//渔场姓名
@@ -387,7 +387,7 @@ public class UserInfoRegisterActivity<T> extends BaseActivity {
 
             @Override
             public void onResult(String data, String msg) {
-                showToast("修改成功");
+                showToast("提交成功");
 
                 cancelProgressDialog();
 
@@ -400,7 +400,27 @@ public class UserInfoRegisterActivity<T> extends BaseActivity {
             @Override
             public void onOtherResult(String data, int status) {
                 cancelProgressDialog();
-                showToast("操作失败");
+                /**
+                 * 成功 "status":0, "msg":" Verify pass","result":""
+                 缺少参数 "status":201, "msg":" Required parameter missing","result":""
+                 保存失败 "status":301, "msg":" ","result":""
+                 数据不正确 "status":300, "msg":" ","result":""
+                 */
+                switch (status){
+                    case 201:
+                        showToast("缺少参数");
+                        break;
+                    case 301:
+                        showToast("保存失败");
+                        break;
+                    case 300:
+                        showToast("数据不正确");
+                        break;
+                    default:
+                        showToast("操作失败");
+                        break;
+                }
+
             }
 
             @Override

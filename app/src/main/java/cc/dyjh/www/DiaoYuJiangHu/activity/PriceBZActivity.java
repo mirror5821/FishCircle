@@ -61,7 +61,7 @@ public class PriceBZActivity extends BaseViewPagerActivity {
 
     @Override
     public String[] setTypes() {
-        return new String[]{"包时收费","其他收费"};
+        return new String[]{"包时收费","其他收费方式"};
     }
 
     @Override

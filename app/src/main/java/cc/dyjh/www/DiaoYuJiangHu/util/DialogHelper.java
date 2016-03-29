@@ -81,7 +81,10 @@ public class DialogHelper {
             }
         }
 
-        //设置默认时间
+        //设置默认时间为当前时间
+        Date nowDate = new Date(System.currentTimeMillis());//获取当前时间
+        strNow = formatter.format(nowDate);
+
         mTimeStr = strNow;
         //设置时间
         mWheelTime.setItems(t);
@@ -93,6 +96,8 @@ public class DialogHelper {
 
             }
         });
+        mWheelDate.setSeletion(19);
+
 
         mHourStr = "00时";
         mWheelTime.setOnWheelViewListener(new WheelView.OnWheelViewListener() {

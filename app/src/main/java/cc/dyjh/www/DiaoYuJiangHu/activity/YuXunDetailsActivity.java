@@ -141,7 +141,7 @@ public class YuXunDetailsActivity<T> extends BaseActivity {
                                 .putExtra("SELECT_TYPE",mERStr),
                         REQUSET_CODE_ER);
                 break;
-            
+
             case R.id.btn:
                 openImage();
                 break;

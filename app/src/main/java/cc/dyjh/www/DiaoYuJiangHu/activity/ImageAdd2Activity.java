@@ -21,10 +21,11 @@ import dev.mirror.library.android.view.NoScrollGridView;
 /**
  * Created by 王沛栋 on 2016/3/28.
  */
-public class ImageAddActivity extends BaseActivity implements AdapterView.OnItemClickListener {
+public class ImageAdd2Activity extends BaseActivity implements AdapterView.OnItemClickListener {
     private NoScrollGridView mGridView;
 
     private ImageAddsAdapter mAdapter;
+    private List<String> mListImg = new ArrayList<String>();
     private List<String> mList;
 
     private ImageTools mImageTools;
@@ -113,7 +114,7 @@ public class ImageAddActivity extends BaseActivity implements AdapterView.OnItem
 
 
         int maxNum = 6;
-        Intent intent = new Intent(ImageAddActivity.this, MultiImageSelectorActivity.class);
+        Intent intent = new Intent(ImageAdd2Activity.this, MultiImageSelectorActivity.class);
         // 是否显示拍摄图片
         intent.putExtra(MultiImageSelectorActivity.EXTRA_SHOW_CAMERA, true);
         // 最大可选择图片数量
@@ -219,25 +220,9 @@ public class ImageAddActivity extends BaseActivity implements AdapterView.OnItem
 
     private void upload2(){
 
-        if(mList.size() == 0){
+        if(TextUtils.isEmpty(getIntent().getStringExtra("ALBUM"))&& mSelectPath == null){
             showToast("请选择上传的照片");
             return;
-        }
-
-        StringBuilder sbImgLoc = new StringBuilder();
-        StringBuilder sbImgNet = new StringBuilder();
-        for (String str:mList){
-            System.out.println("----------" + str);
-            if(!TextUtils.isEmpty(str)){
-                if(str.startsWith("http://")){
-                    sbImgNet.append(str.replace(BASE_IMG_URL,""));
-                    sbImgNet.append(" ");
-                }else{
-                    sbImgLoc.append(mImageTools.filePathToString(str));
-                    sbImgLoc.append(",");
-                }
-            }
-
         }
 
         showProgressDialog("正在提交数据");
@@ -245,21 +230,28 @@ public class ImageAddActivity extends BaseActivity implements AdapterView.OnItem
         Map<String,String> values = new HashMap<>();
         values.put("fisheryid", mId + "");
 
-        String mImgLoc = sbImgLoc.toString();
-        if(TextUtils.isEmpty(mImgLoc)){
-            values.put("imagedata[]","");//
+        if(mSelectPath == null){
+            if(TextUtils.isEmpty(getIntent().getStringExtra("ALBUM"))){
+                showToast("请选择照片");
+                return;
+            }else{
+                values.put("ablum[]",getIntent().getStringExtra("ALBUM"));
+            }
         }else{
-            values.put("imagedata[]",mImgLoc.substring(0,mImgLoc.length()-1));//
-        }
+            StringBuilder sb = new StringBuilder();
+            for(int i = 0;i<mSelectPath.size();i++){
+                sb.append(mImageTools.filePathToString(mSelectPath.get(i)));
+                if(i!=mSelectPath.size()-1){
+                    sb.append(",");
+                }
+            }
 
+            values.put("imagedata[]",sb.toString());//
 
-        values.put("imagetype", "jpeg");
-        String mImgNet = sbImgNet.toString();
-        if(TextUtils.isEmpty(mImgNet)){
+            values.put("imagetype", "jpeg");
             values.put("ablum[]","");//使用空格拼接
-        } else {
-            values.put("ablum[]",mImgNet.substring(0,mImgNet.length()-1));//使用空格拼接
         }
+
 
         mHttpClient.postData1(YUCHANG_IMG_UPLOAD, values, new AppAjaxCallback.onResultListener() {
             @Override
@@ -267,7 +259,6 @@ public class ImageAddActivity extends BaseActivity implements AdapterView.OnItem
 
                 showToast("操作成功");
                 cancelProgressDialog();
-                finish();
 
             }
 
@@ -296,5 +287,9 @@ public class ImageAddActivity extends BaseActivity implements AdapterView.OnItem
                 showToast("操作失败");
             }
         });
+
+
     }
+
+
 }

@@ -325,7 +325,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:paddingBottom="@dimen/d20"
-                    android:hint="是否打窝 是否滑动"
+                    android:hint="请选择渔场特色"
                     android:drawableRight="@mipmap/ic_next"/>
             </LinearLayout>
 

@@ -106,7 +106,7 @@ public class YuXunListActivity extends BaseRecyclerViewActivity{
         holder.getConvertView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(YuXunListActivity.this,YuXunDetailsActivity.class));
+//                startActivity(new Intent(YuXunListActivity.this,YuXunDetailsActivity.class));
             }
         });
     }

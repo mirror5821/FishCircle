@@ -47,6 +47,7 @@ public class UserInfoRegisterActivity<T> extends BaseActivity {
 
     private static final int REQUSET_CODE_1 = 6001;
     private static final int REQUSET_CODE_2 = 6002;
+    private static final int REQUSET_CODE_3 = 6003;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,8 +111,13 @@ public class UserInfoRegisterActivity<T> extends BaseActivity {
 //                startActivityForResult(new Intent(UserInfoUpdateActivity.this,CheckBoxSelectActivity.class).
 //                                putParcelableArrayListExtra(INTENT_ID, (ArrayList<? extends Parcelable>) mYuChang.getFisherytype()),
 //                        REQUSET_CODE_3);
-                if(mYuChang.getFisherytype() !=null)
-                    initSelectView(3, (List<T>) mYuChang.getFisherytype());//fisheryfeature
+                startActivityForResult(new Intent(UserInfoRegisterActivity.this,CheckBoxSelectActivity.class).
+                                putParcelableArrayListExtra(INTENT_ID, (ArrayList<? extends Parcelable>) mYuChang.getFisherytype())
+                                .putExtra("SELECT_TYPE", mFisherTypeId),
+                        REQUSET_CODE_3);
+
+               /* if(mYuChang.getFisherytype() !=null)
+                    initSelectView(3, (List<T>) mYuChang.getFisherytype());//fisheryfeature*/
                 break;
             case R.id.photo:
                 openImage();
@@ -214,6 +220,11 @@ public class UserInfoRegisterActivity<T> extends BaseActivity {
                     mTS = tsData.toString();
                     mTvTS.setText(OptionUtil.getYu(mYuChang.getFisheryfeature(),mTS));//渔场特色
 //                    mTvTS.setText("具体内容");
+                    break;
+                case REQUSET_CODE_3:
+                    Uri ycData = data.getData();
+                    mFisherTypeId = ycData.toString();
+                    mTvType.setText(OptionUtil.getYu(mYuChang.getFisherytype(),mFisherTypeId));//渔场特色
                     break;
             }
         }
@@ -364,10 +375,12 @@ public class UserInfoRegisterActivity<T> extends BaseActivity {
             return;
         }
 
+
         showProgressDialog("正在提交数据");
         Map<String,String> values = new HashMap<>();
-        values.put("id", AppContext.ID+"");
+//        values.put("id", AppContext.ID+"");
         values.put("fishtryid",mFishery.getFid()+"");
+//        values.put("fishtryid",AppContext.ID+"");
         values.put("lan",mLng+"");
         values.put("lat",mLat+"");
         values.put("area",mDistritId);

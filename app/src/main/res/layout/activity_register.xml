@@ -91,6 +91,14 @@
         android:inputType="textPassword"
         android:background="@drawable/bg_normal_press_w"/>
 
+    <TextView
+        android:id="@+id/tv_xy"
+        android:padding="@dimen/d8"
+        android:textColor="@color/tv_hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="注册即同意服务协议《服务协议》"/>
+
     <Button
         android:id="@+id/btn"
         style="@style/BtnBlue"

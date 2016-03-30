@@ -48,6 +48,6 @@ public class Price2Fragment extends BaseFragment {
             showToast("请输入收费标准");
             return;
         }
-        listener.getPirce(str);
+        listener.getPirce("2 " +str);
     }
 }

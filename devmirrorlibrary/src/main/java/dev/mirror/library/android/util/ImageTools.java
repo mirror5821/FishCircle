@@ -22,7 +22,9 @@ import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 public class ImageTools{
 
@@ -285,10 +287,77 @@ public class ImageTools{
 	 * @param st
 	 * @return
 	 */
-	public String filePathToString(String st) {
+	public String filePathToString2(String st) {
 		String str = null;
 		try{
 			Bitmap bitmap = BitmapFactory.decodeFile(st);
+			int size = 1;
+			int width = bitmap.getWidth();
+			int height = bitmap.getHeight();
+			do {
+				width /= 2;
+				height /= 2;
+				size *= 2;
+			}while ((width >= ImageTools.this.defaultWidth) && (height >= ImageTools.this.defaultHeight));
+			BitmapFactory.Options options=new BitmapFactory.Options();
+			options.inJustDecodeBounds = false;
+			options.inSampleSize = size;
+			bitmap.recycle();
+
+			Bitmap mBitmap = BitmapFactory.decodeFile(st, options);
+
+			if (bitmap != null) {
+				ByteArrayOutputStream bStream = new ByteArrayOutputStream();
+				mBitmap.compress(Bitmap.CompressFormat.JPEG, 100, bStream);
+				byte[] bytes = bStream.toByteArray();
+				str = Base64.encodeToString(bytes, 0);
+				//回收bitmap
+				mBitmap.recycle();
+			}
+
+			return str;
+		}
+		catch (Exception e){
+			return null;
+		}
+	}
+
+	/**
+	 * sd卡中的图片转bitmap后再转string
+	 * 用于上传图片使用
+	 * @param st
+	 * @return
+	 */
+	public String filePathToString(String st) {
+		String str = null;
+		try{
+
+			//1.加载位图
+//			String path = Environment.getExternalStorageDirectory().toString()+"/DCIM/device.png";
+
+			InputStream is = new FileInputStream(st);
+			//2.为位图设置100K的缓存
+			BitmapFactory.Options opts=new BitmapFactory.Options();
+			opts.inTempStorage = new byte[100 * 1024];
+			//3.设置位图颜色显示优化方式
+			//ALPHA_8：每个像素占用1byte内存（8位）
+			//ARGB_4444:每个像素占用2byte内存（16位）
+			//ARGB_8888:每个像素占用4byte内存（32位）
+			//RGB_565:每个像素占用2byte内存（16位）
+			//Android默认的颜色模式为ARGB_8888，这个颜色模式色彩最细腻，显示质量最高。但同样的，占用的内存//也最大。也就意味着一个像素点占用4个字节的内存。我们来做一个简单的计算题：3200*2400*4 bytes //=30M。如此惊人的数字！哪怕生命周期超不过10s，Android也不会答应的。
+			opts.inPreferredConfig = Bitmap.Config.RGB_565;
+			//4.设置图片可以被回收，创建Bitmap用于存储Pixel的内存空间在系统内存不足时可以被回收
+//						opts.inPurgeable = true;
+			//5.设置位图缩放比例
+			//width，hight设为原来的四分一（该参数请使用2的整数倍）,这也减小了位图占用的内存大小；例如，一张//分辨率为2048*1536px的图像使用inSampleSize值为4的设置来解码，产生的Bitmap大小约为//512*384px。相较于完整图片占用12M的内存，这种方式只需0.75M内存(假设Bitmap配置为//ARGB_8888)。
+//			opts.inSampleSize = 4;
+			//6.设置解码位图的尺寸信息
+//						opts.inInputShareable = true;
+			//7.解码位图
+			Bitmap bitmap =BitmapFactory.decodeStream(is,null, opts);
+
+
+//			Bitmap bitmap = BitmapFactory.decodeFile(st);
 			int size = 1;
 			int width = bitmap.getWidth();
 			int height = bitmap.getHeight();

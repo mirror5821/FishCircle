@@ -11,7 +11,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.xutils.common.Callback;
 import org.xutils.x;
 
@@ -37,6 +40,7 @@ public class RegisterActivity extends BaseActivity {
     private EditText mEtPhone,mEtVCode,mEtCode,mEtPass;
     private Button mBtnCode,mBtn;
     private ImageView mImg;
+    private TextView mTvXy;
 
     private String mUUId;
     private boolean isVCode = false;
@@ -60,6 +64,9 @@ public class RegisterActivity extends BaseActivity {
         mImg.setOnClickListener(this);
         mBtnCode.setOnClickListener(this);
         mBtn.setOnClickListener(this);
+
+        mTvXy = (TextView)findViewById(R.id.tv_xy);
+        mTvXy.setOnClickListener(this);
 
 
         mEtVCode.addTextChangedListener(new TextWatcher() {
@@ -113,6 +120,11 @@ public class RegisterActivity extends BaseActivity {
                 break;
             case R.id.btn:
                 vPhoneCode();
+                break;
+            case R.id.tv_xy:
+                startActivity(new Intent(RegisterActivity.this,NormalWebViewActivity.class).
+                        putExtra(INTENT_ID,"http://m.dyjh.cc/agreement.html").
+                        putExtra("TITLE","服务条款"));
                 break;
         }
     }
@@ -366,10 +378,18 @@ public class RegisterActivity extends BaseActivity {
                 AppContext.LOGIN_PHONE = phone;
                 AppContext.LOGIN_PASS = pass;
 
-                login();
+                try {
+                    JSONObject jb = new JSONObject(data);
+                    AppContext.ID = jb.getInt("id");
+                }catch (JSONException E){
+
+                }
+//                login();
                 showToast("注册成功,正在登录");
                 cancelProgressDialog();
                 showProgressDialog("正在登录");
+
+                startActivity(new Intent(RegisterActivity.this, UserSelectActivity.class));
             }
 
             @Override
@@ -385,7 +405,7 @@ public class RegisterActivity extends BaseActivity {
         });
     }
 
-    private void login(){
+    /*private void login(){
         final String phone = mEtPhone.getText().toString();
         final String pass = mEtPass.getText().toString();
 
@@ -397,6 +417,7 @@ public class RegisterActivity extends BaseActivity {
             @Override
             public void onResult(String data, String msg) {
                 AppContext.user = JsonUtils.parse(data,User.class);
+                AppContext.ID = AppContext.user.getId();
                 showToast("登录成功");
                 SharePreferencesUtil.saveLoginInfo(getApplicationContext(), phone, pass);
                 SharePreferencesUtil.saveUserInfo(getApplicationContext(), data);
@@ -409,8 +430,16 @@ public class RegisterActivity extends BaseActivity {
                 switch (status){
                     case 101:
                         AppContext.user = JsonUtils.parse(data,User.class);
+                        AppContext.ID = AppContext.user.getId();
                         SharePreferencesUtil.saveLoginInfo(getApplicationContext(), phone, pass);
+                        SharePreferencesUtil.saveUserInfo(getApplicationContext(), data);
+
                         startActivity(new Intent(RegisterActivity.this, UserSelectActivity.class));
+                        cancelProgressDialog();
+                        finish();
+                        break;
+                    case 102:
+                        showToast("密码不正确");
                         break;
                     case 103:
                         cancelProgressDialog();
@@ -418,7 +447,7 @@ public class RegisterActivity extends BaseActivity {
                         break;
                     default:
                         cancelProgressDialog();
-                        showToast("登录");
+                        showToast("登录失败");
                         break;
                 }
             }
@@ -429,5 +458,5 @@ public class RegisterActivity extends BaseActivity {
             }
         });
     }
-
+*/
 }

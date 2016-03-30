@@ -7,6 +7,8 @@ import android.widget.ImageView;
 import org.xutils.image.ImageOptions;
 import org.xutils.x;
 
+import dev.mirror.library.android.R;
+
 /**
  * Created by mirror on 16/1/3.
  */
@@ -52,7 +54,9 @@ public class BaseAppContext  extends Application{
 
     public static void displayHeaderImage(ImageView iv,String url){
         ImageOptions imageOptions = new ImageOptions.Builder()
-                .setImageScaleType(ImageView.ScaleType.CENTER_CROP)
+                .setSize(200,200)
+                .setCircular(true)
+                .setFadeIn(true)
                 .build();
         x.image().bind(iv, url,imageOptions);
     }

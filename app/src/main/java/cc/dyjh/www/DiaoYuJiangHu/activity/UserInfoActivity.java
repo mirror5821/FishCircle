@@ -7,12 +7,10 @@ import android.view.View;
 import android.widget.TextView;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import cc.dyjh.www.DiaoYuJiangHu.R;
 import cc.dyjh.www.DiaoYuJiangHu.app.AppContext;
-import cc.dyjh.www.DiaoYuJiangHu.bean.User;
 import cc.dyjh.www.DiaoYuJiangHu.bean.YuChang;
 import cc.dyjh.www.DiaoYuJiangHu.util.AppAjaxCallback;
 import cc.dyjh.www.DiaoYuJiangHu.util.AppHttpClient;
@@ -56,6 +54,12 @@ public class UserInfoActivity extends BaseActivity {
         mEtAge = (TextView)findViewById(R.id.age);//渔场年限
         mTvType = (TextView)findViewById(R.id.type);//渔场类型
 
+        loadData();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         loadData();
     }
 

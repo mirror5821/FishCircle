@@ -120,7 +120,10 @@ public class UserInfoRegisterActivity<T> extends BaseActivity {
                     initSelectView(3, (List<T>) mYuChang.getFisherytype());//fisheryfeature*/
                 break;
             case R.id.photo:
-                openImage();
+                startActivity(new Intent(UserInfoRegisterActivity.this, ImageAddActivity.class)
+                        .putExtra(INTENT_ID, mFishery.getFid())
+                        .putExtra("TYPE", 2).putExtra("ALBUM", mFishery.getAlbum()));
+//                openImage();
                 break;
             case R.id.right_text:
                 sub();
@@ -231,6 +234,7 @@ public class UserInfoRegisterActivity<T> extends BaseActivity {
     }
 
     private void loadData(){
+
         Map<String,String> values = new HashMap<>();
         values.put("id", AppContext.ID+"");
 
@@ -522,13 +526,13 @@ public class UserInfoRegisterActivity<T> extends BaseActivity {
         showProgressDialog("正在提交数据");
         //渔场id,imagedata:图片流,imagetype:图片类型, ablum:保留的原来图片
         Map<String,String> values = new HashMap<>();
-        values.put("fisheryid", mFishery.getFid()+"");
+        values.put("fisheryid", AppContext.ID+"");
         for(String img:mSelectPath){
             values.put("imagedata[]", img);//（照片1的流,照片2的流）
         }
 //        values.put("imagedata[]", mImageTool.filePathToString(mSelectPath.get(0)));//（照片1的流,照片2的流）
         values.put("imagetype", "jpeg");
-        values.put("ablum","");
+        values.put("ablum[]","");
 
         mHttpClient.postData1(YUCHANG_IMG_UPLOAD, values, new AppAjaxCallback.onResultListener() {
             @Override

@@ -454,8 +454,7 @@ public class PassFindActivity extends BaseActivity {
 
             @Override
             public void onError(String msg) {
-                showToast("err-------" + msg);
             }
         });
-    }
+   }
 }

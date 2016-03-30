@@ -118,13 +118,13 @@ public class LoginActivity extends BaseActivity {
             public void onOtherResult(String data, int status) {
                 switch (status){
                     case 101:
-                        AppContext.user = JsonUtils.parse(data,User.class);
+                        AppContext.user = JsonUtils.parse(data, User.class);
                         AppContext.ID = AppContext.user.getId();
                         SharePreferencesUtil.saveLoginInfo(getApplicationContext(), phone, pass);
                         SharePreferencesUtil.saveUserInfo(getApplicationContext(), data);
 
                         startActivity(new Intent(LoginActivity.this, UserSelectActivity.class));
-                        cancelProgressDialog();
+
                         finish();
                         break;
                     case 102:
@@ -139,6 +139,7 @@ public class LoginActivity extends BaseActivity {
                         showToast("登录失败");
                         break;
                 }
+                cancelProgressDialog();
             }
 
             @Override

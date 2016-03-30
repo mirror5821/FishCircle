@@ -27,7 +27,7 @@ public interface Constants {
     public static final String YUXUN_LIST= "Fisherymsg/griGetFisherymsgs";//获取渔汛列表
     public static final String USER_NAME_UPDATE = "User/griEidtUserInfo";//编辑用户昵称
     public static final String USER_HEADER_UPDATE = "User/griUploadUserPic";//用户头像编辑
-    public static final String YUCHANG_IMG_UPLOAD = "Fishery/griUploadFisheryImgs";//渔场照片上传
+    public static final String YUCHANG_IMG_UPLOAD = "Fishery/griUploadFisheryImgs";//渔场照片上传  Fishery/griUploadFisheryImgs
     public static final String YUXUN_IMG_UPDATE = "Fisherymsg/griUploadFisherymsgImgs";//上传鱼汛照片
 
 

@@ -190,6 +190,9 @@ public class YuXunPublishActivity<T> extends BaseActivity {
                     mTvSF.setText(mSf);
                     try{
                         String [] sfbz = mSf.split(" ");
+                        if(sfbz[0].equals("2")){
+                            return;
+                        }
                         StringBuilder sb = new StringBuilder();
                         sb.append("放鱼:日钓");
                         sb.append(sfbz[1]);
@@ -281,6 +284,9 @@ public class YuXunPublishActivity<T> extends BaseActivity {
                     mTvSF.setText(mSf);
                     try{
                         String [] sfbz = mSf.split(" ");
+                        if(sfbz[0].equals("2")){
+                            return;
+                        }
                         StringBuilder sb = new StringBuilder();
                         sb.append("放鱼:日钓");
                         sb.append(sfbz[1]);

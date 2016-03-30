@@ -37,7 +37,7 @@ public class ImageAddActivity extends BaseActivity implements AdapterView.OnItem
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_add);
         setTitleText("选择照片");
-        setRightTitle("添加");
+        setRightTitle("上传图片");
         setBack();
 
 

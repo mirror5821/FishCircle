@@ -25,7 +25,7 @@ public class YuXunListActivity extends BaseRecyclerViewActivity{
     @Override
     public int setLayoutById() {
         mList = new ArrayList();
-        return R.layout.activity_base_recyclerview;
+        return R.layout.activity_yunxun_list;
     }
 
     @Override
@@ -68,7 +68,6 @@ public class YuXunListActivity extends BaseRecyclerViewActivity{
 
             @Override
             public void onError(String msg) {
-                showToast("err----"+msg);
                 setAdapter();
             }
         });
@@ -87,7 +86,7 @@ public class YuXunListActivity extends BaseRecyclerViewActivity{
         TextView name3 = holder.getView(R.id.name3);
         TextView status = holder.getView(R.id.status);
 
-        name1.setText("放鱼时间: "+yu.getFyjs());
+        name1.setText("放鱼时间: "+yu.getFysj());
         name2.setText("开钓时间: "+yu.getDysj());
         name3.setText("放鱼斤数: "+yu.getFyjs()+" 斤");
         //1已通过 2审核中3未通过

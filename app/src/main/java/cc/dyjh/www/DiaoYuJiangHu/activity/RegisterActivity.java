@@ -27,11 +27,7 @@ import java.util.regex.Pattern;
 
 import cc.dyjh.www.DiaoYuJiangHu.R;
 import cc.dyjh.www.DiaoYuJiangHu.app.AppContext;
-import cc.dyjh.www.DiaoYuJiangHu.bean.User;
 import cc.dyjh.www.DiaoYuJiangHu.util.AppAjaxCallback;
-import cc.dyjh.www.DiaoYuJiangHu.util.SharePreferencesUtil;
-import dev.mirror.library.android.util.JsonUtils;
-import dev.mirror.library.android.util.MD5Util;
 
 /**
  * Created by dongqian on 16/3/22.
@@ -387,6 +383,7 @@ public class RegisterActivity extends BaseActivity {
 //                login();
 
                 startActivity(new Intent(RegisterActivity.this, UserSelectActivity.class));
+                finish();
             }
 
             @Override

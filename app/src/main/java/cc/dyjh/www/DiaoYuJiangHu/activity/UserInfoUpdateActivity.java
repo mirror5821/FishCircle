@@ -229,6 +229,12 @@ public class UserInfoUpdateActivity<T> extends BaseActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadData();
+    }
+
     private void loadData(){
         Map<String,String> values = new HashMap<>();
         values.put("id", AppContext.ID+"");

@@ -63,7 +63,10 @@ public class MyFragment extends BaseFragment {
             loadData();
         }else{
             mUser = AppContext.user;
-            AppContext.displayHeaderImage(mImgHeader, AppContext.USER_HEADER);
+            if(!TextUtils.isEmpty(mUser.getPic())){
+                AppContext.displayHeaderImage(mImgHeader, AppContext.USER_HEADER);
+            }
+
             mTvPhone.setText(mUser.getPhone());
             mTvName.setText(TextUtils.isEmpty(AppContext.USER_NAME)?"未设置昵称":AppContext.USER_NAME);
         }
@@ -114,8 +117,10 @@ public class MyFragment extends BaseFragment {
             public void onResult(String data, String msg) {
                 mUser = JsonUtils.parse(data, User.class);
                 AppContext.user = mUser;
-
-                AppContext.displayImage(mImgHeader, BASE_IMG_URL + mUser.getPic());
+                if(!TextUtils.isEmpty(mUser.getPic())){
+                    AppContext.USER_HEADER =  BASE_IMG_URL + mUser.getPic();
+                    AppContext.displayHeaderImage(mImgHeader, AppContext.USER_HEADER);
+                }
                 mTvPhone.setText(mUser.getPhone());
                 mTvName.setText(mUser.getName());
             }

@@ -21,6 +21,8 @@ public class Price1Fragment extends BaseFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mIntentId = getArguments().getString(INTENT_ID);
+
+        System.out.println("----------------"+mIntentId);
     }
 
     @Override
@@ -43,14 +45,17 @@ public class Price1Fragment extends BaseFragment {
 
         if(!TextUtils.isEmpty(mIntentId)){
             String [] ids = mIntentId.split(" ");
-            mEtP1.setText(ids[0]);
-            mEtH1.setText(ids[1]);
-            mEtP2.setText(ids[2]);
-            mEtH2.setText(ids[3]);
-            mEtP3.setText(ids[4]);
-            mEtH3.setText(ids[5]);
-            mEtP4.setText(ids[6]);
-            mEtH4.setText(ids[7]);
+            if(ids[0].equals("2")){
+                return;
+            }
+            mEtP1.setText(ids[1]);
+            mEtH1.setText(ids[2]);
+            mEtP2.setText(ids[3]);
+            mEtH2.setText(ids[4]);
+            mEtP3.setText(ids[5]);
+            mEtH3.setText(ids[6]);
+            mEtP4.setText(ids[7]);
+            mEtH4.setText(ids[8]);
         }
     }
 

@@ -407,10 +407,10 @@ public class UserInfoRegisterActivity<T> extends BaseActivity {
 
                 cancelProgressDialog();
 
-//                login();
+                login();
 
-                startActivity(new Intent(UserInfoRegisterActivity.this,LoginActivity.class));
-                finish();
+//                startActivity(new Intent(UserInfoRegisterActivity.this,LoginActivity.class));
+//                finish();
             }
 
             @Override

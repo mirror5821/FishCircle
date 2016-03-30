@@ -55,13 +55,14 @@
                 style="@style/TvLight"
                 android:text="@string/service_content"
                 android:textSize="18sp"
+                android:visibility="gone"
                 android:layout_marginTop="@dimen/d8"/>
 
             <TextView
+                android:id="@+id/tv_forget"
                 style="@style/TvLight"
                 android:text="@string/forget_pass"
                 android:textSize="18sp"
-                android:visibility="gone"
                 android:layout_marginTop="@dimen/d8"
                 android:layout_alignParentRight="true"/>
         </RelativeLayout>

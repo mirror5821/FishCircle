@@ -36,7 +36,7 @@ import dev.mirror.library.android.util.MD5Util;
 /**
  * Created by dongqian on 16/3/22.
  */
-public class RegisterActivity extends BaseActivity {
+public class PassFindActivity extends BaseActivity {
     private EditText mEtPhone,mEtVCode,mEtCode,mEtPass;
     private Button mBtnCode,mBtn;
     private ImageView mImg;
@@ -49,7 +49,7 @@ public class RegisterActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         setBack();
-        setTitleText("注册");
+        setTitleText("找回密码");
 
         mEtCode = (EditText)findViewById(R.id.code);
         mEtVCode = (EditText)findViewById(R.id.v_code);
@@ -122,7 +122,7 @@ public class RegisterActivity extends BaseActivity {
                 vPhoneCode();
                 break;
             case R.id.tv_xy:
-                startActivity(new Intent(RegisterActivity.this,NormalWebViewActivity.class).
+                startActivity(new Intent(PassFindActivity.this,NormalWebViewActivity.class).
                         putExtra(INTENT_ID,"http://m.dyjh.cc/agreement.html").
                         putExtra("TITLE","服务条款"));
                 break;
@@ -214,7 +214,7 @@ public class RegisterActivity extends BaseActivity {
         Map<String,String> values = new HashMap<>();
         values.put("phone", phone);
         values.put("rand",mUUId);
-        values.put("requestType","0");// rand:标识,phone:手机号,requestType:请求类型 0注册 1找回密码
+        values.put("requestType","1");// rand:标识,phone:手机号,requestType:请求类型 0注册 1找回密码
 
 
         mHttpClient.postData1(GET_PHONE_CODE, values, new AppAjaxCallback.onResultListener() {
@@ -372,7 +372,7 @@ public class RegisterActivity extends BaseActivity {
         values.put("rand",mUUId);
 
 
-        mHttpClient.postData1(REGISTER, values, new AppAjaxCallback.onResultListener() {
+        mHttpClient.postData1(PASS_FIND, values, new AppAjaxCallback.onResultListener() {
             @Override
             public void onResult(String data, String msg) {
                 AppContext.LOGIN_PHONE = phone;
@@ -384,9 +384,12 @@ public class RegisterActivity extends BaseActivity {
                 }catch (JSONException E){
 
                 }
-//                login();
-
-                startActivity(new Intent(RegisterActivity.this, UserSelectActivity.class));
+//
+                showToast("修改成功,正在登录");
+                cancelProgressDialog();
+                showProgressDialog("正在登录");
+                login();
+                startActivity(new Intent(PassFindActivity.this, UserSelectActivity.class));
             }
 
             @Override
@@ -397,12 +400,12 @@ public class RegisterActivity extends BaseActivity {
             @Override
             public void onError(String msg) {
                 cancelProgressDialog();
-                showToast("注册失败，请重新操作");
+                showToast("操作失败，请重新操作");
             }
         });
     }
 
-    /*private void login(){
+    private void login(){
         final String phone = mEtPhone.getText().toString();
         final String pass = mEtPass.getText().toString();
 
@@ -419,7 +422,7 @@ public class RegisterActivity extends BaseActivity {
                 SharePreferencesUtil.saveLoginInfo(getApplicationContext(), phone, pass);
                 SharePreferencesUtil.saveUserInfo(getApplicationContext(), data);
 
-                startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+                startActivity(new Intent(PassFindActivity.this, MainActivity.class));
             }
 
             @Override
@@ -431,7 +434,7 @@ public class RegisterActivity extends BaseActivity {
                         SharePreferencesUtil.saveLoginInfo(getApplicationContext(), phone, pass);
                         SharePreferencesUtil.saveUserInfo(getApplicationContext(), data);
 
-                        startActivity(new Intent(RegisterActivity.this, UserSelectActivity.class));
+                        startActivity(new Intent(PassFindActivity.this, UserSelectActivity.class));
                         cancelProgressDialog();
                         finish();
                         break;
@@ -455,5 +458,4 @@ public class RegisterActivity extends BaseActivity {
             }
         });
     }
-*/
 }

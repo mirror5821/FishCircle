@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg">
+
+    <include layout="@layout/view_base_title_bar"/>
+
+    <EditText
+        android:id="@+id/phone"
+        android:drawableLeft="@mipmap/ic_input_phone"
+        android:layout_marginTop="@dimen/d8"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/d48"
+        android:paddingLeft="@dimen/d8"
+        android:hint="@string/input_phone"
+        android:drawablePadding="@dimen/d8"
+        android:maxLength="11"
+        android:inputType="phone"
+        android:background="@drawable/bg_normal_press_w"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/d48"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/d8"
+        android:background="@drawable/bg_normal_press_w">
+
+        <EditText
+            android:id="@+id/v_code"
+            android:drawableLeft="@mipmap/ic_input_write"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:paddingLeft="@dimen/d8"
+            android:layout_height="match_parent"
+            android:drawablePadding="@dimen/d8"
+            android:background="@null"/>
+
+        <ImageView
+            android:id="@+id/img"
+            android:layout_width="92dp"
+            android:layout_height="@dimen/d48"
+            android:background="#2e2e2e"
+            android:scaleType="fitXY"
+            android:paddingLeft="1dp"
+            android:paddingRight="1dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/d48"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/d8"
+        android:background="@drawable/bg_normal_press_w">
+
+        <EditText
+            android:id="@+id/code"
+            android:drawableLeft="@mipmap/ic_input_write"
+            android:background="@null"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:inputType="number"
+            android:layout_height="@dimen/d48"
+            android:paddingLeft="@dimen/d8"
+            android:drawablePadding="@dimen/d8"
+            />
+
+        <Button
+            android:id="@+id/btn_code"
+            android:text="@string/get_code"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="14sp"
+            style="@style/BtnBlue"
+            android:layout_marginRight="4dp"/>
+
+    </LinearLayout>
+
+
+
+    <EditText
+        android:id="@+id/pass"
+        android:drawableLeft="@mipmap/ic_input_pass"
+        android:layout_marginTop="@dimen/d8"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/d48"
+        android:paddingLeft="@dimen/d8"
+        android:hint="@string/input_pass"
+        android:drawablePadding="@dimen/d8"
+        android:inputType="textPassword"
+        android:background="@drawable/bg_normal_press_w"/>
+
+    <TextView
+        android:id="@+id/tv_xy"
+        android:padding="@dimen/d8"
+        android:textColor="@color/tv_hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="注册即同意服务协议《服务协议》"/>
+
+    <Button
+        android:id="@+id/btn"
+        style="@style/BtnBlue"
+        android:text="@string/register_login"
+        android:layout_margin="@dimen/d16"/>
+
+
+
+</LinearLayout>

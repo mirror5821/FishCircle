@@ -25,7 +25,12 @@ public class PriceBZActivity extends BaseViewPagerActivity {
         setBack();
         setRightTitle("保存");
         setTitleText("收费标准");
-
+        String str [] = getIntent().getStringExtra(INTENT_ID).split(" ");
+        if(str[0].equals("1")){
+            mRb1.setChecked(true);
+        }else{
+            mRb2.setChecked(true);
+        }
     }
 
     @Override
@@ -105,6 +110,8 @@ public class PriceBZActivity extends BaseViewPagerActivity {
             }
             return mFragment2;
         }
+
+
     }
 
     private void selectTab(int tab){

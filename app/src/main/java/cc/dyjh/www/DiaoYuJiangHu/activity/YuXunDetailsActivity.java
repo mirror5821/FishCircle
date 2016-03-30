@@ -93,7 +93,7 @@ public class YuXunDetailsActivity<T> extends BaseActivity {
     }
 
 
-    @Override
+    /*@Override
     public void onClick(View v) {
         super.onClick(v);
         switch (v.getId()){
@@ -146,7 +146,7 @@ public class YuXunDetailsActivity<T> extends BaseActivity {
                 openImage();
                 break;
         }
-    }
+    }*/
 
     /**
      *

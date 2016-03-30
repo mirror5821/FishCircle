@@ -28,7 +28,7 @@ public class LoginActivity extends BaseActivity {
     private Button mBtnLogin,mBtnRegister;
     private EditText mEtPhone;
     private EditText mEtPass;
-    private TextView mTvTk;
+    private TextView mTvTk,mTvForget;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +39,8 @@ public class LoginActivity extends BaseActivity {
 
         mEtPhone = (EditText)findViewById(R.id.name);
         mEtPass = (EditText)findViewById(R.id.pass);
+        mTvForget = (TextView)findViewById(R.id.tv_forget);
+        mTvForget.setOnClickListener(this);
         if(SharePreferencesUtil.getLoginInfo(getApplicationContext())!=null){
             mEtPhone.setText(SharePreferencesUtil.getLoginInfo(getApplicationContext()).getName());//18312009596
             mEtPass.setText(SharePreferencesUtil.getLoginInfo(getApplicationContext()).getPhone());
@@ -69,6 +71,9 @@ public class LoginActivity extends BaseActivity {
                 startActivity(new Intent(LoginActivity.this,NormalWebViewActivity.class).
                         putExtra(INTENT_ID,"http://m.dyjh.cc/agreement.html").
                         putExtra("TITLE","服务条款"));
+                break;
+            case R.id.tv_forget:
+                startActivity(new Intent(LoginActivity.this,PassFindActivity.class));
                 break;
         }
     }
@@ -142,8 +147,5 @@ public class LoginActivity extends BaseActivity {
                 cancelProgressDialog();
             }
         });
-
-
-
     }
 }

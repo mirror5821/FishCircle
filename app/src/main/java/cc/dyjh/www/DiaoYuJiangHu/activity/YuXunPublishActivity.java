@@ -187,29 +187,29 @@ public class YuXunPublishActivity<T> extends BaseActivity {
                     Uri sfData = data.getData();
                     mSf = sfData.toString();
 
-                    mTvSF.setText("具体内容");
+                    mTvSF.setText(mSf);
                     try{
                         String [] sfbz = mSf.split(" ");
                         StringBuilder sb = new StringBuilder();
                         sb.append("放鱼:日钓");
-                        sb.append(sfbz[0]);
-                        sb.append("元");
                         sb.append(sfbz[1]);
-                        sb.append("小时");
-
+                        sb.append("元");
                         sb.append(sfbz[2]);
-                        sb.append("元");
+                        sb.append("小时");
+
                         sb.append(sfbz[3]);
-                        sb.append("小时");
-
+                        sb.append("元");
                         sb.append(sfbz[4]);
-                        sb.append("元");
-                        sb.append(sfbz[5]);
                         sb.append("小时");
 
-                        sb.append(sfbz[6]);
+                        sb.append(sfbz[5]);
                         sb.append("元");
+                        sb.append(sfbz[6]);
+                        sb.append("小时");
+
                         sb.append(sfbz[7]);
+                        sb.append("元");
+                        sb.append(sfbz[8]);
                         sb.append("小时");
 
                         mTvSF.setText(sb.toString());
@@ -283,24 +283,24 @@ public class YuXunPublishActivity<T> extends BaseActivity {
                         String [] sfbz = mSf.split(" ");
                         StringBuilder sb = new StringBuilder();
                         sb.append("放鱼:日钓");
-                        sb.append(sfbz[0]);
-                        sb.append("元");
                         sb.append(sfbz[1]);
-                        sb.append("小时");
-
+                        sb.append("元");
                         sb.append(sfbz[2]);
-                        sb.append("元");
+                        sb.append("小时");
+
                         sb.append(sfbz[3]);
-                        sb.append("小时");
-
+                        sb.append("元");
                         sb.append(sfbz[4]);
-                        sb.append("元");
-                        sb.append(sfbz[5]);
                         sb.append("小时");
 
-                        sb.append(sfbz[6]);
+                        sb.append(sfbz[5]);
                         sb.append("元");
+                        sb.append(sfbz[6]);
+                        sb.append("小时");
+
                         sb.append(sfbz[7]);
+                        sb.append("元");
+                        sb.append(sfbz[8]);
                         sb.append("小时");
 
                         mTvSF.setText(sb.toString());

@@ -2,6 +2,7 @@ package cc.dyjh.www.DiaoYuJiangHu.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -102,9 +103,9 @@ public class IndexFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
 
-        AppContext.displayHeaderImage(mImgHeader, AppContext.USER_HEADER);
-
-
+        if(!TextUtils.isEmpty(AppContext.USER_HEADER)){
+            AppContext.displayHeaderImage(mImgHeader, AppContext.USER_HEADER);
+        }
     }
 
     private void loadUserData(){
@@ -116,10 +117,13 @@ public class IndexFragment extends BaseFragment {
             public void onResult(String data, String msg) {
                 mUser = JsonUtils.parse(data, User.class);
                 AppContext.user = mUser;
-                AppContext.USER_HEADER = BASE_IMG_URL + mUser.getPic();
-                AppContext.USER_NAME = mUser.getName();
 
-                AppContext.displayHeaderImage(mImgHeader, AppContext.USER_HEADER);
+                AppContext.USER_NAME = mUser.getName();
+                if(!TextUtils.isEmpty(mUser.getPic())){
+                    AppContext.USER_HEADER = BASE_IMG_URL + mUser.getPic();
+                    AppContext.displayHeaderImage(mImgHeader, AppContext.USER_HEADER);
+                }
+
             }
 
             @Override

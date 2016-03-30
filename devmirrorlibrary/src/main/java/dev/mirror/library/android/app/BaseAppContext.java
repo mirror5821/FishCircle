@@ -57,6 +57,7 @@ public class BaseAppContext  extends Application{
                 .setSize(200,200)
                 .setCircular(true)
                 .setFadeIn(true)
+                .setAutoRotate(true)
                 .build();
         x.image().bind(iv, url,imageOptions);
     }

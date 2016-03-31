@@ -93,114 +93,6 @@ public class YuXunDetailsActivity<T> extends BaseActivity {
     }
 
 
-    /*@Override
-    public void onClick(View v) {
-        super.onClick(v);
-        switch (v.getId()){
-            case R.id.price_biaozhun:
-                startActivityForResult(new Intent(YuXunDetailsActivity.this,PriceBZActivity.class),REQUSET_CODE_SF);
-                break;
-            case R.id.kaidiao_time:
-                DialogHelper.initSelectTime(YuXunDetailsActivity.this, new TimeInterface() {
-                    @Override
-                    public void getData(String data) {
-                        mTvKDTime.setText(data);
-                    }
-
-                    @Override
-                    public void getHour(String time) {
-
-                    }
-                });
-                break;
-            case R.id.fangyu_time:
-                DialogHelper.initSelectTime(YuXunDetailsActivity.this, new TimeInterface() {
-                    @Override
-                    public void getData(String data) {
-                        mTvFYTime.setText(data);
-                    }
-
-                    @Override
-                    public void getHour(String time) {
-
-                    }
-                });
-                break;
-            case R.id.fangyu_type:
-                startActivityForResult(new Intent(YuXunDetailsActivity.this,CheckBoxSelectActivity.class).
-                        putParcelableArrayListExtra(INTENT_ID, (ArrayList<? extends Parcelable>) mFishType)
-                                .putExtra("SELECT_TYPE", mYZ),
-                        REQUSET_CODE_YZ);
-                break;
-            case R.id.is_xiangan:
-                initSelectView(1, (List<T>) mXianGan);
-                break;
-            case R.id.limit_diaoer:
-                startActivityForResult(new Intent(YuXunDetailsActivity.this,CheckBoxSelectActivity.class).
-                                putParcelableArrayListExtra(INTENT_ID, (ArrayList<? extends Parcelable>) mER)
-                                .putExtra("SELECT_TYPE",mERStr),
-                        REQUSET_CODE_ER);
-                break;
-
-            case R.id.btn:
-                openImage();
-                break;
-        }
-    }*/
-
-    /**
-     *
-     * @param type 1鱼种类  2渔场特色
-     * @param mList
-     */
-    private void initSelectView(final int type, final List<T> mList){
-        UIUtil uiHelper = new UIUtil();
-        uiHelper.initSelectListView(YuXunDetailsActivity.this, mList, new DialogInterface() {
-            @Override
-            public void getPosition(int position) {
-                switch (type) {
-                    case 1:
-                        mXianGan.get(position);
-                        mXG = mXianGan.get(position).getName();
-                        mTvXG.setText(mXG);
-                        mXG = mXianGan.get(position).getId()+"";
-                        break;
-
-                }
-            }
-        });
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == Activity.RESULT_OK){
-            switch (requestCode) {
-                case REQUSET_CODE_SF:
-                    Uri sfData = data.getData();
-                    mSf = sfData.toString();
-                    mTvSF.setText("具体内容");
-
-                    break;
-                case REQUSET_CODE_YZ:
-                    Uri yzData = data.getData();
-                    mYZ = yzData.toString();
-                    mTvType.setText(OptionUtil.getYu(mYuChang.getYu(), mYZ));
-//                    mTvType.setText("具体内容");
-                    break;
-                case REQUSET_CODE_ER:
-                    Uri erData = data.getData();
-                    mERStr = erData.toString();
-                    mTvJY.setText(OptionUtil.getYu(mYuChang.getEr(), mERStr));
-                    break;
-                case REQUEST_IMAGE:
-                    mSelectPath = data.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT);
-                    mBtn.setText("已选择 "+mSelectPath.size()+" 张");
-                    upload();
-                    break;
-            }
-        }
-    }
 
 
 
@@ -241,6 +133,34 @@ public class YuXunDetailsActivity<T> extends BaseActivity {
                 mSf = mYuXun.getSfbz();//收费标准
                 if (!TextUtils.isEmpty(mSf)) {
                     mTvSF.setText(mSf);
+                    try{
+                        String [] sfbz = mSf.split(" ");
+                        StringBuilder sb = new StringBuilder();
+                        sb.append("放鱼:日钓");
+                        sb.append(sfbz[1]);
+                        sb.append("元");
+                        sb.append(sfbz[2]);
+                        sb.append("小时");
+
+                        sb.append(sfbz[3]);
+                        sb.append("元");
+                        sb.append(sfbz[4]);
+                        sb.append("小时");
+
+                        sb.append(sfbz[5]);
+                        sb.append("元");
+                        sb.append(sfbz[6]);
+                        sb.append("小时");
+
+                        sb.append(sfbz[7]);
+                        sb.append("元");
+                        sb.append(sfbz[8]);
+                        sb.append("小时");
+
+                        mTvSF.setText(sb.toString());
+                    }catch (Exception e){
+
+                    }
                 }
                 mEtOther.setText(mYuXun.getQtsm());//其他说明
                 mEtJin.setText(mYuXun.getFyjs());//放鱼斤数
@@ -257,166 +177,4 @@ public class YuXunDetailsActivity<T> extends BaseActivity {
             }
         });
     }
-
-    private void sub(){
-        String otherDec = mEtOther.getText().toString();
-        String dkTime = mTvKDTime.getText().toString();
-        String fyTime = mTvFYTime.getText().toString();
-        String js = mEtJin.getText().toString();
-        if(TextUtils.isEmpty(mYZ)){
-            showToast("请选择放鱼种类");
-            return;
-        }
-
-        if(TextUtils.isEmpty(mXG)){
-            showToast("请选择是否限杆");
-            return;
-        }
-        if(TextUtils.isEmpty(mERStr)){
-            showToast("请选择是否禁用钓饵");
-            return;
-        }
-        if(TextUtils.isEmpty(otherDec)){
-            showToast("请输入其他描述");
-            return;
-        }
-        if(TextUtils.isEmpty(dkTime)){
-            showToast("请选择开钓时间");
-            return;
-        }
-        if(TextUtils.isEmpty(mSf)){
-            showToast("请编辑收费标准");
-            return;
-        }
-        if(TextUtils.isEmpty(fyTime)){
-            showToast("请选择放鱼时间");
-            return;
-        }
-        if(TextUtils.isEmpty(js)){
-            showToast("请输入放鱼斤数");
-            return;
-        }
-
-        //"http://m.dyjh.cc/appi.php?s=Fisherymsg/griEditFisherymsg?fyzl=2 5 8 9&fhid=8&xgcd=20&jyez=13 14
-        // &qtsm=qi ta shuo Ming&dysj=2016年03月24日09时&sfbz=1 100 6 100 5 50 5 50 5&fysj=2016年03月24日09时&fyjs=100"
-        showProgressDialog("正在发布");
-        Map<String,String> values = new HashMap<>();
-        values.put("fyzl", mYZ);
-        values.put("fhid", mYuChang.getFhid()+"");
-        values.put("xgcd", mXG);
-        values.put("jyez", mERStr);
-        values.put("qtsm", otherDec);
-        values.put("dysj", dkTime);
-        values.put("sfbz", mSf);
-        values.put("fysj", fyTime);
-        values.put("fyjs", js);
-
-        mHttpClient.postData1(YUNCAHNG_INFO_UPDATE, values, new AppAjaxCallback.onResultListener() {
-            @Override
-            public void onResult(String data, String msg) {
-                showToast("发布成功");
-                cancelProgressDialog();
-                finish();
-            }
-
-            @Override
-            public void onOtherResult(String data, int status) {
-                switch (status){
-                    case 201:
-                        showToast("缺少参数");
-                        break;
-                    case 301:
-                        showToast("保存失败");
-                        break;
-                    case 300:
-                        showToast("数据不正确");
-                        break;
-                    default:
-                        showToast("发布失败");
-                        break;
-                }
-                cancelProgressDialog();
-            }
-
-            @Override
-            public void onError(String msg) {
-                showToast("发布失败");
-                cancelProgressDialog();
-            }
-        });
-    }
-
-    private ArrayList<String> mSelectPath;
-    private static final int REQUEST_IMAGE = 6;
-    private void openImage(){
-        int selectedMode = MultiImageSelectorActivity.MODE_MULTI;
-//        selectedMode = MultiImageSelectorActivity.MODE_SINGLE;
-
-        int maxNum = 6;
-        Intent intent = new Intent(YuXunDetailsActivity.this, MultiImageSelectorActivity.class);
-        // 是否显示拍摄图片
-        intent.putExtra(MultiImageSelectorActivity.EXTRA_SHOW_CAMERA, true);
-        // 最大可选择图片数量
-        intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_COUNT, maxNum);
-        // 选择模式
-        intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_MODE, selectedMode);
-        // 默认选择
-        if (mSelectPath != null && mSelectPath.size() > 0) {
-            intent.putExtra(MultiImageSelectorActivity.EXTRA_DEFAULT_SELECTED_LIST, mSelectPath);
-        }
-
-        startActivityForResult(intent, REQUEST_IMAGE);
-    }
-
-
-    private void upload(){
-        showProgressDialog("正在提交数据");
-        //渔场id,imagedata:图片流,imagetype:图片类型, ablum:保留的原来图片
-        Map<String,String> values = new HashMap<>();
-        values.put("fhid",mYuXun.getId());
-        for(String img:mSelectPath){
-            values.put("imagedata[]", mImageTools.filePathToString(img));//（照片1的流,照片2的流）
-        }
-//        values.put("imagedata", "("+mSelectPath.get(0).toString()+")");//（照片1的流,照片2的流）
-        values.put("imagetype", "jpeg");
-
-//        参数 fhid:渔汛id,imagedata:图片流,imagetype:图片类型
-
-        mHttpClient.postData1(YUXUN_IMG_UPDATE, values, new AppAjaxCallback.onResultListener() {
-            @Override
-            public void onResult(String data, String msg) {
-
-                showToast("操作成功");
-                cancelProgressDialog();
-
-            }
-
-            @Override
-            public void onOtherResult(String data, int status) {
-                switch (status){
-                    case 101:
-
-                        finish();
-                        break;
-                    case 103:
-
-                        break;
-                    default:
-
-                        break;
-
-                }
-                cancelProgressDialog();
-                showToast("操作失败");
-            }
-
-            @Override
-            public void onError(String msg) {
-                cancelProgressDialog();
-                showToast("操作失败");
-            }
-        });
-
-    }
-
 }

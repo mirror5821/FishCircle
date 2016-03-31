@@ -20,6 +20,7 @@ android {
 }
 
 dependencies {
+    compile project(':umengLirary')
     compile project(':devmirrorlibrary')
     compile project(':bmaplibrary')
     compile fileTree(dir: 'libs', include: ['*.jar'])

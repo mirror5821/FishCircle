@@ -1,1 +1,1 @@
-include ':app', ':xrecyclerview', ':devmirrorlibrary', ':bmaplibrary'
+include ':app', ':xrecyclerview', ':devmirrorlibrary', ':bmaplibrary', ':umengLirary'

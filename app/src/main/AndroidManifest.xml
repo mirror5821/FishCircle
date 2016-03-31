@@ -139,6 +139,30 @@
             android:name="dev.mirror.library.android.activity.MultiImageSelectorActivity"/>
 
 
+        <!-- 友盟自动更新开始 -->
+        <!-- Caution! Do not change this app key. It is only for demo usage. -->
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="56fcdd8867e58eba490031a8" >
+            <!--55c05b5967e58e9663002125 56384ca4e0f55a5bca0023ec-->
+        </meta-data>
+
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="Umeng" >
+        </meta-data>
+
+        <service
+            android:name="com.umeng.update.net.DownloadingService"
+            android:process=":DownloadingService" >
+        </service>
+
+        <activity
+            android:name="com.umeng.update.UpdateDialogActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+        </activity>
+        <!-- 友盟自动更新结束 -->
+        
     </application>
 
     <!-- 连接网络权限，用于执行云端语音能力 -->

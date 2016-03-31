@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/bmaplibrary/bmaplibrary.iml" filepath="$PROJECT_DIR$/bmaplibrary/bmaplibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/devmirrorlibrary/devmirrorlibrary.iml" filepath="$PROJECT_DIR$/devmirrorlibrary/devmirrorlibrary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/umengLirary/umengLirary.iml" filepath="$PROJECT_DIR$/umengLirary/umengLirary.iml" />
       <module fileurl="file://$PROJECT_DIR$/xrecyclerview/xrecyclerview.iml" filepath="$PROJECT_DIR$/xrecyclerview/xrecyclerview.iml" />
     </modules>
   </component>

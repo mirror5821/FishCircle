@@ -6,6 +6,11 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.umeng.analytics.MobclickAgent;
+import com.umeng.update.UmengDialogButtonListener;
+import com.umeng.update.UmengUpdateAgent;
+import com.umeng.update.UpdateStatus;
+
 import cc.dyjh.www.DiaoYuJiangHu.R;
 import cc.dyjh.www.DiaoYuJiangHu.bean.Constants;
 import cc.dyjh.www.DiaoYuJiangHu.util.AppHttpClient;
@@ -24,6 +29,35 @@ public class BaseActivity extends DevBaseActivity implements Constants{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
+
+
+        //友盟更新
+        UmengUpdateAgent.update(this);
+        //设置不仅在wifi下更新
+        UmengUpdateAgent.setUpdateOnlyWifi(false);
+        //		静默下载更新
+        UmengUpdateAgent.silentUpdate(this);
+        UmengUpdateAgent.setDialogListener(new UmengDialogButtonListener() {
+
+            @Override
+            public void onClick(int status) {
+                switch (status) {
+                    case UpdateStatus.Update:
+                        UmengUpdateAgent.update(getApplicationContext());
+                        break;
+                }
+            }
+        });
+
+        MobclickAgent.setDebugMode(true);
+        //      SDK在统计Fragment时，需要关闭Activity自带的页面统计，
+        //		然后在每个页面中重新集成页面统计的代码(包括调用了 onResume 和 onPause 的Activity)。
+        MobclickAgent.openActivityDurationTrack(false);
+        //		MobclickAgent.setAutoLocation(true);
+        //		MobclickAgent.setSessionContinueMillis(1000);
+
+        MobclickAgent.updateOnlineConfig(this);
+
     }
 
     /**

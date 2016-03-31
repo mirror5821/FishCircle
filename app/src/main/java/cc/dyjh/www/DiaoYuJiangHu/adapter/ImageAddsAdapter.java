@@ -1,6 +1,7 @@
 package cc.dyjh.www.DiaoYuJiangHu.adapter;
 
 import android.content.Context;
+import android.media.ExifInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import org.xutils.image.ImageOptions;
 import org.xutils.x;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import cc.dyjh.www.DiaoYuJiangHu.R;
@@ -116,4 +118,7 @@ public class ImageAddsAdapter extends BaseAdapter {
     private static class ViewHolder{
         ImageView img,imgDelete;
     }
+
+
+
 }

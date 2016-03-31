@@ -10,6 +10,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -371,7 +373,8 @@ public class ImageTools{
 			options.inSampleSize = size;
 			bitmap.recycle();
 
-			Bitmap mBitmap = BitmapFactory.decodeFile(st, options);
+			Bitmap mBitmap = toturn(BitmapFactory.decodeFile(st, options),readPictureDegree(st));
+
 
 			if (bitmap != null) {
 				ByteArrayOutputStream bStream = new ByteArrayOutputStream();
@@ -392,5 +395,42 @@ public class ImageTools{
 	public static abstract interface OnBitmapCreateListener
 	{
 		public abstract void onBitmapCreate(Bitmap paramBitmap, String paramString);
+	}
+
+
+	public static Bitmap toturn(Bitmap img,int rotate){
+		Matrix matrix = new Matrix();
+		matrix.postRotate(rotate); /*翻转90度*/
+		int width = img.getWidth();
+		int height =img.getHeight();
+		img = Bitmap.createBitmap(img, 0, 0, width, height, matrix, true);
+		return img;
+	}
+
+	/**
+	 * 读取照片exif信息中的旋转角度
+	 * @param path 照片路径
+	 * @return角度
+	 */
+	public static int readPictureDegree(String path) {
+		int degree  = 0;
+		try {
+			ExifInterface exifInterface = new ExifInterface(path);
+			int orientation = exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+			switch (orientation) {
+				case ExifInterface.ORIENTATION_ROTATE_90:
+					degree = 90;
+					break;
+				case ExifInterface.ORIENTATION_ROTATE_180:
+					degree = 180;
+					break;
+				case ExifInterface.ORIENTATION_ROTATE_270:
+					degree = 270;
+					break;
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return degree;
 	}
 }

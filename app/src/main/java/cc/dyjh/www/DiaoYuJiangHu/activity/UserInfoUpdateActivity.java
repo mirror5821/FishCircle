@@ -229,12 +229,6 @@ public class UserInfoUpdateActivity<T> extends BaseActivity {
         }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        loadData();
-    }
-
     private void loadData(){
         Map<String,String> values = new HashMap<>();
         values.put("id", AppContext.ID+"");
@@ -295,6 +289,33 @@ public class UserInfoUpdateActivity<T> extends BaseActivity {
         });
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Map<String,String> values = new HashMap<>();
+        values.put("id", AppContext.ID+"");
+
+        AppHttpClient mHttpClient = new AppHttpClient();
+        mHttpClient.postData1(YUNCHANG_INFO, values, new AppAjaxCallback.onResultListener() {
+
+                    @Override
+                    public void onResult(String data, String msg) {
+                        YuChang.Fishery f = mYuChang.getFishery().get(0);
+                        mTvPhoto.setText("共 "+f.getAlbum().split(" ").length+" 张");//渔场相片
+                    }
+
+                    @Override
+                    public void onOtherResult(String data, int status) {
+
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+
+                    }
+                });
+    }
 
     /**
      * fishtryid:渔场id,

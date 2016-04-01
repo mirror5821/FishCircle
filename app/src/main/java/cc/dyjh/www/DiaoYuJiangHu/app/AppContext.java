@@ -28,6 +28,7 @@ public class AppContext extends BaseAppContext {
     public static String LOGIN_PHONE;
     public static String LOGIN_PASS;
 
+    public static int YU_IMG_COUNT = 0;
     @Override
     public void onCreate() {
         super.onCreate();

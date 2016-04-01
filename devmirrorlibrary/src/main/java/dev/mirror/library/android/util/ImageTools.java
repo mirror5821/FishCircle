@@ -373,6 +373,7 @@ public class ImageTools{
 			options.inSampleSize = size;
 			bitmap.recycle();
 
+//			Bitmap mBitmap = BitmapFactory.decodeFile(st, options);
 			Bitmap mBitmap = toturn(BitmapFactory.decodeFile(st, options),readPictureDegree(st));
 
 

@@ -371,6 +371,7 @@ public class ImageTools{
 			BitmapFactory.Options options=new BitmapFactory.Options();
 			options.inJustDecodeBounds = false;
 			options.inSampleSize = size;
+//			options.inSampleSize = 3;
 			bitmap.recycle();
 
 //			Bitmap mBitmap = BitmapFactory.decodeFile(st, options);

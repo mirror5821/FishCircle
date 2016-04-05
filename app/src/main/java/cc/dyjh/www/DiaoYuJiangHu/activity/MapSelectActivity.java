@@ -83,6 +83,12 @@ public class MapSelectActivity extends BaseActivity {
 		mTvArea.setOnClickListener(this);
 		if(!TextUtils.isEmpty(getIntent().getStringExtra("ALL_ADDRESS"))){
 			mTvArea.setText(getIntent().getStringExtra("ALL_ADDRESS"));
+			mEtArea.setText(getIntent().getStringExtra("D_ADDRESS"));
+			mAddressId = getIntent().getStringExtra(INTENT_ID);
+
+			mAddressAll = getIntent().getStringExtra("ALL_ADDRESS");
+			mLat = AppContext.Latitude;
+			mLng = AppContext.Longitude;
 		}
 
 		mEtSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -140,7 +146,8 @@ public class MapSelectActivity extends BaseActivity {
 			@Override
 			public void onMapStatusChangeFinish(MapStatus status) {
 				LatLng center = status.target;
-
+				AppContext.Latitude = center.latitude;
+				AppContext.Longitude = center.longitude;
 				mLat = center.latitude;
 				mLng = center.longitude;
 
@@ -251,18 +258,33 @@ public class MapSelectActivity extends BaseActivity {
 				.longitude(location.getLongitude()).build();
 				mBaiduMap.setMyLocationData(locData);
 
-				AppContext.Latitude = location.getLatitude();
-				AppContext.Longitude = location.getLongitude();
+//
 
-				AppContext.Address = location.getAddrStr();
-				LatLng ll = new LatLng(location.getLatitude(),
-						location.getLongitude());
-				MapStatusUpdate u = MapStatusUpdateFactory.newLatLng(ll);
-				mBaiduMap.animateMapStatus(u);
+				if(AppContext.Latitude == 0){
+					AppContext.Latitude = location.getLatitude();
+					AppContext.Longitude = location.getLongitude();
+					AppContext.Address = location.getAddrStr();
+					LatLng ll = new LatLng(location.getLatitude(),
+							location.getLongitude());
+					MapStatusUpdate u = MapStatusUpdateFactory.newLatLng(ll);
+					mBaiduMap.animateMapStatus(u);
+
+					mLng = AppContext.Longitude;
+					mLat = AppContext.Latitude;
+					getAddstrs(ll);
+				}else{
+					LatLng ll = new LatLng(AppContext.Latitude,AppContext.Longitude);
+					MapStatusUpdate u = MapStatusUpdateFactory.newLatLng(ll);
+					mBaiduMap.animateMapStatus(u);
+
+					getAddstrs(ll);
+				}
+
+
 
 				mLocClient.stop();
 
-				getAddstrs(ll);
+
 			}
 
 		}

@@ -33,8 +33,10 @@ public class Price2Fragment extends BaseFragment {
         mEt = (EditText)view.findViewById(R.id.et);
 
         if(!TextUtils.isEmpty(mIntentId)){
-
-            mEt.setText(mIntentId.split(" ")[1]);
+            String [] sfbz = mIntentId.split(" ");
+            if(sfbz[0].equals("2")){
+                mEt.setText(sfbz[1]);
+            }
         }
 
     }

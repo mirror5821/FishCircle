@@ -88,7 +88,17 @@ public class UserInfoActivity extends BaseActivity {
                 mTvTS.setText(OptionUtil.getYu(mYuChang.getFisheryfeature(),mFishery.getFisheryfeature()));//渔场特色
                 mEtDec.setText(mFishery.getFdescribe());//渔场描述
                 if(!TextUtils.isEmpty(mFishery.getAlbum())){
-                    mTvPhoto.setText("共 "+mFishery.getAlbum().split(" ").length+" 张");//渔场相片
+                    String [] strs = mFishery.getAlbum().split(" ");
+                    int i = 0;
+                    for (String str:strs){
+                        String s = (BASE_IMG_URL+str).trim();
+                        if(!s.equals(BASE_IMG_URL)){
+                            System.out.println("--------------------"+str+"------------");
+                            i = i+1;
+                        }
+                    }
+                    mTvPhoto.setText("共 "+i+" 张");//渔场相片
+//                    mTvPhoto.setText("共 "+mFishery.getAlbum().split(" ").length+" 张");//渔场相片
                 }
 
                 mEtAge.setText(mFishery.getFisheryage());//渔场年限

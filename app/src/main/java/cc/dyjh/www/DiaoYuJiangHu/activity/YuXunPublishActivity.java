@@ -62,6 +62,7 @@ public class YuXunPublishActivity<T> extends BaseActivity {
     private static final int REQUSET_CODE_SF = 6001;
     private static final int REQUSET_CODE_YZ = 6002;
     private static final int REQUSET_CODE_ER = 6003;
+    private static final int REQUSET_CODE_IMG = 6004;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -147,9 +148,10 @@ public class YuXunPublishActivity<T> extends BaseActivity {
                 sub();
                 break;
             case R.id.btn:
-                startActivity(new Intent(YuXunPublishActivity.this,ImageAddActivity.class)
+                startActivityForResult(new Intent(YuXunPublishActivity.this,ImageAddActivity.class)
                         .putExtra(INTENT_ID,mYuChang.getFhid())
-                        .putExtra("TYPE",1));
+                        .putStringArrayListExtra("IMGS",mSelectPath)
+                        .putExtra("TYPE",1),REQUSET_CODE_IMG);
 //                openImage();
                 break;
         }
@@ -191,6 +193,7 @@ public class YuXunPublishActivity<T> extends BaseActivity {
                     try{
                         String [] sfbz = mSf.split(" ");
                         if(sfbz[0].equals("2")){
+                            mTvSF.setText(sfbz[1]);
                             return;
                         }
                         StringBuilder sb = new StringBuilder();
@@ -239,6 +242,10 @@ public class YuXunPublishActivity<T> extends BaseActivity {
                     mBtn.setText("已选择 "+mSelectPath.size()+" 张");
                     upload();
                     break;
+                case REQUSET_CODE_IMG:
+                    mSelectPath = data.getStringArrayListExtra("IMAGE_LIST");
+                    mBtn.setText("已选择 "+mSelectPath.size()+" 张");
+                    break;
             }
         }
     }
@@ -279,12 +286,17 @@ public class YuXunPublishActivity<T> extends BaseActivity {
                     mTvJY.setText(OptionUtil.getYu(mYuChang.getEr(), mERStr));
                 }
 
+                mEtOther.setText(mYuXun.getQtsm());//其他说明
+                mEtJin.setText(mYuXun.getFyjs());//放鱼斤数
+
                 mSf = mYuXun.getSfbz();//收费标准
+
                 if (!TextUtils.isEmpty(mSf)) {
                     mTvSF.setText(mSf);
                     try{
                         String [] sfbz = mSf.split(" ");
                         if(sfbz[0].equals("2")){
+                            mTvSF.setText(sfbz[1]);
                             return;
                         }
                         StringBuilder sb = new StringBuilder();
@@ -316,8 +328,7 @@ public class YuXunPublishActivity<T> extends BaseActivity {
 
 
                 }
-                mEtOther.setText(mYuXun.getQtsm());//其他说明
-                mEtJin.setText(mYuXun.getFyjs());//放鱼斤数
+
             }
 
             @Override

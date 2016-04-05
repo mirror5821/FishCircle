@@ -91,6 +91,7 @@ public class UserInfoRegisterActivity<T> extends BaseActivity {
             case R.id.address:
                 startActivityForResult(new Intent(UserInfoRegisterActivity.this,MapSelectActivity.class).
                         putExtra(INTENT_ID,mDistritId).
+                        putExtra("D_ADDRESS",mEtAddress2.getText().toString()).
                         putExtra("ALL_ADDRESS",mTvAddress.getText().toString()),MAP_CODE1);
                 break;
             case R.id.yu_type:

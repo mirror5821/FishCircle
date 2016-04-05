@@ -22,7 +22,6 @@ public class Price1Fragment extends BaseFragment {
         super.onCreate(savedInstanceState);
         mIntentId = getArguments().getString(INTENT_ID);
 
-        System.out.println("----------------"+mIntentId);
     }
 
     @Override

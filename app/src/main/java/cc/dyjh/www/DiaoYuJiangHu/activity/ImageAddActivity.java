@@ -1,6 +1,7 @@
 package cc.dyjh.www.DiaoYuJiangHu.activity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -54,15 +55,48 @@ public class ImageAddActivity extends BaseActivity implements AdapterView.OnItem
 
         mList = new ArrayList<>();
         if(mTypeId == 2){
-            if(!TextUtils.isEmpty(getIntent().getStringExtra("ALBUM"))){
-                mAlbum = getIntent().getStringExtra("ALBUM").split(" ");
-                for (String str:mAlbum){
-                    if(!TextUtils.isEmpty(str)||!str.equals(" ")){
-                        mList.add(BASE_IMG_URL+str);
+            if(null != getIntent().getStringArrayListExtra("UPDATE_IMG")){
+                for (String str:mList){
+                    if(!TextUtils.isEmpty(str)){
+                        if(str.startsWith("http://")){
+                            mList.add(str.replace(BASE_IMG_URL,""));
+                        }else{
+                            mList.add(str);
+
+                        }
+                    }
+
+                }
+            }else{
+                if(!TextUtils.isEmpty(getIntent().getStringExtra("ALBUM"))){
+                    mAlbum = getIntent().getStringExtra("ALBUM").split(" ");
+                    for (String str:mAlbum){
+                        str = str+"";
+                        if(!TextUtils.isEmpty(str)||!str.equals(" ")||str.equals("")){
+
+                            String s = (BASE_IMG_URL+str).trim();
+                            if(!s.equals(BASE_IMG_URL)){
+                                System.out.println("--------------------"+str+"------------");
+                                mList.add(BASE_IMG_URL+str);
+                            }
+
+                        }
                     }
                 }
             }
+
+        }else{
+            if(getIntent().getStringArrayListExtra("IMGS")!=null){
+                mSelectPath = getIntent().getStringArrayListExtra("IMGS");
+                for (String url:mSelectPath){
+//                    System.out.println("------------------"+url);
+                    mList.add(url);
+                }
+
+            }
+
         }
+
         mList.add(null);
 
 
@@ -167,14 +201,7 @@ public class ImageAddActivity extends BaseActivity implements AdapterView.OnItem
             }
         }
         values.put("imagedata[]",sb.toString());//
-//        System.out.println("-----------------" + sb.toString());
 
-        /**
-         * http://m.dyjh.cc/appi.php?s=Fisherymsg/griUploadFisherymsgImgs?fhid=64&imagetype=jpeg&imagedata=(
-         111,
-         111
-         )
-         */
         values.put("imagetype", "jpeg");
 
 //        参数 fhid:渔汛id,imagedata:图片流,imagetype:图片类型
@@ -185,7 +212,13 @@ public class ImageAddActivity extends BaseActivity implements AdapterView.OnItem
 
                 showToast("操作成功");
                 cancelProgressDialog();
+
+                Intent data2 = new Intent();
+                data2.putStringArrayListExtra("IMAGE_LIST", mSelectPath);
+                setResult(RESULT_OK, data2);
                 finish();
+
+//                finish();
 
             }
 
@@ -226,8 +259,8 @@ public class ImageAddActivity extends BaseActivity implements AdapterView.OnItem
 
         StringBuilder sbImgLoc = new StringBuilder();
         StringBuilder sbImgNet = new StringBuilder();
+
         for (String str:mList){
-            System.out.println("----------" + str);
             if(!TextUtils.isEmpty(str)){
                 if(str.startsWith("http://")){
                     sbImgNet.append(str.replace(BASE_IMG_URL,""));
@@ -267,6 +300,29 @@ public class ImageAddActivity extends BaseActivity implements AdapterView.OnItem
 
                 showToast("操作成功");
                 cancelProgressDialog();
+
+
+                int i = 0;
+                String [] strs = data.split(" ");
+                for (String str:strs){
+                    str = str+"";
+                    if(!TextUtils.isEmpty(str)||!str.equals(" ")||str.equals("")){
+
+                        String s = (BASE_IMG_URL+str).trim();
+                        if(!s.equals(BASE_IMG_URL)){
+
+                            i = i+1;
+                        }
+
+                    }
+                }
+
+
+                Intent data2 = new Intent();
+                data2.putExtra("ALUM",data.replace("[","").replace("]","").replace(","," ").replace("\"","").replace("\\/","/"));
+                data2.putExtra("IMAGE_COUNT",i);
+                setResult(RESULT_OK, data2);
+
                 finish();
 
             }

@@ -45,6 +45,7 @@ public class UserInfoUpdateActivity<T> extends BaseActivity {
     private static final int REQUSET_CODE_1 = 6001;
     private static final int REQUSET_CODE_2 = 6002;
     private static final int REQUSET_CODE_3 = 6003;
+    private static final int REQUSET_CODE_IMG = 6004;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,6 +89,7 @@ public class UserInfoUpdateActivity<T> extends BaseActivity {
             case R.id.address:
                 startActivityForResult(new Intent(UserInfoUpdateActivity.this,MapSelectActivity.class).
                         putExtra(INTENT_ID,mDistritId).
+                        putExtra("D_ADDRESS",mEtAddress2.getText().toString()).
                         putExtra("ALL_ADDRESS",mTvAddress.getText().toString()),MAP_CODE1);
                 break;
             case R.id.yu_type:
@@ -117,9 +119,10 @@ public class UserInfoUpdateActivity<T> extends BaseActivity {
                 break;
             case R.id.photo:
                 //mFishery.getFid()
-                startActivity(new Intent(UserInfoUpdateActivity.this,ImageAddActivity.class)
+                startActivityForResult(new Intent(UserInfoUpdateActivity.this,ImageAddActivity.class)
                         .putExtra(INTENT_ID,mFishery.getFid())
-                        .putExtra("TYPE",2).putExtra("ALBUM",mFishery.getAlbum()));
+//                        .putStringArrayListExtra("UPDATE_IMG", (ArrayList<String>) mListPhoto)
+                        .putExtra("TYPE",2).putExtra("ALBUM",mFishery.getAlbum()),REQUSET_CODE_IMG);
 //                openImage();
                 break;
             case R.id.right_text:
@@ -225,10 +228,29 @@ public class UserInfoUpdateActivity<T> extends BaseActivity {
                     Uri ycData = data.getData();
                     mFisherTypeId = ycData.toString();
                     mTvType.setText(OptionUtil.getYu(mYuChang.getFisherytype(),mFisherTypeId));//渔场特色
+                case REQUSET_CODE_IMG:
+                    mTvPhoto.setText("已选择 "+data.getIntExtra("IMAGE_COUNT",0)+" 张");
+                    if(!TextUtils.isEmpty(data.getStringExtra("ALUM"))){
+                        mFishery.setAlbum(data.getStringExtra("ALUM"));
+                        System.out.println("-----------------------gan------"+data.getStringExtra("ALUM"));
+                    }
+
+                    /*mListPhoto = ;
+                    showToast("呵呵呵1");
+                    if(mListPhoto!=null){
+                        if(mListPhoto.size()>0){
+                            mTvPhoto.setText("已选择 "+(mListPhoto.size()-1)+" 张");
+                            System.out.println("-------------------"+data.getStringExtra("ALUM"));
+                            showToast("呵呵呵");
+                            mFishery.setAlbum(data.getStringExtra("ALUM"));
+                        }
+                    }*/
+                    break;
             }
         }
     }
 
+    private List<String> mListPhoto;
     private void loadData(){
         Map<String,String> values = new HashMap<>();
         values.put("id", AppContext.ID+"");
@@ -256,6 +278,8 @@ public class UserInfoUpdateActivity<T> extends BaseActivity {
                     mTvAddress.setText(fArea.getProvince()+fArea.getCity()+fArea.getDistrict());//省份地址
                 }
 
+                AppContext.Longitude = Double.valueOf(mFishery.getLan());
+                AppContext.Latitude = Double.valueOf(mFishery.getLat());
                 mEtAddress2.setText(TextUtils.isEmpty(mFishery.getPosition())?"":mFishery.getPosition());//详细地址
                 mEtMJ.setText(TextUtils.isEmpty(mFishery.getAcreage())?"":mFishery.getAcreage());//渔场面积
                 mEtDW.setText(TextUtils.isEmpty(mFishery.getSeatcount())?"":mFishery.getSeatcount());//钓位个数
@@ -268,7 +292,17 @@ public class UserInfoUpdateActivity<T> extends BaseActivity {
                 }
                 mEtDec.setText(TextUtils.isEmpty(mFishery.getFdescribe())?"":mFishery.getFdescribe());//渔场描述
                 if(!TextUtils.isEmpty(mFishery.getAlbum())){
-                    mTvPhoto.setText("共 "+mFishery.getAlbum().split(" ").length+" 张");//渔场相片
+                    String [] strs = mFishery.getAlbum().split(" ");
+                    int i = 0;
+                    for (String str:strs){
+                        String s = (BASE_IMG_URL+str).trim();
+                        if(!s.equals(BASE_IMG_URL)){
+                            System.out.println("--------------------"+str+"------------");
+                            i = i+1;
+                        }
+                    }
+                    mTvPhoto.setText("共 "+i+" 张");//渔场相片
+//                    mTvPhoto.setText("共 "+mFishery.getAlbum().split(" ").length+" 张");//渔场相片
                 }
 //                mTvPhoto.setText(mFishery.getAlbum());//渔场相片
                 mEtAge.setText(TextUtils.isEmpty(mFishery.getFisheryage())?"":mFishery.getFisheryage());//渔场年限
@@ -290,7 +324,7 @@ public class UserInfoUpdateActivity<T> extends BaseActivity {
     }
 
 
-    @Override
+   /* @Override
     protected void onResume() {
         super.onResume();
         Map<String,String> values = new HashMap<>();
@@ -302,7 +336,20 @@ public class UserInfoUpdateActivity<T> extends BaseActivity {
                     @Override
                     public void onResult(String data, String msg) {
                         YuChang.Fishery f = mYuChang.getFishery().get(0);
-                        mTvPhoto.setText("共 "+f.getAlbum().split(" ").length+" 张");//渔场相片
+                        if(!TextUtils.isEmpty(f.getAlbum())){
+                            String [] strs = f.getAlbum().split(" ");
+                            int i = 0;
+                            for (String str:strs){
+                                String s = (BASE_IMG_URL+str).trim();
+                                if(!s.equals(BASE_IMG_URL)){
+                                    System.out.println("--------------------"+str+"------------");
+                                    i = i+1;
+                                }
+                            }
+                            mTvPhoto.setText("共 "+i+" 张");//渔场相片
+//                    mTvPhoto.setText("共 "+mFishery.getAlbum().split(" ").length+" 张");//渔场相片
+                        }
+
                     }
 
                     @Override
@@ -315,7 +362,7 @@ public class UserInfoUpdateActivity<T> extends BaseActivity {
 
                     }
                 });
-    }
+    }*/
 
     /**
      * fishtryid:渔场id,

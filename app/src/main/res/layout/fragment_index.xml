@@ -27,6 +27,7 @@
                 android:layout_margin="@dimen/d8"/>
 
             <TextView
+                android:id="@+id/tv_name"
                 android:text="钓鱼江湖"
                 style="@style/TvTitle"
                 android:layout_centerHorizontal="true"

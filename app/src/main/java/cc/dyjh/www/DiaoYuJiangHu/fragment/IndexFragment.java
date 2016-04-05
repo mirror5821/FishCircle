@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import cc.dyjh.www.DiaoYuJiangHu.R;
+import cc.dyjh.www.DiaoYuJiangHu.activity.UserCenterActivity;
 import cc.dyjh.www.DiaoYuJiangHu.activity.YuXunListActivity;
 import cc.dyjh.www.DiaoYuJiangHu.activity.YuXunPublishActivity;
 import cc.dyjh.www.DiaoYuJiangHu.app.AppContext;
@@ -30,7 +31,7 @@ public class IndexFragment extends BaseFragment {
     }
 
     private LinearLayout mView1,mView2,mView3,mView4;
-    private TextView mTvFuns,mTvComment;
+    private TextView mTvFuns,mTvComment,mTvName;
     private ImageView mImgHeader;
     private Index mIndex;
     private User mUser;
@@ -43,6 +44,7 @@ public class IndexFragment extends BaseFragment {
         mView4 = (LinearLayout)view.findViewById(R.id.view4);
 
         mTvFuns = (TextView)view.findViewById(R.id.tv_fans);
+        mTvName = (TextView)view.findViewById(R.id.tv_name);
         mTvComment = (TextView)view.findViewById(R.id.tv_comment);
         mImgHeader = (ImageView)view.findViewById(R.id.header);
 
@@ -50,6 +52,8 @@ public class IndexFragment extends BaseFragment {
         mView2.setOnClickListener(this);
         mView3.setOnClickListener(this);
         mView4.setOnClickListener(this);
+
+        mImgHeader.setOnClickListener(this);
 
         loadData();
         loadUserData();
@@ -71,6 +75,9 @@ public class IndexFragment extends BaseFragment {
             case R.id.view4:
                 showToast("牛B的功能即将上线");
                 break;
+            case R.id.header:
+                startActivity(new Intent(getActivity(), UserCenterActivity.class));
+                break;
         }
     }
 
@@ -85,6 +92,7 @@ public class IndexFragment extends BaseFragment {
                 AppContext.index = mIndex;
                 mTvFuns.setText(mIndex.getCount1() + "");
                 mTvComment.setText(mIndex.getCount2() + "");
+                mTvName.setText(mIndex.getFisheryname());
             }
 
             @Override

@@ -7,7 +7,7 @@
         android:id="@+id/img_add"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:background="@mipmap/ic_img_add"
+        android:src="@mipmap/ic_img_add"
         android:scaleType="centerCrop"
         android:layout_margin="8dp"/>
 

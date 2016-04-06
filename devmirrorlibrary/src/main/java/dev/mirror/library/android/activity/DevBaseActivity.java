@@ -144,6 +144,7 @@ public class DevBaseActivity extends AppCompatActivity implements View.OnClickLi
         }
         mBuilder.setTitle(title);
         mBuilder.setMessage(msg);
+        mBuilder.setCancelable(false);
         mBuilder.setPositiveButton(btnStr1, l1);
         mBuilder.setNegativeButton(btnStr2, l2);
         Dialog d = mBuilder.create();

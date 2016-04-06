@@ -342,6 +342,7 @@ public class YuXunPublishActivity<T> extends BaseActivity {
                     @Override
                     public void onClick(android.content.DialogInterface dialog, int which) {
                         startActivity(new Intent(YuXunPublishActivity.this,UserInfoUpdateActivity.class));
+                        finish();
                     }
                 });
 

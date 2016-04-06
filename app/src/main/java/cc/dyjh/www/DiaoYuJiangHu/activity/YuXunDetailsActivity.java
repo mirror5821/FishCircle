@@ -173,7 +173,6 @@ public class YuXunDetailsActivity<T> extends BaseActivity {
 
             @Override
             public void onError(String msg) {
-                showToast(msg);
             }
         });
     }

@@ -333,12 +333,22 @@ public class YuXunPublishActivity<T> extends BaseActivity {
 
             @Override
             public void onOtherResult(String data, int status) {
+                showNormalDialogByTwoButton("您未完善渔场信息","是否完善？","取消", new android.content.DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(android.content.DialogInterface dialog, int which) {
+                        finish();
+                    }
+                },"确定", new android.content.DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(android.content.DialogInterface dialog, int which) {
+                        startActivity(new Intent(YuXunPublishActivity.this,UserInfoUpdateActivity.class));
+                    }
+                });
 
             }
 
             @Override
             public void onError(String msg) {
-                showToast(msg);
             }
         });
     }

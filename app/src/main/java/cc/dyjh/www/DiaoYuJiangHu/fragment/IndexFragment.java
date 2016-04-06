@@ -141,7 +141,6 @@ public class IndexFragment extends BaseFragment {
 
             @Override
             public void onError(String msg) {
-                showToast(msg);
             }
         });
     }

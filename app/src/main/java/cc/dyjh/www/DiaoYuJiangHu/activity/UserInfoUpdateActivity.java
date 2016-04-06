@@ -232,7 +232,11 @@ public class UserInfoUpdateActivity<T> extends BaseActivity {
                     mTvPhoto.setText("已选择 "+data.getIntExtra("IMAGE_COUNT",0)+" 张");
                     if(!TextUtils.isEmpty(data.getStringExtra("ALUM"))){
                         mFishery.setAlbum(data.getStringExtra("ALUM"));
-                        System.out.println("-----------------------gan------"+data.getStringExtra("ALUM"));
+                    }
+                    if(data.getStringArrayListExtra("IMAGE_LOC")!=null){
+                        if(data.getStringArrayListExtra("IMAGE_LOC").size()>0){
+                            mListPhoto = data.getStringArrayListExtra("IMAGE_LOC");
+                        }
                     }
 
                     /*mListPhoto = ;

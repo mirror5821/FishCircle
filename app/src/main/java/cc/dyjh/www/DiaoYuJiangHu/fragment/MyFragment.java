@@ -29,7 +29,7 @@ import dev.mirror.library.android.util.UIHelper;
 public class MyFragment extends BaseFragment {
     private ImageView mImgHeader;
     private TextView mTvName,mTvPhone;
-    private TextView mTvMy,mTvUser,mTvFeedBack,mTvLogout;
+    private TextView mTvMy,mTvUser,mTvFeedBack,mTvLogout,mTvVersion;
     @Override
     public int setLayoutId() {
         return R.layout.fragment_my;
@@ -44,6 +44,8 @@ public class MyFragment extends BaseFragment {
         mTvName = (TextView)view.findViewById(R.id.name);
         mTvPhone = (TextView)view.findViewById(R.id.phone);
         mTvLogout = (TextView)view.findViewById(R.id.tv_logout);
+        mTvVersion = (TextView)view.findViewById(R.id.tv_version);
+        mTvVersion.setOnClickListener(this);
 
         mTvMy = (TextView)view.findViewById(R.id.tv_my);
         mTvUser = (TextView)view.findViewById(R.id.tv_user);
@@ -68,7 +70,7 @@ public class MyFragment extends BaseFragment {
             }
 
             mTvPhone.setText(mUser.getPhone());
-            mTvName.setText(TextUtils.isEmpty(AppContext.USER_NAME)?"未设置昵称":AppContext.USER_NAME);
+            mTvName.setText(TextUtils.isEmpty(AppContext.USER_NAME)?"无名人士":AppContext.USER_NAME);
         }
     }
     @Override
@@ -103,6 +105,9 @@ public class MyFragment extends BaseFragment {
                     }
                 });
 
+                break;
+            case R.id.tv_version:
+                checkVersion();
                 break;
         }
     }

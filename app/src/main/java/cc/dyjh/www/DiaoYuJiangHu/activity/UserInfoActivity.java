@@ -108,7 +108,6 @@ public class UserInfoActivity extends BaseActivity {
 
             @Override
             public void onOtherResult(String data, int status) {
-                showToast(status+"");
             }
 
             @Override

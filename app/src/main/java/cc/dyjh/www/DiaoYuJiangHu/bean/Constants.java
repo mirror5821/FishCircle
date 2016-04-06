@@ -11,6 +11,7 @@ public interface Constants {
 
     public static final String BASE_IMG_URL = "http://m.dyjh.cc";//头像主url
     public static final String BASE_URL = "http://m.dyjh.cc/appi.php?s=";//主url
+    //http://m.dyjh.cc/appi.php?s=Version/griGetVersion
 
 //    public final static String BASE_URL = "http://zmnyw.cn/index.php?s=/Home/Api/";
     public static final String LOGIN = "User/griCheckLogin";//登录
@@ -29,6 +30,7 @@ public interface Constants {
     public static final String USER_HEADER_UPDATE = "User/griUploadUserPic";//用户头像编辑
     public static final String YUCHANG_IMG_UPLOAD = "Fishery/griUploadFisheryImgs";//渔场照片上传  Fishery/griUploadFisheryImgs
     public static final String YUXUN_IMG_UPDATE = "Fisherymsg/griUploadFisherymsgImgs";//上传鱼汛照片
+    public static final String VERSION_CHECK = "Version/griGetVersion";//检测新版本
 
 
     public static final String INDEX = "Index/griIndex";//首页数据

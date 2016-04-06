@@ -31,7 +31,7 @@
                     android:id="@+id/name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/loading_data"
+                    android:text="无名人士"
                     android:textColor="@color/white"
                     android:textSize="18sp"/>
 
@@ -39,7 +39,7 @@
                     android:id="@+id/phone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/loading_data"
+                    android:text="暂无联系方式"
                     android:textColor="@color/white"
                     android:layout_marginTop="@dimen/d4"
                     android:textSize="16sp"/>
@@ -63,6 +63,7 @@
                 style="@style/TvAbout"/>
 
             <TextView
+                android:id="@+id/tv_version"
                 android:text="@string/version_check"
                 style="@style/TvAbout"/>
 

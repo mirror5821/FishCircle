@@ -54,37 +54,38 @@ public class ImageAddActivity extends BaseActivity implements AdapterView.OnItem
         mGridView = (NoScrollGridView) findViewById(R.id.gridview);
 
         mList = new ArrayList<>();
+        mList.clear();
         if(mTypeId == 2){
             if(null != getIntent().getStringArrayListExtra("UPDATE_IMG")){
-                for (String str:mList){
+                for (String str:getIntent().getStringArrayListExtra("UPDATE_IMG")){
+
                     if(!TextUtils.isEmpty(str)){
                         if(str.startsWith("http://")){
                             mList.add(str.replace(BASE_IMG_URL,""));
+                            System.out.println("-----------------------1--"+str);
                         }else{
                             mList.add(str);
-
+                            System.out.println("-----------------------2--"+str);
                         }
                     }
 
                 }
-            }else{
-                if(!TextUtils.isEmpty(getIntent().getStringExtra("ALBUM"))){
-                    mAlbum = getIntent().getStringExtra("ALBUM").split(" ");
-                    for (String str:mAlbum){
-                        str = str+"";
-                        if(!TextUtils.isEmpty(str)||!str.equals(" ")||str.equals("")){
+            }
+            if(!TextUtils.isEmpty(getIntent().getStringExtra("ALBUM"))){
+                mAlbum = getIntent().getStringExtra("ALBUM").split(" ");
+                for (String str:mAlbum){
+                    str = str+"";
+                    if(!TextUtils.isEmpty(str)||!str.equals(" ")||str.equals("")){
 
-                            String s = (BASE_IMG_URL+str).trim();
-                            if(!s.equals(BASE_IMG_URL)){
-                                System.out.println("--------------------"+str+"------------");
-                                mList.add(BASE_IMG_URL+str);
-                            }
-
+                        String s = (BASE_IMG_URL+str).trim();
+                        if(!s.equals(BASE_IMG_URL)){
+                            System.out.println("-----------------------3--"+str);
+                            mList.add(BASE_IMG_URL+str);
                         }
+
                     }
                 }
             }
-
         }else{
             if(getIntent().getStringArrayListExtra("IMGS")!=null){
                 mSelectPath = getIntent().getStringArrayListExtra("IMGS");
@@ -250,6 +251,7 @@ public class ImageAddActivity extends BaseActivity implements AdapterView.OnItem
     }
 
 
+    private int mImgCount = 0;
     private void upload2(){
 
         if(mList.size() == 0){
@@ -265,9 +267,12 @@ public class ImageAddActivity extends BaseActivity implements AdapterView.OnItem
                 if(str.startsWith("http://")){
                     sbImgNet.append(str.replace(BASE_IMG_URL,""));
                     sbImgNet.append(" ");
+                    mImgCount = mImgCount+1;
                 }else{
                     sbImgLoc.append(mImageTools.filePathToString(str));
                     sbImgLoc.append(",");
+//                    sbImgLoc.append(" ");
+                    mImgCount = mImgCount+1;
                 }
             }
 
@@ -317,10 +322,21 @@ public class ImageAddActivity extends BaseActivity implements AdapterView.OnItem
                     }
                 }
 
+                List<String> lists = new ArrayList<String>();
+                for (String str:mList){
+                    if(!TextUtils.isEmpty(str)){
+                        if(!str.startsWith("http://")){
+                            lists.add(str);
+                        }
+                    }
+
+                }
 
                 Intent data2 = new Intent();
                 data2.putExtra("ALUM",data.replace("[","").replace("]","").replace(","," ").replace("\"","").replace("\\/","/"));
-                data2.putExtra("IMAGE_COUNT",i);
+                data2.putExtra("IMAGE_COUNT",mImgCount);
+//                data2.putExtra("IMAGE_COUNT",i);
+                data2.putStringArrayListExtra("IMAGE_LOC", (ArrayList<String>) lists);
                 setResult(RESULT_OK, data2);
 
                 finish();

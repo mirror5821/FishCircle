@@ -52,7 +52,6 @@ public class YuXunListActivity extends BaseRecyclerViewActivity{
                     mList.addAll(JsonUtils.parseList(jb.getString("yuxun"), YuXunP.class));
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    showToast(e.getLocalizedMessage());
                 }
 
 

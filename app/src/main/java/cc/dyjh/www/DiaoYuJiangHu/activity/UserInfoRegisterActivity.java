@@ -48,6 +48,7 @@ public class UserInfoRegisterActivity<T> extends BaseActivity {
     private static final int REQUSET_CODE_1 = 6001;
     private static final int REQUSET_CODE_2 = 6002;
     private static final int REQUSET_CODE_3 = 6003;
+    private static final int REQUSET_CODE_IMG = 6004;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -121,9 +122,15 @@ public class UserInfoRegisterActivity<T> extends BaseActivity {
                     initSelectView(3, (List<T>) mYuChang.getFisherytype());//fisheryfeature*/
                 break;
             case R.id.photo:
-                startActivity(new Intent(UserInfoRegisterActivity.this, ImageAddActivity.class)
+
+                startActivityForResult(new Intent(UserInfoRegisterActivity.this,ImageAddActivity.class)
+                        .putExtra(INTENT_ID,mFishery.getFid())
+//                        .putStringArrayListExtra("UPDATE_IMG", (ArrayList<String>) mListPhoto)
+                        .putExtra("TYPE",2).putExtra("ALBUM",mFishery.getAlbum()),REQUSET_CODE_IMG);
+
+               /* startActivity(new Intent(UserInfoRegisterActivity.this, ImageAddActivity.class)
                         .putExtra(INTENT_ID, mFishery.getFid())
-                        .putExtra("TYPE", 2).putExtra("ALBUM", mFishery.getAlbum()));
+                        .putExtra("TYPE", 2).putExtra("ALBUM", mFishery.getAlbum()));*/
 //                openImage();
                 break;
             case R.id.right_text:
@@ -230,10 +237,24 @@ public class UserInfoRegisterActivity<T> extends BaseActivity {
                     mFisherTypeId = ycData.toString();
                     mTvType.setText(OptionUtil.getYu(mYuChang.getFisherytype(),mFisherTypeId));//渔场特色
                     break;
+                case REQUSET_CODE_IMG:
+                    mTvPhoto.setText("已选择 "+data.getIntExtra("IMAGE_COUNT",0)+" 张");
+                    if(!TextUtils.isEmpty(data.getStringExtra("ALUM"))){
+                        mFishery.setAlbum(data.getStringExtra("ALUM"));
+                    }
+                    if(data.getStringArrayListExtra("IMAGE_LOC")!=null){
+                        if(data.getStringArrayListExtra("IMAGE_LOC").size()>0){
+                            mListPhoto = data.getStringArrayListExtra("IMAGE_LOC");
+                        }
+                    }
+
+
+                    break;
             }
         }
     }
 
+    private List<String> mListPhoto;
     private void loadData(){
 
         Map<String,String> values = new HashMap<>();

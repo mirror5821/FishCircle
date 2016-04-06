@@ -292,23 +292,23 @@ public class ImageTools{
 	public String filePathToString2(String st) {
 		String str = null;
 		try{
-			Bitmap bitmap = BitmapFactory.decodeFile(st);
-			int size = 1;
-			int width = bitmap.getWidth();
-			int height = bitmap.getHeight();
-			do {
-				width /= 2;
-				height /= 2;
-				size *= 2;
-			}while ((width >= ImageTools.this.defaultWidth) && (height >= ImageTools.this.defaultHeight));
+//			Bitmap bitmap = BitmapFactory.decodeFile(st);
+//			int size = 1;
+//			int width = bitmap.getWidth();
+//			int height = bitmap.getHeight();
+//			do {
+//				width /= 2;
+//				height /= 2;
+//				size *= 2;
+//			}while ((width >= ImageTools.this.defaultWidth) && (height >= ImageTools.this.defaultHeight));
 			BitmapFactory.Options options=new BitmapFactory.Options();
 			options.inJustDecodeBounds = false;
-			options.inSampleSize = size;
-			bitmap.recycle();
+			options.inSampleSize = 4;
+//			bitmap.recycle();
 
-			Bitmap mBitmap = BitmapFactory.decodeFile(st, options);
+			Bitmap mBitmap = toturn(BitmapFactory.decodeFile(st, options),readPictureDegree(st));
 
-			if (bitmap != null) {
+			if (mBitmap != null) {
 				ByteArrayOutputStream bStream = new ByteArrayOutputStream();
 				mBitmap.compress(Bitmap.CompressFormat.JPEG, 100, bStream);
 				byte[] bytes = bStream.toByteArray();
@@ -370,8 +370,8 @@ public class ImageTools{
 			}while ((width >= ImageTools.this.defaultWidth) && (height >= ImageTools.this.defaultHeight));
 			BitmapFactory.Options options=new BitmapFactory.Options();
 			options.inJustDecodeBounds = false;
-			options.inSampleSize = size;
-//			options.inSampleSize = 3;
+//			options.inSampleSize = size;
+			options.inSampleSize = 3;
 			bitmap.recycle();
 
 //			Bitmap mBitmap = BitmapFactory.decodeFile(st, options);

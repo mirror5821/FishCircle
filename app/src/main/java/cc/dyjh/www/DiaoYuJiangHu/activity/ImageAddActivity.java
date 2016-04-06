@@ -3,10 +3,13 @@ package cc.dyjh.www.DiaoYuJiangHu.activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -183,6 +186,8 @@ public class ImageAddActivity extends BaseActivity implements AdapterView.OnItem
             }
         }
     }
+
+    Map<String,String> values1 = new HashMap<>();
     private void upload1(){
 
         //渔场id,imagedata:图片流,imagetype:图片类型, ablum:保留的原来图片
@@ -190,24 +195,39 @@ public class ImageAddActivity extends BaseActivity implements AdapterView.OnItem
             showToast("请选择上传的照片");
             return;
         }
-        showProgressDialog("正在提交数据");
-        Map<String,String> values = new HashMap<>();
-        values.put("fhid",mId+"");
+        showProgressDialog("正在上传的照片");
+
+        new Thread() {
+            public void run() {
+                values1.put("fhid",mId+"");
 //        String [] strs = new String[mSelectPath.size()];
-        StringBuilder sb = new StringBuilder();
-        for(int i = 0;i<mSelectPath.size();i++){
-            sb.append(mImageTools.filePathToString(mSelectPath.get(i)));
-            if(i!=mSelectPath.size()-1){
-                sb.append(",");
+                StringBuilder sb = new StringBuilder();
+                for(int i = 0;i<mSelectPath.size();i++){
+                    sb.append(mImageTools.filePathToString2(mSelectPath.get(i)));
+                    if(i!=mSelectPath.size()-1){
+                        sb.append(",");
+                    }
+                }
+
+                values1.put("imagedata[]",sb.toString());//
+
+                values1.put("imagetype", "jpeg");
+
+                Message message = Message.obtain();
+                message.what = 2;
+                mHandler.sendMessage(message);
+
             }
-        }
-        values.put("imagedata[]",sb.toString());//
+        }.start();
 
-        values.put("imagetype", "jpeg");
 
+
+    }
+
+    private void upload4(){
 //        参数 fhid:渔汛id,imagedata:图片流,imagetype:图片类型
 
-        mHttpClient.postData1(YUXUN_IMG_UPDATE, values, new AppAjaxCallback.onResultListener() {
+        mHttpClient.postData1(YUXUN_IMG_UPDATE, values1, new AppAjaxCallback.onResultListener() {
             @Override
             public void onResult(String data, String msg) {
 
@@ -218,9 +238,6 @@ public class ImageAddActivity extends BaseActivity implements AdapterView.OnItem
                 data2.putStringArrayListExtra("IMAGE_LIST", mSelectPath);
                 setResult(RESULT_OK, data2);
                 finish();
-
-//                finish();
-
             }
 
             @Override
@@ -252,6 +269,7 @@ public class ImageAddActivity extends BaseActivity implements AdapterView.OnItem
 
 
     private int mImgCount = 0;
+    Map<String,String> values = new HashMap<>();
     private void upload2(){
 
         if(mList.size() == 0){
@@ -259,46 +277,58 @@ public class ImageAddActivity extends BaseActivity implements AdapterView.OnItem
             return;
         }
 
-        StringBuilder sbImgLoc = new StringBuilder();
-        StringBuilder sbImgNet = new StringBuilder();
+        showProgressDialog("正在上传照片");
 
-        for (String str:mList){
-            if(!TextUtils.isEmpty(str)){
-                if(str.startsWith("http://")){
-                    sbImgNet.append(str.replace(BASE_IMG_URL,""));
-                    sbImgNet.append(" ");
-                    mImgCount = mImgCount+1;
-                }else{
-                    sbImgLoc.append(mImageTools.filePathToString(str));
-                    sbImgLoc.append(",");
+        new Thread(){
+            public void run(){
+
+                StringBuilder sbImgLoc = new StringBuilder();
+                StringBuilder sbImgNet = new StringBuilder();
+
+                for (String str:mList){
+                    if(!TextUtils.isEmpty(str)){
+                        if(str.startsWith("http://")){
+                            sbImgNet.append(str.replace(BASE_IMG_URL,""));
+                            sbImgNet.append(" ");
+                            mImgCount = mImgCount+1;
+                        }else{
+                            sbImgLoc.append(mImageTools.filePathToString2(str));
+                            sbImgLoc.append(",");
 //                    sbImgLoc.append(" ");
-                    mImgCount = mImgCount+1;
+                            mImgCount = mImgCount+1;
+                        }
+                    }
                 }
+
+                //渔场id,imagedata:图片流,imagetype:图片类型, ablum:保留的原来图片
+                values.clear();
+                values.put("fisheryid", mId + "");
+
+                String mImgLoc = sbImgLoc.toString();
+                if(TextUtils.isEmpty(mImgLoc)){
+                    values.put("imagedata[]","");//
+                }else{
+                    values.put("imagedata[]",mImgLoc.substring(0,mImgLoc.length()-1));//
+                }
+
+                values.put("imagetype", "jpeg");
+                String mImgNet = sbImgNet.toString();
+                if(TextUtils.isEmpty(mImgNet)){
+                    values.put("ablum[]","");//使用空格拼接
+                } else {
+                    values.put("ablum[]",mImgNet.substring(0,mImgNet.length()-1));//使用空格拼接
+                }
+
+                Message message = Message.obtain();
+                message.what = 1;
+                mHandler.sendMessage(message);
+
             }
+        }.start();
 
-        }
+    }
 
-        showProgressDialog("正在提交数据");
-        //渔场id,imagedata:图片流,imagetype:图片类型, ablum:保留的原来图片
-        Map<String,String> values = new HashMap<>();
-        values.put("fisheryid", mId + "");
-
-        String mImgLoc = sbImgLoc.toString();
-        if(TextUtils.isEmpty(mImgLoc)){
-            values.put("imagedata[]","");//
-        }else{
-            values.put("imagedata[]",mImgLoc.substring(0,mImgLoc.length()-1));//
-        }
-
-
-        values.put("imagetype", "jpeg");
-        String mImgNet = sbImgNet.toString();
-        if(TextUtils.isEmpty(mImgNet)){
-            values.put("ablum[]","");//使用空格拼接
-        } else {
-            values.put("ablum[]",mImgNet.substring(0,mImgNet.length()-1));//使用空格拼接
-        }
-
+    private void upload3(){
         mHttpClient.postData1(YUCHANG_IMG_UPLOAD, values, new AppAjaxCallback.onResultListener() {
             @Override
             public void onResult(String data, String msg) {
@@ -369,4 +399,20 @@ public class ImageAddActivity extends BaseActivity implements AdapterView.OnItem
             }
         });
     }
+
+    private Handler mHandler=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+
+            switch(msg.what){
+                case 1:
+                    upload3();
+                    break;
+                case 2:
+                    upload4();
+                    break;
+            }
+        }
+    };
 }
